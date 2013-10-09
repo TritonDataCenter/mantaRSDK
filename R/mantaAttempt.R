@@ -1,12 +1,10 @@
 # Roxygen Comments mantaAttempt
 #' REST API Manta Caller with exception handling
 #'
-#' Given path or object name and current Manta directory
-#' returns URL
 #'
 #' @param action string, optional. The Manta REST API command 
 #' to transmit. If unspecified, uses current Manta Directory
-#' and returns JSON listing values.
+#' and returns JSON listing values for first 256 objects.
 #' 
 #' @param json logical, optional. Set to FALSE to return R data
 #' 
