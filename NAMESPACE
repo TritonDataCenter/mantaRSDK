@@ -1,0 +1,6 @@
+export(mantaAttempt)
+export(mantaInit)
+import(PKI)
+import(RCurl)
+import(RJSONIO)
+import(digest)

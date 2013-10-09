@@ -1,0 +1,79 @@
+Package: mantaRSDK
+Type: Package
+Title: Joyent Manta Storage Service R Software Development Kit
+Version: 0.1.0
+Date: 2013-10-07
+Authors@R: c(person("Christopher","Hogue",role = c("aut","cre"),
+    email="christopher.hogue@joyent.com"))
+Depends:
+    R (>= 2.1.0),
+    PKI,
+    digest,
+    RCurl,
+    RJSONIO
+Description: Manta R SDK. Functions to transmit/receive
+    native R data and files to the Manta Object Store,
+    where they can be computed on with MapReduce and
+    R in the cloud. Core functions communicate via
+    the Manta REST API using RCurl. Optional interactive
+    Manta system R access via Node.js.
+SystemRequirements: Node.js, manta-node
+Copyright: Joyent Inc. 2013
+License: MIT
+URL: www.joyent.com
+BugReports: 
+VignetteBuilder: knitr
+LazyData: true
+Collate:
+    'mantaAttempt.R'
+    'mantaDump.R'
+    'mantaError.R'
+    'mantaExpandPath.R'
+    'mantaFind.R'
+    'mantaGenHeaders.R'
+    'mantaGenHeadersCors.R'
+    'mantaGenSignature.R'
+    'mantaGet.R'
+    'mantaGetwd.R'
+    'mantaInit.R'
+    'mantaInitialize.R'
+    'mantaJobAddinput.R'
+    'mantaJobCancel.R'
+    'mantaJobCreate.R'
+    'mantaJobEndinput.R'
+    'mantaJobGet.R'
+    'mantaJobListErrMsg.R'
+    'mantaJobListErrors.R'
+    'mantaJobListFailures.R'
+    'mantaJobListInput.R'
+    'mantaJobListOutput.R'
+    'mantaJobState.R'
+    'mantaJobUrl.R'
+    'mantaJobsList.R'
+    'mantaJobsListRunning.R'
+    'mantaLoad.R'
+    'mantaLoadURL.R'
+    'mantaLoadWorkspace.R'
+    'mantaLoginBash.R'
+    'mantaLoginR.R'
+    'mantaLs.R'
+    'mantaMkdir.R'
+    'mantaObjectUrl.R'
+    'mantaPath.R'
+    'mantaPut.R'
+    'mantaRSDK-package.r'
+    'mantaRm.R'
+    'mantaRmdir.R'
+    'mantaSave.R'
+    'mantaSaveWorkspace.R'
+    'mantaSetwd.R'
+    'mantaSetwdPublic.R'
+    'mantaSetwdStor.R'
+    'mantaSign.R'
+    'mantaSnapln.R'
+    'mantaSource.R'
+    'mantaSourceURL.R'
+    'mantaTips.R'
+    'mantaUntar.R'
+    'mantaWhoami.R'
+    'mantaOnload.R'
