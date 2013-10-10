@@ -5,8 +5,9 @@ Joyent Manta R Software Development Kit
 
 UNDER CONSTRUCTION
 
-From R:
+### From R ###
 
+```
 install_packages(devtools)
 library(devtools)
 install_github("mantaRSDK,username="cwvhogue")
@@ -19,4 +20,4 @@ Loading required package: bitops
 Loading required package: RJSONIO
 help(mantaRSDK)
 mantaAttempt()
-
+```

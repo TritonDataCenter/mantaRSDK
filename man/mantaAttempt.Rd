@@ -7,7 +7,8 @@
 \arguments{
   \item{action}{string, optional. The Manta REST API
   command to transmit. If unspecified, uses current Manta
-  Directory and returns JSON listing values.}
+  Directory and returns JSON listing values for first 256
+  objects.}
 
   \item{json}{logical, optional. Set to FALSE to return R
   data}
@@ -19,8 +20,7 @@
   The Manta reply encoded in JSON or as R data
 }
 \description{
-  Given path or object name and current Manta directory
-  returns URL
+  REST API Manta Caller with exception handling
 }
 \keyword{Manta,}
 \keyword{manta}
