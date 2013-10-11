@@ -77,3 +77,4 @@ Collate:
     'mantaUntar.R'
     'mantaWhoami.R'
     'mantaOnload.R'
+    'mantaAccount.R'

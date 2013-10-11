@@ -18,7 +18,7 @@ function() {
 
   openssl_cmd <- "openssl"
   digest_args <- paste("dgst -sha256 -sign", 
-                       manta_globals$pk_path, 
+                       manta_globals$ssl_key_path, 
                        "-out temp_digest.bin", 
                        sep=" ")
   encrypt_args <- "enc -in temp_digest.bin -e -a"

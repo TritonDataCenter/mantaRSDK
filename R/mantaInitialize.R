@@ -16,13 +16,13 @@ function(pk) {
   if (missing(pk)) {
     # The default openssl location
     home <- Sys.getenv("HOME")
-    pk_path <- paste(home, "/.ssh/id_rsa", sep="")
+    ssl_key_path <- paste(home, "/.ssh/id_rsa", sep="")
   } else {
-    pk_path <- pk
+    ssl_key_path <- pk
   }
-  if (file.exists(pk_path) != TRUE) {
+  if (file.exists(ssl_key_path) != TRUE) {
       stop(paste("Manta configuration error - private key not found at:", 
-                 "\n", pk_path, sep=""))
+                 "\n", ssl_key_path, sep=""))
   }
   manta_user <- Sys.getenv("MANTA_USER")
   if (nchar(manta_user) == 0) {
@@ -39,10 +39,11 @@ function(pk) {
   manta_key_path <- paste("/",manta_user,"/keys/",manta_key_id, sep="")
   manta_cwd <- paste("/", manta_user, "/stor", sep="")
   assign("manta_user", manta_user, envir=manta_globals)
+  assign("manta_key_id", manta_key_id, envir=manta_globals)
   assign("manta_key_path", manta_key_path, envir=manta_globals)
   assign("manta_url", manta_url, envir=manta_globals)
   assign("manta_cwd", manta_cwd, envir=manta_globals)
-  assign("pk_path", pk_path, envir=manta_globals)
+  assign("ssl_key_path", ssl_key_path, envir=manta_globals)
   assign("manta_ok", TRUE, envir=manta_globals)
 
   # Interactive support with Node.js?
