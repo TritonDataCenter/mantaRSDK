@@ -7,7 +7,7 @@
 #' Save account settings, data center as JSON with this function.
 #' Change/restore account settings with mantaAccount and JSON values.
 #' 
-#' Save all current settings as JSON with:
+#' Save all current settings with:
 #' 
 #' account <- mantaWhoami(all = TRUE)
 #'

@@ -35,7 +35,7 @@
   settings with mantaAccount and JSON values.
 }
 \details{
-  Save all current settings as JSON with:
+  Save all current settings with:
 
   account <- mantaWhoami(all = TRUE)
 
