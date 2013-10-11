@@ -1,4 +1,5 @@
 # Roxygen Comments mantaWhoami
+# TODO: organize roxygen with examples
 #' Returns Manta username currently active
 #'
 #' Report the active Manta account. This is initially obtained from
@@ -6,14 +7,19 @@
 #' Save account settings, data center as JSON with this function.
 #' Change/restore account settings with mantaAccount and JSON values.
 #' 
-#' Save all current settings as JSON with: 
-#' account <- mantaWhoami(dc_url=TRUE, key_id=TRUE, ssl_key=TRUE, json=TRUE)
-#' and use:
+#' Save all current settings as JSON with:
+#' 
+#' account <- mantaWhoami(all = TRUE)
+#'
+#' Restore that account with:
+#'
 #' mantaAccount(account)
 #'
-#' Get current Manta Datacenter only:
-#' mantaWhoami(dc_url=TRUE, user=FALSE)
+#' Get current Manta Datacenter only, as JSON:
+#' mantaWhoami(dc_url=TRUE, user=FALSE, json=TRUE)
 #'
+#'
+#' @param all logical, optional, TRUE returns all account settings
 #'
 #' @param user logical, optional. TRUE by default to report Manta user
 #'
@@ -31,15 +37,25 @@
 #'
 #' @export
 mantaWhoami <-
-function(user = TRUE, 
+function(all = FALSE,
+         user = TRUE, 
          dc_url = FALSE, 
          key_id = FALSE, 
          ssl_key = FALSE, 
          json = FALSE) {
+  if (manta_globals$manta_ok == FALSE) {
+    stop("Manta not Initialized.\nSee: help(mantaInit)\n")
+  }
   keylist=list()
   urllist=list()
   userlist=list()
   sslkeylist=list()
+  if (all == TRUE) {
+    user <- TRUE;
+    dc_url <- TRUE;
+    key_id <- TRUE;
+    ssl_key <- TRUE;
+  }
   if (ssl_key == TRUE) {
     pk <- get('ssl_key_path', manta_globals)
     sslkeylist <- list(SSL_KEY_PATH =  pk)

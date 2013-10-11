@@ -2,10 +2,13 @@
 \alias{mantaWhoami}
 \title{Returns Manta username currently active}
 \usage{
-  mantaWhoami(user = TRUE, dc_url = FALSE, key_id = FALSE,
-    ssl_key = FALSE, json = FALSE)
+  mantaWhoami(all = FALSE, user = TRUE, dc_url = FALSE,
+    key_id = FALSE, ssl_key = FALSE, json = FALSE)
 }
 \arguments{
+  \item{all}{logical, optional, TRUE returns all account
+  settings}
+
   \item{user}{logical, optional. TRUE by default to report
   Manta user}
 
@@ -32,12 +35,16 @@
   settings with mantaAccount and JSON values.
 }
 \details{
-  Save all current settings as JSON with: account <-
-  mantaWhoami(dc_url=TRUE, key_id=TRUE, ssl_key=TRUE,
-  json=TRUE) and use: mantaAccount(account)
+  Save all current settings as JSON with:
 
-  Get current Manta Datacenter only:
-  mantaWhoami(dc_url=TRUE, user=FALSE)
+  account <- mantaWhoami(all = TRUE)
+
+  Restore that account with:
+
+  mantaAccount(account)
+
+  Get current Manta Datacenter only, as JSON:
+  mantaWhoami(dc_url=TRUE, user=FALSE, json=TRUE)
 }
 \keyword{Manta,}
 \keyword{manta}

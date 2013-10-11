@@ -5,14 +5,14 @@
   mantaAccount(account, json, verbose = TRUE)
 }
 \arguments{
-  \item{account}{list optional. R values}
+  \item{account}{list, optional. R values}
 
-  \item{json}{character optional. JSON account values}
+  \item{json}{character, optional. JSON account values}
 
-  \item{verbose,}{logical optional. TRUE by default}
+  \item{verbose,}{logical, optional. TRUE by default}
 }
 \value{
-  logical TRUE if account changed, stop on errors.
+  logical, TRUE if account changed, stop on errors.
 }
 \description{
   The Manta account is initially obtained from environment
@@ -22,20 +22,23 @@
   The Manta datacentre enviroment variable is $MANTA_URL
 }
 \details{
-  To see/save current account settings:. account <-
-  mantaWhoami(dc_url=TRUE, key_id=TRUE, ssl_key=TRUE) then
-  use: mantaAccount(account) to set that account
+  To see/save current account settings:
 
-  R account information may contain 1-4 key-value pairs:
-
-  To see/save current account settings as JSON:
-
-  account <- mantaWhoami(dc_url=TRUE, key_id=TRUE,
-  ssl_key=TRUE, json=TRUE)
+  account <- mantaWhoami(all = TRUE)
 
   then use:
 
-  mantaAccount(json=account) to set that account
+  mantaAccount(account) to set that account
+
+  Account information may contain 1-4 key-value pairs.
+
+  To see/save current account settings as JSON:
+
+  account <- mantaWhoami(all = TRUE, json = TRUE)
+
+  then use:
+
+  mantaAccount(json = account) to set that account
 }
 \keyword{Manta,}
 \keyword{manta}

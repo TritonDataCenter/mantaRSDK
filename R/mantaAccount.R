@@ -1,3 +1,6 @@
+# TODO.  Read account information from saved file
+#        Refactor mantaInit/mantaInitialize to be called from mantaAccount 
+#        for Windows support
 # Roxygen Comments mantaAccount
 #' Changes current Manta account information 
 #'
@@ -9,21 +12,21 @@
 #'
 #' To see/save current account settings:
 #'
-#' account <- mantaWhoami(dc_url=TRUE, key_id=TRUE, ssl_key=TRUE)
+#' account <- mantaWhoami(all = TRUE)
 #'
 #' then use:  
 #'
 #' mantaAccount(account) to set that account
 #'
-#' Account information may contain 1-4 key-value pairs:
+#' Account information may contain 1-4 key-value pairs.
 #'
 #' To see/save current account settings as JSON:
 #'
-#' account <- mantaWhoami(dc_url=TRUE, key_id=TRUE, ssl_key=TRUE, json=TRUE)
+#' account <- mantaWhoami(all = TRUE, json = TRUE)
 #'
 #' then use:  
 #'
-#' mantaAccount(json=account) to set that account
+#' mantaAccount(json = account) to set that account
 #'
 #' @param account list,  optional. R values 
 #'
@@ -38,9 +41,6 @@
 #' @export
 mantaAccount <-
 function(account, json, verbose=TRUE) {
- # TODO:
- # tryCatch error handling
-
   if (missing(account) && missing(json)) {
       stop("No Manta account information provided.\nSee: help(mantaAccount)\n")
   }
