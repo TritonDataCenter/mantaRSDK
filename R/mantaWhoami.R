@@ -51,10 +51,10 @@ function(all = FALSE,
   userlist=list()
   sslkeylist=list()
   if (all == TRUE) {
-    user <- TRUE;
-    dc_url <- TRUE;
-    key_id <- TRUE;
-    ssl_key <- TRUE;
+    user <- TRUE
+    dc_url <- TRUE
+    key_id <- TRUE
+    ssl_key <- TRUE
   }
   if (ssl_key == TRUE) {
     pk <- get('ssl_key_path', manta_globals)

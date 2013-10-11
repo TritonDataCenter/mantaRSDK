@@ -1,6 +1,8 @@
 # TODO.  Read account information from saved file
 #        Refactor mantaInit/mantaInitialize to be called from mantaAccount 
 #        for Windows support
+#        Test mantademo / cwvhogue switching Unix/Windows
+#
 # Roxygen Comments mantaAccount
 #' Changes current Manta account information 
 #'
@@ -59,7 +61,7 @@ function(account, json, verbose=TRUE) {
   if (length(headings) == 0) 
     stop("Incorrect Manta account structure\nSee: help(mantaAccount)\n")
 
-  backup <- mantaWhoami(dc_url=TRUE, key_id=TRUE, ssl_key=TRUE, json=TRUE)
+  backup <- mantaWhoami(all = TRUE, json = TRUE)
   
   # Fetch and assign new values as provided
 
@@ -69,6 +71,7 @@ function(account, json, verbose=TRUE) {
     assign("manta_user", new_user , envir = manta_globals)
   }
 
+  new_key_id <- ""
   if (is.na(charmatch("MANTA_KEY_ID", headings)) == FALSE) {
     new_key_id <- as.character(account[charmatch("MANTA_KEY_ID", headings)])
     assign("manta_key_id", new_key_id, envir = manta_globals)
@@ -85,18 +88,24 @@ function(account, json, verbose=TRUE) {
     assign("ssl_key_path", new_ssl, envir = manta_globals)
   }
 
-  # A change in user or datacentre - invalidates current Manta directory
+  # A change in user or datacentre - invalidates manta_globals$manta_cwd
   # so it is reset to ~~/stor
   if ((new_user != "") || (new_url != "")) {
     manta_cwd <- paste("/", manta_globals$manta_user, "/stor", sep="")
     assign("manta_cwd", manta_cwd, envir = manta_globals)
   }
 
+  # A change in user or key_id  invalidates manta_globals$manta_key_path 
+  if ((new_user != "") || (new_key_id != "")) {
+    new_key_path <- paste("/",new_user,"/keys/",new_key_id, sep="")
+    assign("manta_key_path", new_key_path, envir = manta_globals)
+  }
+
   if (verbose == TRUE) {
     cat("Account Changed From:\n")
     cat(backup)
     cat("\n\n To:\n")
-    cat(mantaWhoami(dc_url=TRUE, key_id=TRUE, ssl_key=TRUE, json=TRUE))
+    cat(mantaWhoami(all = TRUE, json=TRUE))
     cat("\n")
     cat("Manta working directory is:\n")
     cat(manta_globals$manta_cwd)
