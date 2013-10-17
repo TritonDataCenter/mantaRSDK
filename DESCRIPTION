@@ -35,7 +35,6 @@ Collate:
     'mantaGenSignature.R'
     'mantaGet.R'
     'mantaGetwd.R'
-    'mantaInit.R'
     'mantaInitialize.R'
     'mantaJobAddinput.R'
     'mantaJobCancel.R'

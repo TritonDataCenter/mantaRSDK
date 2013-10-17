@@ -1,6 +1,5 @@
 export(mantaAccount)
 export(mantaAttempt)
-export(mantaInit)
 export(mantaPath)
 export(mantaWhoami)
 import(PKI)

@@ -9,7 +9,8 @@
 #' The Manta account is initially obtained from
 #' environment variables $MANTA_USER, $MANTA_KEY, $MANTA_URL. 
 #' The ssl key location is obtained by default on Unix/Linux
-#' from /$HOME/.ssh/id_rsa  OR as set by user with mantaInit().
+#' from /$HOME/.ssh/id_rsa  or on Windows from 
+#' C:/Users/username/.ssh/ir_rsa
 #' The Manta datacentre enviroment variable is $MANTA_URL
 #'
 #' To see/save current account settings:
@@ -30,13 +31,13 @@
 #'
 #' mantaAccount(json = account) to set that account
 #'
-#' @param account list,  optional. R values 
+#' @param account list,  optional. R values or JSON 
 #'
 #' @param json character, optional. JSON account values
 #'
-#' @param verbose, logical, optional. TRUE by default
+#' @param verbose logical, optional. TRUE by default
 #'
-#' @return logical, TRUE if account changed, stop on errors.
+#' @return logical TRUE if account changed, stop on errors.
 #'
 #' @keywords Manta, manta
 #'
@@ -44,11 +45,11 @@
 mantaAccount <-
 function(account, json, verbose=TRUE) {
   if (missing(account) && missing(json)) {
-      stop("No Manta account information provided.\nSee: help(mantaAccount)\n")
+      stop("mantaAccount: No account information provided.\nSee: help(mantaAccount)\n")
   }
 
   if (missing(account)) {
-    # we have JSON input 
+    # do we have JSON input? 
     if (isValidJSON(json, asText = TRUE)) { 
        account <- fromJSON(json)
     } else {
@@ -61,7 +62,9 @@ function(account, json, verbose=TRUE) {
   if (length(headings) == 0) 
     stop("Incorrect Manta account structure\nSee: help(mantaAccount)\n")
 
-  backup <- mantaWhoami(all = TRUE, json = TRUE)
+  if (manta_globals$manta_initialized == TRUE) 
+    backup <- mantaWhoami(all = TRUE, json = TRUE)
+
   
   # Fetch and assign new values as provided
 
@@ -96,22 +99,30 @@ function(account, json, verbose=TRUE) {
   }
 
   # A change in user or key_id  invalidates manta_globals$manta_key_path 
-  if ((new_user != "") || (new_key_id != "")) {
-    new_key_path <- paste("/",new_user,"/keys/",new_key_id, sep="")
-    assign("manta_key_path", new_key_path, envir = manta_globals)
-  }
+  new_key_path <- paste("/",manta_globals$manta_user,"/keys/",manta_globals$manta_key_id, sep="")
+  assign("manta_key_path", new_key_path, envir = manta_globals)
 
+  if (manta_globals$manta_initialized == TRUE) {
+    if (verbose == TRUE) {
+      cat("Changing account from:\n")
+      cat(backup)
+      cat("\n\n to ")
+    }
+  } 
+  
   if (verbose == TRUE) {
-    cat("Account Changed From:\n")
-    cat(backup)
-    cat("\n\n To:\n")
-    cat(mantaWhoami(all = TRUE, json=TRUE))
-    cat("\n")
-    cat("Manta working directory is:\n")
-    cat(manta_globals$manta_cwd)
-    cat("\n")
+      cat("account settings: \n")
+      cat(mantaWhoami(all = TRUE, json = TRUE))
+      cat("\n")
+      cat("Manta working directory is:\n")
+      cat(manta_globals$manta_cwd)
+      cat("\n")
   }
 
-  return(TRUE)
+  # Call mantaInitialize to force check of values 
+  mantaInitialize(useEnv = FALSE)
+
+  # note we don't actually try to use these to connect yet.
+  return (mantaAttempt(test= TRUE, verbose = verbose))
 
 }

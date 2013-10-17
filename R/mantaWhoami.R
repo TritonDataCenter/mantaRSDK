@@ -31,7 +31,7 @@
 #'
 #' @param json logical, optional. Set TRUE to get JSON output
 #'
-#' @return JSON or R values as specified. 
+#' @return JSON or R values as specified.
 #'
 #' @keywords Manta, manta
 #'
@@ -43,8 +43,8 @@ function(all = FALSE,
          key_id = FALSE, 
          ssl_key = FALSE, 
          json = FALSE) {
-  if (manta_globals$manta_ok == FALSE) {
-    stop("Manta not Initialized.\nSee: help(mantaInit)\n")
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
   }
   keylist=list()
   urllist=list()

@@ -2,7 +2,8 @@
 \alias{mantaAttempt}
 \title{REST API Manta Caller with exception handling}
 \usage{
-  mantaAttempt(action, json = TRUE, verbose = FALSE)
+  mantaAttempt(action, json = TRUE, test = FALSE,
+    verbose = FALSE)
 }
 \arguments{
   \item{action}{string, optional. The Manta REST API
@@ -12,6 +13,9 @@
 
   \item{json}{logical, optional. Set to FALSE to return R
   data}
+
+  \item{test}{logical, optional, Set to TRUE to return
+  logical pass/fail}
 
   \item{verbose}{logical, optional. Passed to RCurl GetURL,
   Set to TRUE to see background REST communication.}

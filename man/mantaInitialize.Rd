@@ -2,11 +2,11 @@
 \alias{mantaInitialize}
 \title{Initialize Manta user variables, check SSL key file exists}
 \usage{
-  mantaInitialize(pk)
+  mantaInitialize(useEnv = TRUE)
 }
 \arguments{
-  \item{pk}{Absolute path to user's private SSL key file as
-  registered with Joyent Manta account \code{pk}}
+  \item{useEnv}{logical: TRUE unless called from
+  mantaAccount - skips getting env/system settings}
 }
 \value{
   TRUE or stop() on errors: missing env variables, SSL key

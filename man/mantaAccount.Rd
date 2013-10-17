@@ -5,21 +5,22 @@
   mantaAccount(account, json, verbose = TRUE)
 }
 \arguments{
-  \item{account}{list, optional. R values}
+  \item{account}{list, optional. R values or JSON}
 
   \item{json}{character, optional. JSON account values}
 
-  \item{verbose,}{logical, optional. TRUE by default}
+  \item{verbose}{logical, optional. TRUE by default}
 }
 \value{
-  logical, TRUE if account changed, stop on errors.
+  logical TRUE if account changed, stop on errors.
 }
 \description{
   The Manta account is initially obtained from environment
   variables $MANTA_USER, $MANTA_KEY, $MANTA_URL. The ssl
   key location is obtained by default on Unix/Linux from
-  /$HOME/.ssh/id_rsa OR as set by user with mantaInit().
-  The Manta datacentre enviroment variable is $MANTA_URL
+  /$HOME/.ssh/id_rsa or on Windows from
+  C:/Users/username/.ssh/ir_rsa The Manta datacentre
+  enviroment variable is $MANTA_URL
 }
 \details{
   To see/save current account settings:

@@ -15,7 +15,7 @@ working. If you have the Node.js manta CLI working, this should work.
 
 Install:
 ```
-install_packages(devtools)
+install.packages(devtools)
 library(devtools)
 install_github("mantaRSDK", username="cwvhogue")
 ```
