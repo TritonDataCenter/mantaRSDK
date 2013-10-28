@@ -25,7 +25,7 @@ function(useEnv = TRUE) {
     }
     if (file.exists(ssl_key_path) != TRUE) {
       cat(paste("mantaRSDK:mantaInitialize  Warning: - private key not found at:", "\n", ssl_key_path,
-          "\n See help(mantaAccount) help(mantaWhoami) sep=""))
+          "\n See help(mantaAccount) help(mantaWhoami)", sep=""))
     }
     manta_user <- Sys.getenv("MANTA_USER")
     if (nchar(manta_user) == 0) {
