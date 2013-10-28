@@ -24,7 +24,7 @@ function() {
   encrypt_args <- "enc -in temp_digest.bin -e -a"
 
   the_time_now <- format(as.POSIXlt(Sys.time(), "UTC"), 
-                         "%a, %d %h %Y %H:%M:%S GMT")
+                         "%a, %d %b %Y %H:%M:%S GMT")
   sig_to_digest <- paste("date:",the_time_now, sep=" ")
 
   # write sig_to_digest to a binary file without any CR
