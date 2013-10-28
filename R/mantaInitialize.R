@@ -1,12 +1,12 @@
 # Roxygen Comments mantaInititalize
-#' Initialize Manta user variables, check SSL key file exists
+#' Initialize Manta user variables, check SSH key file exists
 #'
 #' Initialization of manta_globals with environment variables
-#' checks SSL private key file, sets manta cwd to ~~/stor
+#' checks SSH private key file, sets manta cwd to ~~/stor
 #'
 #' @param useEnv logical: TRUE unless called from mantaAccount - skips getting env/system settings
 #'
-#' @return TRUE or stop() on errors: missing env variables, SSL key
+#' @return TRUE or stop() on errors: missing env variables, SSH key
 #'
 #' @keywords Manta, manta
 #'
@@ -14,11 +14,18 @@ mantaInitialize <-
 function(useEnv = TRUE) {
   if (useEnv == TRUE) {
     # The default openssl location
-    home <- Sys.getenv("HOME")
-    ssl_key_path <- paste(home, "/.ssh/id_rsa", sep="")
+    if (.Platform$OS.type == "unix") {
+      home <- Sys.getenv("HOME")
+      ssl_key_path <- paste(home, "/.ssh/id_rsa", sep="")
+    } else { 
+      # Windows 
+      homedrive <- Sys.getenv("HOMEDRIVE")
+      homepath <- Sys.getenv("HOMEPATH")
+      ssl_key_path <- paste(homedrive,homepath,"\\.ssh\\id_rsa", sep="")
+    }
     if (file.exists(ssl_key_path) != TRUE) {
-      stop(paste("mantaRSDK:mantaInitialize configuration error - private key not found at:", 
-                 "\n", ssl_key_path, sep=""))
+      cat(paste("mantaRSDK:mantaInitialize  Warning: - private key not found at:", "\n", ssl_key_path,
+          "\n See help(mantaAccount) help(mantaWhoami) sep=""))
     }
     manta_user <- Sys.getenv("MANTA_USER")
     if (nchar(manta_user) == 0) {
@@ -54,9 +61,9 @@ function(useEnv = TRUE) {
       stop("mantaRSDK:mantaAccount:mantaInitialize Internal Error - Manta key path not set.\n See help(mantaAccount)\n")
     if (nchar(manta_globals$manta_cwd) == 0)
       stop("mantaRSDK:mantaAccount:mantaInitialize Internal Error - Manta cwd not set.\n See help(mantaAccount)\n")
-    # must find the specified SSH key file or stop and fix it...
+    # Find the specified SSH key file or warn user to fix it...
     if (file.exists(manta_globals$ssl_key_path) != TRUE) {
-      stop(paste("mantaRSDK:mantaAccount:mantaInitialize - Configuration error - private key not found at:", 
+      cat(paste("mantaRSDK:mantaAccount:mantaInitialize - Warning - private key not found at:", 
                  "\n", manta_globals$ssl_key_path, sep=""))
     }
   }
