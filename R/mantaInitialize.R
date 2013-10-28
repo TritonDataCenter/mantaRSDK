@@ -12,6 +12,7 @@
 #'
 mantaInitialize <-
 function(useEnv = TRUE) {
+  warn <- false
   if (useEnv == TRUE) {
     # The default openssl location
     if (.Platform$OS.type == "unix") {
@@ -63,15 +64,20 @@ function(useEnv = TRUE) {
       stop("mantaRSDK:mantaAccount:mantaInitialize Internal Error - Manta cwd not set.\n See help(mantaAccount)\n")
     # Find the specified SSH key file or warn user to fix it...
     if (file.exists(manta_globals$ssl_key_path) != TRUE) {
-      cat(paste("mantaRSDK:mantaAccount:mantaInitialize - Warning - private key not found at:", 
-                 "\n", manta_globals$ssl_key_path, sep=""))
+      cat(paste("mantaRSDK:mantaAccount:mantaInitialize - Warning - private SSH key file not found at:", 
+                 "\n", manta_globals$ssl_key_path, "\n See help(mantaAccount)\n", sep=""))
+      warn <- TRUE
     }
   }
 
   options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
 
   # If we made it this far, we have values for everything. 
-  assign("manta_initialized", TRUE, envir=manta_globals)
+  if (warn == TRUE) {     
+     assign("manta_initialized", FALSE, envir=manta_globals)
+  } else {
+     assign("manta_initialized", TRUE, envir=manta_globals)
+  }
 
   # Interactive support with Node.js?
   nodejs_path<-Sys.which("node")
@@ -90,6 +96,10 @@ function(useEnv = TRUE) {
   }
 
   # retrieve variables with 
-  # get('manta_user', manta_globals) or manta_globals$manta_user  
-  return(TRUE)
+  # get('manta_user', manta_globals) or manta_globals$manta_user
+  if (warn == TRUE) { 
+    return(FALSE) 
+  } else {  
+    return(TRUE) 
+  }
 }

@@ -5,9 +5,10 @@ Joyent Manta R Software Development Kit
 
 UNDER CONSTRUCTION
 
-Currently assumes you have a working Manta account, Unix/Linux R, 
-environment variables set for Manta use, and openSSL installed and
-working. If you have the Node.js manta CLI working, this should work.
+Currently you need a working Manta account, 
+Unix/Linux/Windows R, environment variables set for Manta use, 
+and openSSL installed and working. 
+If you have the Node.js manta CLI working, this should work.
 
 
 ### From R ###
@@ -24,6 +25,7 @@ Test:
 ```
 library(mantaRSDK)
 help(mantaRSDK)
+mantaWhoami(all=TRUE)
 mantaAttempt()
 ```
 
