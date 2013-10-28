@@ -10,7 +10,7 @@
 #' environment variables $MANTA_USER, $MANTA_KEY, $MANTA_URL. 
 #' The ssl key location is obtained by default on Unix/Linux
 #' from /$HOME/.ssh/id_rsa  or on Windows from 
-#' C:/Users/username/.ssh/ir_rsa
+#' C:\\Users\\username\\.ssh\\ir_rsa
 #' The Manta datacentre enviroment variable is $MANTA_URL
 #'
 #' To see/save current account settings:
@@ -31,7 +31,7 @@
 #'
 #' mantaAccount(json = account) to set that account
 #'
-#' @param account list,  optional. R values or JSON 
+#' @param account list,  optional. R values
 #'
 #' @param json character, optional. JSON account values
 #'

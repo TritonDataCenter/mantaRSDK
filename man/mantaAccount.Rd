@@ -5,7 +5,7 @@
   mantaAccount(account, json, verbose = TRUE)
 }
 \arguments{
-  \item{account}{list, optional. R values or JSON}
+  \item{account}{list, optional. R values}
 
   \item{json}{character, optional. JSON account values}
 
@@ -19,7 +19,7 @@
   variables $MANTA_USER, $MANTA_KEY, $MANTA_URL. The ssl
   key location is obtained by default on Unix/Linux from
   /$HOME/.ssh/id_rsa or on Windows from
-  C:/Users/username/.ssh/ir_rsa The Manta datacentre
+  C:\\Users\\username\\.ssh\\ir_rsa The Manta datacentre
   enviroment variable is $MANTA_URL
 }
 \details{

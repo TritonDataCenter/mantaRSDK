@@ -38,8 +38,7 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
   json_manta_reply <- ""
   json_manta_reply <- getURL(manta_call, 
                              httpheader = mantaGenHeaders(), 
-                             verbose = verbose, 
-                             cainfo = manta_globals$cainfo)
+                             verbose = verbose) 
 
   #### This test and other calls to getURL need to trap 403 and other errors and convert to messages..
 

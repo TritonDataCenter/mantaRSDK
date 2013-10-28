@@ -68,9 +68,7 @@ function(useEnv = TRUE) {
     }
   }
 
-  # If this gives trouble in the future may need to add to JSON for mantaAccount
-  manta_cainfo <- system.file("CurlSSL/cacert.pem", package = "RCurl")
-  assign("manta_cainfo", manta_cainfo, envir=manta_globals)
+  options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
 
   # If we made it this far, we have values for everything. 
   assign("manta_initialized", TRUE, envir=manta_globals)
