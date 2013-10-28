@@ -12,7 +12,7 @@
 #'
 mantaInitialize <-
 function(useEnv = TRUE) {
-  warn <- false
+  warn <- FALSE
   if (useEnv == TRUE) {
     # The default openssl location
     if (.Platform$OS.type == "unix") {
