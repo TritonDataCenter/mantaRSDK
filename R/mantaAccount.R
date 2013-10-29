@@ -75,6 +75,7 @@ function(account, json, verbose=FALSE) {
   if (manta_globals$manta_initialized == TRUE) {
     if (mantaAttempt(test= TRUE, verbose = FALSE) == TRUE) { backup_working <- TRUE }
     backup <- mantaWhoami(all = TRUE, json = TRUE)
+    backup_wd <- mantaGetwd()
   }
   
   
@@ -135,9 +136,10 @@ function(account, json, verbose=FALSE) {
   mantaInitialize(useEnv = FALSE)
 
   if (mantaAttempt(test= TRUE, verbose = verbose) == FALSE) {
-  # well these new settings don't work - revert to working backup?
+  # well these new settings don't work - revert to working backup settings
      if (backup_working == TRUE) {
          mantaAccount(json=backup, verbose = verbose)
+         mantaSetwd(backup_wd)
      } 
      return(FALSE)  # We did not successfully change the account.
   } else {
