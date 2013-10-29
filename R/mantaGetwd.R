@@ -1,9 +1,10 @@
+# Roxygen Comments mantaGetwd
+#' Gets Manta working directory
+#'
+#' @keywords Manta, manta
+#'
+#' @export
 mantaGetwd <-
 function() {
-  # Get current Manta working directory
-  #
-  # Args:
-  #
-  # Returns:
-  #
+  return (manta_globals$manta_cwd)
 }

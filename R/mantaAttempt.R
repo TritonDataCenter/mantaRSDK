@@ -2,6 +2,8 @@
 # Roxygen Comments mantaAttempt
 #' REST API Manta Caller with exception handling
 #'
+#' Note getURL verbose = TRUE writes to stderr - invisible 
+#' on Windows R.
 #'
 #' @param action string, optional. The Manta REST API command 
 #' to transmit. If unspecified, uses current Manta Directory
@@ -35,26 +37,45 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
 
   manta_call <- paste(manta_globals$manta_url, manta_do, sep="")
 
-  json_manta_reply <- ""
-  json_manta_reply <- getURL(manta_call, 
+  reply <- ""
+  reply <- getURL(manta_call, 
                              httpheader = mantaGenHeaders(), 
-                             verbose = verbose) 
+                             verbose = verbose, 
+                             header = TRUE) 
 
-  #### This test and other calls to getURL need to trap 403 and other errors and convert to messages..
+  if (length(reply) == 0)   stop("mantaAttempt:getURL - no reply\n")
 
-  if (test == TRUE) { 
-    if (nchar(json_manta_reply) > 0) { 
-      return(TRUE)
-    } else {
-      return(FALSE)
-    }
+  split_reply <- strsplit(reply, split = "\r\n\r\n")
+  header <- split_reply[[1]][1]
+  body <- split_reply[[1]][-1] # in R this removes the first element in the array
+  header_lines <- strsplit(header, split= "\r\n")
+  body_lines <- strsplit(body[[1]], split = "\n")
+
+
+  return_code = ""
+  return_string <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ]
+  return_code <- strsplit(return_string, split=" ")[[1]][2]
+  if (as.integer(return_code) >= 400) {
+    cat(paste("mantaRSDK:mantaAttempt:Manta Server Error Code: ", return_string, "\n", sep=" "))
+    if (test == TRUE) { return(FALSE) }
   }
 
-  json_lines <- strsplit(json_manta_reply,split="\n") 
-  if (json == TRUE) {
-    return(json_lines[[1]])
+  result_set_count <- 0
+  result_set_size <- header_lines[[1]][ charmatch("Result-Set-Size",header_lines[[1]]) ]
+  result_set_count <- as.integer(strsplit(result_set_size, split=" ")[[1]][2])
+
+  if (test == TRUE) { 
+      return(TRUE)
+  }
+
+  if ((result_set_count > 0) && (result_set_count <= 256)) {
+    if (json == TRUE) {
+      return(body_lines[[1]])
+    } else {
+      return(lapply(body_lines[[1]],fromJSON))
+    }
   } else {
-    return(lapply(json_lines[[1]],fromJSON))
+    cat("More than 256 entries, gather up to some limit\n")
   }
 
 }

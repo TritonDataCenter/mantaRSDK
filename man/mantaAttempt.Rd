@@ -24,7 +24,8 @@
   The Manta reply encoded in JSON or as R data
 }
 \description{
-  REST API Manta Caller with exception handling
+  Note getURL verbose = TRUE writes to stderr - invisible
+  on Windows R.
 }
 \keyword{Manta,}
 \keyword{manta}

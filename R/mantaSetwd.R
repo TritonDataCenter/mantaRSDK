@@ -1,9 +1,12 @@
+# Roxygen Comments mantaSetwd
+#' Sets Manta working directory 
+#'
+#' @param mantapath string, required. 
+#'
+#' @keywords Manta, manta
+#'
+#' @export
 mantaSetwd <-
-function() {
-  # Set Manta working directory
-  #
-  # Args:
-  #
-  # Returns:
-  #
+function(mantapath) {
+    assign("manta_cwd", mantapath, envir=manta_globals)
 }

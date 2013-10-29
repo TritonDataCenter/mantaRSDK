@@ -40,6 +40,12 @@
   then use:
 
   mantaAccount(json = account) to set that account
+
+  To set a non default SSH private key location on Windows
+
+  mysslkey <- list(SSL_KEY_PATH =
+  "C:\\Users\\myacct\\.ssh\\my_priv_rsa")
+  mantaAccount(mysslkey)
 }
 \keyword{Manta,}
 \keyword{manta}
