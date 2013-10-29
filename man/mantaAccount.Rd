@@ -2,7 +2,7 @@
 \alias{mantaAccount}
 \title{Changes current Manta account information}
 \usage{
-  mantaAccount(account, json, verbose = TRUE)
+  mantaAccount(account, json, verbose = FALSE)
 }
 \arguments{
   \item{account}{list, optional. R values}
@@ -12,7 +12,11 @@
   \item{verbose}{logical, optional. TRUE by default}
 }
 \value{
-  logical TRUE if account changed, stop on errors.
+  logical TRUE if account changed and working. Reverts to
+  previous working account if it cannot connect wit the new
+  information returns FALSE for both cases - account
+  reverted or account is left in a state where it cannot
+  communicate to the server.
 }
 \description{
   The Manta account is initially obtained from environment

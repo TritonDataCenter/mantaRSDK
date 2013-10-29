@@ -43,13 +43,16 @@
 #'
 #' @param verbose logical, optional. TRUE by default
 #'
-#' @return logical TRUE if account changed, stop on errors.
+#' @return logical TRUE if account changed and working. Reverts to
+#' previous working account if it cannot connect wit the new information
+#' returns FALSE for both cases - account reverted or account is left in
+#' a state where it cannot communicate to the server.
 #'
 #' @keywords Manta, manta
 #'
 #' @export
 mantaAccount <-
-function(account, json, verbose=TRUE) {
+function(account, json, verbose=FALSE) {
   if (missing(account) && missing(json)) {
       stop("mantaAccount: No account information provided.\nSee: help(mantaAccount)\n")
   }
@@ -67,10 +70,13 @@ function(account, json, verbose=TRUE) {
   headings <- names(account)
   if (length(headings) == 0) 
     stop("Incorrect Manta account structure\nSee: help(mantaAccount)\n")
-
-  if (manta_globals$manta_initialized == TRUE) 
+  
+  backup_working <- FALSE
+  if (manta_globals$manta_initialized == TRUE) {
+    if (mantaAttempt(test= TRUE, verbose = FALSE) == TRUE) { backup_working <- TRUE }
     backup <- mantaWhoami(all = TRUE, json = TRUE)
-
+  }
+  
   
   # Fetch and assign new values as provided
 
@@ -128,7 +134,14 @@ function(account, json, verbose=TRUE) {
   # Call mantaInitialize to force check of values 
   mantaInitialize(useEnv = FALSE)
 
-  # note we don't actually try to use these to connect yet.
-  return (mantaAttempt(test= TRUE, verbose = verbose))
+  if (mantaAttempt(test= TRUE, verbose = verbose) == FALSE) {
+  # well these new settings don't work - revert to working backup?
+     if (backup_working == TRUE) {
+         mantaAccount(json=backup, verbose = verbose)
+     } 
+     return(FALSE)  # We did not successfully change the account.
+  } else {
+    return(TRUE) # We did successfully change the account.
+  }
 
 }

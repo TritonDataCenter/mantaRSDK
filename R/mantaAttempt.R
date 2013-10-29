@@ -62,12 +62,15 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
 
   result_set_count <- 0
   result_set_size <- header_lines[[1]][ charmatch("Result-Set-Size",header_lines[[1]]) ]
-  result_set_count <- as.integer(strsplit(result_set_size, split=" ")[[1]][2])
+  if (nchar(result_set_size) != 0) {
+    result_set_count <- as.integer(strsplit(result_set_size, split=" ")[[1]][2])
+  }
 
   if (test == TRUE) { 
       return(TRUE)
   }
 
+# use >= 0 here? 
   if ((result_set_count > 0) && (result_set_count <= 256)) {
     if (json == TRUE) {
       return(body_lines[[1]])
