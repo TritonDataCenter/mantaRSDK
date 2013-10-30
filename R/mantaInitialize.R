@@ -95,6 +95,45 @@ function(useEnv = TRUE) {
 #    cat("     with mantaLoginR() and mantaLoginBash()\n")
   }
 
+  # Error classes retrieved from ruby-manta API - some strings truncated 
+  # e.g. AuthorizationFailed is  Authorization in docs,
+  #    AuthSchemeNotAllowed is AuthScheme in docs
+
+  manta_error_classes <- c("Authorization", "AuthScheme",
+                       "BadRequest", "Checksum", "ConcurrentRequest",
+                       "ContentLength", "ContentMD5Mismatch",
+                       "DirectoryDoesNotExist", "DirectoryExists",
+                       "DirectoryNotEmpty", "DirectoryOperation",
+                       "EntityExists", "Internal", "InvalidArgument",
+                       "InvalidAuthToken", "InvalidCredentials",
+                       "InvalidDurabilityLevel", "InvalidJob", "InvalidKeyId",
+                       "InvalidLink", "InvalidSignature", "InvalidJobState",
+                       "JobNotFound", "JobState", "KeyDoesNotExist",
+                       "LinkNotFound", "LinkNotObject", "LinkRequired",
+                       "NotAcceptable", "NotEnoughSpace", "ParentNotDirectory",
+                       "PreconditionFailed", "PreSignedRequest",
+                       "RequestEntityTooLarge", "ResourceNotFound",
+                       "RootDirectory", "SecureTransportRequired",
+                       "ServiceUnavailable", "SourceObjectNotFound",
+                       "SSLRequired", "TaskInit", "UploadTimeout",
+                       "UserDoesNotExist", "UserTaskError",
+                       # and errors that are specific to this class:
+                       "CorruptResult", "UnknownError",
+                       "UnsupportedKey") 
+
+  assign("manta_error_classes", manta_error_classes, envir=manta_globals)
+
+  # we are at 10^6 directory entries per folder, so max_limit is set to that
+  # ruby api sets it to 1000.
+
+
+  # some functions to get / set these are in order when they are 
+  # actually in use.
+  manta_defaults <- list(attempts = 3, connect_timeout = 5, send_timeout = 60, 
+                         receive_timeout = 60, max_limit = 1000000)
+
+  assign("manta_defaults", manta_defaults, envir=manta_globals)
+
   # retrieve variables with 
   # get('manta_user', manta_globals) or manta_globals$manta_user
   if (warn == TRUE) { 
