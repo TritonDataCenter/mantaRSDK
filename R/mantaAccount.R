@@ -73,7 +73,7 @@ function(account, json, verbose=FALSE) {
   
   backup_working <- FALSE
   if (manta_globals$manta_initialized == TRUE) {
-    if (mantaAttempt(test= TRUE, verbose = FALSE) == TRUE) { backup_working <- TRUE }
+    if (mantaAttempt(test = TRUE, verbose = FALSE) == TRUE) { backup_working <- TRUE }
     backup <- mantaWhoami(all = TRUE, json = TRUE)
     backup_wd <- mantaGetwd()
   }
@@ -133,17 +133,22 @@ function(account, json, verbose=FALSE) {
   }
 
   # Call mantaInitialize to force check of values 
-  mantaInitialize(useEnv = FALSE)
-
-  if (mantaAttempt(test= TRUE, verbose = verbose) == FALSE) {
-  # well these new settings don't work - revert to working backup settings
-     if (backup_working == TRUE) {
-         mantaAccount(json=backup, verbose = verbose)
-         mantaSetwd(backup_wd)
-     } 
-     return(FALSE)  # We did not successfully change the account.
-  } else {
-    return(TRUE) # We did successfully change the account.
+  if (mantaInitialize(useEnv = FALSE) == TRUE) {
+    # see if we get a connection, report any errors to console
+    if (mantaAttempt(test= TRUE, verbose = verbose) == TRUE) {
+      return(TRUE)
+    }
   }
+
+  # These new settings don't work so revert to working backup settings
+  if (backup_working == TRUE) {
+     mantaAccount(json=backup, verbose = verbose)
+     mantaSetwd(backup_wd)
+  } else {  # backup settings not working, nor new settings...
+     cat("Your Manta Account Settings are not properly configured\n")
+     cat("Use mantaWhoami(all=TRUE) to inspect your settings.\n ")
+  }
+
+  return(FALSE)  # We did not successfully change the account.
 
 }

@@ -9,7 +9,8 @@
   mantaAccount - skips getting env/system settings}
 }
 \value{
-  TRUE or stop() on errors: missing env variables, SSH key
+  TRUE or FALSE on warn, stop() on errors: missing env
+  variables, SSH key
 }
 \description{
   Initialization of manta_globals with environment

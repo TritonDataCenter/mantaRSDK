@@ -6,7 +6,7 @@
 #'
 #' @param useEnv logical: TRUE unless called from mantaAccount - skips getting env/system settings
 #'
-#' @return TRUE or stop() on errors: missing env variables, SSH key
+#' @return TRUE or FALSE on warn, stop() on errors: missing env variables, SSH key
 #'
 #' @keywords Manta, manta
 #'
@@ -72,13 +72,6 @@ function(useEnv = TRUE) {
 
   options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
 
-  # If we made it this far, we have values for everything. 
-  if (warn == TRUE) {     
-     assign("manta_initialized", FALSE, envir=manta_globals)
-  } else {
-     assign("manta_initialized", TRUE, envir=manta_globals)
-  }
-
   # Interactive support with Node.js?
   nodejs_path<-Sys.which("node")
   if (nchar(nodejs_path) != 0) {
@@ -134,11 +127,13 @@ function(useEnv = TRUE) {
 
   assign("manta_defaults", manta_defaults, envir=manta_globals)
 
-  # retrieve variables with 
-  # get('manta_user', manta_globals) or manta_globals$manta_user
-  if (warn == TRUE) { 
-    return(FALSE) 
-  } else {  
-    return(TRUE) 
+
+  # If we made it this far, we have values for everything. 
+  if (warn == TRUE) {     
+     assign("manta_initialized", FALSE, envir=manta_globals)
+     return(FALSE)
+  } else {
+     assign("manta_initialized", TRUE, envir=manta_globals)
+     return(TRUE)
   }
 }
