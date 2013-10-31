@@ -15,9 +15,7 @@ function() {
   #   Supply mantaRSDK version number information
 
   alg<-"rsa-sha256"
-  r_version <- as.character(getRversion())
-  user_agent <- paste("R-",r_version, "/mantaRSDK", sep="")
-
+   
   signed <- mantaGenSignature()
   the_time_now <- signed$time_now
   sig_encrypted <- signed$signature
@@ -34,7 +32,7 @@ function() {
                        '\"', 
                        sep="")
 
-  manta_headers <- c('User-Agent' = user_agent , 
+  manta_headers <- c('User-Agent' = manta_globals$user_agent , 
                               date = the_time_now, 
                      Authorization = auth_header)
   return(manta_headers)

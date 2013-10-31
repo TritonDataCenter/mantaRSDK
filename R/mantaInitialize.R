@@ -42,6 +42,8 @@ function(useEnv = TRUE) {
     }
     manta_key_path <- paste("/",manta_user,"/keys/",manta_key_id, sep="")
     manta_cwd <- paste("/", manta_user, "/stor", sep="")
+
+ 
     assign("manta_user", manta_user, envir=manta_globals)
     assign("manta_key_id", manta_key_id, envir=manta_globals)
     assign("manta_key_path", manta_key_path, envir=manta_globals)
@@ -49,7 +51,7 @@ function(useEnv = TRUE) {
     assign("manta_cwd", manta_cwd, envir=manta_globals)
     assign("ssl_key_path", ssl_key_path, envir=manta_globals)
   } else {
-    # This is a call from mantaAccount - requires all six values set.
+    # This is an update call from mantaAccount - requires all six values set.
     if (nchar(manta_globals$manta_user) == 0)
       stop("mantaRSDK:mantaAccount:mantaInitialize Error - No initial Manta username set.\n See help(mantaAccount)\n")
     if (nchar(manta_globals$manta_key_id) == 0)
@@ -126,6 +128,13 @@ function(useEnv = TRUE) {
                          receive_timeout = 60, max_limit = 1000000)
 
   assign("manta_defaults", manta_defaults, envir=manta_globals)
+
+  manta_methods <- c("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
+  assign("manta_methods", manta_methods, envir=manta_globals)
+  
+  r_version <- as.character(getRversion())
+  user_agent <- paste("R-",r_version, "/mantaRSDK", sep="")
+  assign("user_agent", user_agent, envir=manta_globals)
 
 
   # If we made it this far, we have values for everything. 

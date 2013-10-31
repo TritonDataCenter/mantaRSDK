@@ -1,10 +1,11 @@
 # Roxygen Comments mantaGetwd
-#' Gets Manta working directory
+#' Gets Manta working directory, removes space encoding
 #'
 #' @keywords Manta, manta
 #'
 #' @export
 mantaGetwd <-
 function() {
-  return (manta_globals$manta_cwd)
+  cwd <- sub("%20", " ", manta_globals$manta_cwd) 
+  return (cwd)
 }

@@ -18,6 +18,10 @@
 #' directory. When unspecified, uses current Manta Directory
 #' and returns JSON listing values for the entire directory.
 #' 
+#' @param method string, optional. Default is "GET", passed
+#' "GET", "POST", "OPTIONS", "PUT", "DELETE" or "HEAD" 
+#' from higher level library callers.
+#'
 #' @param json logical, optional. Set to FALSE to return R data
 #' 
 #' @param test logical, optional, Set to TRUE to return logical 
@@ -33,7 +37,7 @@
 #'
 #' @export
 mantaAttempt <-
-function(action, json = TRUE, test = FALSE, verbose = FALSE) {
+function(action, method, json = TRUE, test = FALSE, verbose = FALSE) {
 # TODO mantaExpandPath should be used for action to expand ~~
 # change action to object - look for object (default is to GET object)
 # add (path, object) optional entry points - object in cwd or full path
@@ -46,25 +50,47 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
   # action needs some regexp sanity checking - needs to 
   # have username,  /stor or /public 
 
-#  if (missing(action)) {
+  # for now - for Setwd... to be refactored
+  if (missing(action)) {
     manta_do <- manta_globals$manta_cwd
-#  } else {
-#    manta_do <- action
-#  } 
+  } else {
+    manta_do <- action
+  } 
+
+  # Method groups
+  # "GET" mls, mget, mjob (list, get, outputs, errors, failures, inputs)
+  # "POST" mjob (create, add, end input, cancel)
+  # "PUT" mmkdir, mln, mput
+  # "DELETE" mrm, mrmdir
+  # "OPTIONS" CORS
+  # "HEAD" mls
+
+  if (missing(method)) {
+      curl_method <- "GET"
+  } else {
+     curl_method <- method
+     if (is.na(charmatch(curl_method,manta_globals$manta_methods)))
+      stop("mantaRSDK:mantaAttempt: Error invalid RCURL method. \nPassed [", curl_method, 
+           "] , is not in ", manta_globals$manta_methods, "\n" )
+  }
+
+  # Use a handle for multiple passes for long directory listings
+  curl_handle <- getCurlHandle()
+
+  # not sure - I have to change timeouts depending on methods in use??
+  # or more timeout options for getURL
+  curl_timeout <- manta_globals$manta_defaults$connect_timeout
 
   manta_call <- paste(manta_globals$manta_url, manta_do, sep="")
 
-  # Use a handle for multiple passes for long directory listings
-  handle <- getCurlHandle()
-
-  curl_timeout <- manta_globals$manta_defaults$connect_timeout
   
   reply <- tryCatch(getURL(manta_call, 
-                           curl=handle,
+                           curl = curl_handle,
                            httpheader = mantaGenHeaders(), 
                            verbose = verbose, 
                            header = TRUE, 
-                           .opts = list(timeout = curl_timeout)),
+                           customrequest = curl_method,
+                           timeout = curl_timeout),
                     COULDNT_RESOLVE_HOST = function(e) {
                            cat("mantaRSDK:mantaAttempt:getURL Cannot Resolve Manta Host at\n ", 
                            manta_globals$manta_url ,"\n")                        
@@ -88,8 +114,13 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
   header <- split_reply[[1]][1]
   body <- split_reply[[1]][-1] # in R this removes the first element in the array
   header_lines <- strsplit(header, split= "\r\n")
-  body_lines <- strsplit(body[[1]], split = "\n")
-
+  no_body <- FALSE
+  if (!length(body)==0) {
+   body_lines <- strsplit(body[[1]], split = "\n")
+  } else {
+   body_lines <- c("")
+   no_body <- TRUE
+  }
   return_code = ""
   return_string <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ] 
   return_code <- strsplit(return_string, split=" ")[[1]][2]
@@ -123,7 +154,8 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
     
   # OK, so no HTTP, resolve, server errors reported, some response received, 
   # Sanity check to see that response is JSON 
-  if (isValidJSON(body_lines[[1]], asText = TRUE) == FALSE) {
+  if (no_body == FALSE) {
+    if (isValidJSON(body_lines[[1]], asText = TRUE) == FALSE) {
       cat("mantaRSDK:mantaAttempt Error - Server Response is not parseable JSON using RJSONIO: \n")
       cat(body_lines[[1]][1],"\n")
       cat("\n")
@@ -133,6 +165,7 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
         # We grind to a halt without valid JSON response, some fix required
         stop("Unable to process response.\n")
       }
+    }
   }
   
   # So we made it through, for testing purposes
@@ -155,7 +188,7 @@ function(action, json = TRUE, test = FALSE, verbose = FALSE) {
     #    cat("More than 256 entries, gather up to some limit\n")
     #  }
 
-  if (json == TRUE) {
+  if ((json == TRUE) || (no_body ==TRUE)) {
     return(body_lines[[1]])
   } else {
     return(lapply(body_lines[[1]],fromJSON))

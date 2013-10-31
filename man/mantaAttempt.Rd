@@ -2,7 +2,7 @@
 \alias{mantaAttempt}
 \title{REST API Manta Caller with exception handling}
 \usage{
-  mantaAttempt(action, json = TRUE, test = FALSE,
+  mantaAttempt(action, method, json = TRUE, test = FALSE,
     verbose = FALSE)
 }
 \arguments{
@@ -10,6 +10,10 @@
   directory. When unspecified, uses current Manta Directory
   and returns JSON listing values for the entire
   directory.}
+
+  \item{method}{string, optional. Default is "GET", passed
+  "GET", "POST", "OPTIONS", "PUT", "DELETE" or "HEAD" from
+  higher level library callers.}
 
   \item{json}{logical, optional. Set to FALSE to return R
   data}
