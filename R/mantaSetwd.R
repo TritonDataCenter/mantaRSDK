@@ -22,7 +22,7 @@ function(mantapath) {
     
     if (mantapath == "..")  { # can we go up ?
       # go up one level, but not supporting ../../../ 
-      # a bit janky bur useful
+      # a bit janky but useful
       path <- mantaGetwd()
       splitpath <- strsplit(path, split="/")
       path <- paste(splitpath[[1]][-length(splitpath[[1]])], collapse="/")
@@ -35,11 +35,11 @@ function(mantapath) {
     }
 
     # is it really there ?
-    if (mantaAttempt(action=path_enc, method="GET", test = TRUE) == TRUE) {
+    if (mantaAttempt(action=path_enc, method="GET", test = TRUE, silent = TRUE) == TRUE) {
       assign("manta_cwd", path_enc, envir=manta_globals)
       return(TRUE)
     } else {
-      cat("mantaRSDK:mantaSetwd Cannot change to missing a subdirectory ",mantapath," \n")
+      cat("mantaRSDK:mantaSetwd Cannot change to a missing subdirectory ",mantapath," \n")
       return(FALSE)
     }
 }
