@@ -15,13 +15,7 @@ function(mantapath) {
      return(FALSE)
     }
 
-    path_enc <- mantaExpandPath(mantapath)
-    if (path_enc == "") {            
-      # no valid path prefix, see if this is a subdir assuming the cwd prefix
-      path <- paste(mantaGetwd(), mantapath, sep ="/")
-      path <- sub("//","/",path) # if user already put in / added by sep above
-      path_enc <- mantaExpandPath(path)
-    }
+    path_enc <- mantaPath(mantapath)
    
     # cannot remove an empty directory you are currently in...
     if (path_enc == mantaExpandPath(mantaGetwd())) return(FALSE)

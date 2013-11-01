@@ -1,17 +1,24 @@
 # Roxygen Comments mantaPath
-#' Given a manta object, returns full path
+#' Given a user typed path or object name, returns full path, 
+#' does not validate object is there, assumes it is in current subdir
 #'
+#' @param m_path string, required. Manta object 
 #'
-#' @param m_object string, required. Manta object 
-#'
-#' @param check logical, optional. Set to TRUE to verify
-#' that object exists on storage, returns empty string if absent.
-#'
-#' @return String with full Manta path to object.
-#'
+#' @return String with full Manta path to object or empty string ""
+#' as processed by curlEscape with / left in 
+#' 
 #' @keywords Manta, manta
 #'
-#' @export
+#'
 mantaPath <-
-function(m_object, check=FALSE) {
+function(m_path) {
+    path_enc <- mantaExpandPath(m_path)
+    if (path_enc == "") {
+      # no valid path prefix, assume off working subdir
+      path <- paste(mantaGetwd(), m_path, sep ="/")
+      path <- sub("//","/",path) # if user already put in / added by sep above
+      path_enc <- mantaExpandPath(path)
+    }
+    return(path_enc)
 }
+

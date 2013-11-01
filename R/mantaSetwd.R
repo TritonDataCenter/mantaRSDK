@@ -31,13 +31,7 @@ function(mantapath) {
       # tries to go up level from /stor or /public
       if (path_enc == "") return(FALSE)
     } else {
-      path_enc <- mantaExpandPath(mantapath)
-      if (path_enc == "") {
-        # no valid path prefix, see if this is an object assuming the cwd prefix
-        path <- paste(mantaGetwd(), mantapath, sep ="/")
-        path <- sub("//","/",path) # if user already put in / added by sep above
-        path_enc <- mantaExpandPath(path)
-      }
+      path_enc <- mantaPath(mantapath)
     }
 
     # is it really there ?

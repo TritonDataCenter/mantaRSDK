@@ -16,13 +16,7 @@ function(mantapath, p = FALSE) {
      return(FALSE)
     }
 
-    path_enc <- mantaExpandPath(mantapath)
-    if (path_enc == "") {
-      # no valid path prefix, assume off working subdir
-      path <- paste(mantaGetwd(), mantapath, sep ="/")
-      path <- sub("//","/",path) # if user already put in / added by sep above
-      path_enc <- mantaExpandPath(path)
-    }
+    path_enc <- mantaPath(mantapath)
 
     # is it already there?
     if (mantaAttempt(action=path_enc, method="GET", test = TRUE, silent = TRUE) == TRUE) {

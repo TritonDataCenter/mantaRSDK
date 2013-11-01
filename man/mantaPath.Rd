@@ -1,21 +1,21 @@
 \name{mantaPath}
 \alias{mantaPath}
-\title{Given a manta object, returns full path}
+\title{Given a user typed path or object name, returns full path,
+does not validate object is there, assumes it is in current subdir}
 \usage{
-  mantaPath(m_object, check = FALSE)
+  mantaPath(m_path)
 }
 \arguments{
-  \item{m_object}{string, required. Manta object}
-
-  \item{check}{logical, optional. Set to TRUE to verify
-  that object exists on storage, returns empty string if
-  absent.}
+  \item{m_path}{string, required. Manta object}
 }
 \value{
-  String with full Manta path to object.
+  String with full Manta path to object or empty string ""
+  as processed by curlEscape with / left in
 }
 \description{
-  Given a manta object, returns full path
+  Given a user typed path or object name, returns full
+  path, does not validate object is there, assumes it is in
+  current subdir
 }
 \keyword{Manta,}
 \keyword{manta}

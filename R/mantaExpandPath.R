@@ -12,7 +12,6 @@
 #'
 #' @keywords Manta, manta
 #'
-#' @export
 mantaExpandPath <-
 function(m_path, verbose = FALSE) {
     # handle ~~ expansion

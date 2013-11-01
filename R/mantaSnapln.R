@@ -19,22 +19,9 @@ function(from, to) {
      return(FALSE)
     }
 
-    from_path_enc <- mantaExpandPath(from)
-    if (from_path_enc == "") {
-      # no valid path prefix, assume the cwd prefix intended
-      path <- paste(mantaGetwd(), from, sep ="/")
-      path <- sub("//","/",path) # if user already put in / added by sep above
-      from_path_enc <- mantaExpandPath(path)
-    }
+    from_path_enc <- mantaPath(from)
 
-    to_path_enc <- mantaExpandPath(to)
-    if (to_path_enc == "") {
-      # no valid path prefix, assume the cwd prefix intended
-      path <- paste(mantaGetwd(), to, sep ="/")
-      path <- sub("//","/",path) # if user already put in / added by sep above
-      to_path_enc <- mantaExpandPath(path)
-    }
-
+    to_path_enc <- mantaPath(to)
 
     if ((from_path_enc != "") && (to_path_enc != "")) {
      headers <- c('content-type' = "application/json; type=link",
