@@ -6,6 +6,11 @@
 #' @export
 mantaGetwd <-
 function() {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
   cwd <- manta_globals$manta_cwd
-  return (cwd)
+  return(curlUnescape(cwd))
 }

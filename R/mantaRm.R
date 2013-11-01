@@ -10,16 +10,22 @@
 #' @export
 mantaRm <-
 function(mantapath) {
- if (missing(mantapath)) {
-     cat("mantaRSDK:mantaRm Error - no Manta object or path to object specified")
-     return(FALSE)
-    }
 
-    path_enc <- mantaPath(mantapath)
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
+ if (missing(mantapath)) {
+   cat("mantaRSDK:mantaRm Error - no Manta object or path to object specified")
+   return(FALSE)
+ }
+
+ path_enc <- mantaPath(mantapath)
    
-    if (path_enc != "") {
-      return(mantaAttempt(action=path_enc, method="DELETE", test = TRUE, returncode="204"))
-    } 
-   
-    return(FALSE)
+ if (path_enc != "") {
+   return(mantaAttempt(action=path_enc, method="DELETE", test = TRUE, returncode="204"))
+ } 
+
+ return(FALSE)
 }

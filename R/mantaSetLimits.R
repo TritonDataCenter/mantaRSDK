@@ -24,6 +24,11 @@
 #' @export
 mantaSetLimits <-
 function(limits, json, verbose=FALSE) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
   if (missing(limits) && missing(json)) {
       stop("mantaSetLimits: No limit information provided.\nSee: mantaGetLimits\n")
   }
@@ -36,7 +41,6 @@ function(limits, json, verbose=FALSE) {
        stop(paste("Invalid JSON content:\n",json,"\n",sep=""))
     }
   }
-
 
   current_values <- manta_globals$manta_defaults
 

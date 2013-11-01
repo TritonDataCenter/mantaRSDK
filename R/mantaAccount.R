@@ -53,6 +53,12 @@
 #' @export
 mantaAccount <-
 function(account, json, verbose=FALSE) {
+
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
   if (missing(account) && missing(json)) {
       stop("mantaAccount: No account information provided.\nSee: help(mantaAccount)\n")
   }

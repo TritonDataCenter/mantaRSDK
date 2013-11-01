@@ -15,31 +15,37 @@
 #' @export
 mantaSetwd <-
 function(mantapath) {
-    if (missing(mantapath)) {
-     cat("mantaRSDK:mantaSetwd Error - no subdirectory specified")
-     return(FALSE)
-    }
-    
-    if (mantapath == "..")  { # can we go up ?
-      # go up one level, but not supporting ../../../ 
-      # a bit janky but useful
-      path <- mantaGetwd()
-      splitpath <- strsplit(path, split="/")
-      path <- paste(splitpath[[1]][-length(splitpath[[1]])], collapse="/")
-      path_enc <- mantaExpandPath(path)
-      # So mantaExpandPath will return "" if user 
-      # tries to go up level from /stor or /public
-      if (path_enc == "") return(FALSE)
-    } else {
-      path_enc <- mantaPath(mantapath)
-    }
 
-    # is it really there ?
-    if (mantaAttempt(action=path_enc, method="GET", test = TRUE, silent = TRUE) == TRUE) {
-      assign("manta_cwd", path_enc, envir=manta_globals)
-      return(TRUE)
-    } else {
-      cat("mantaRSDK:mantaSetwd Cannot change to a missing subdirectory ",mantapath," \n")
-      return(FALSE)
-    }
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
+  if (missing(mantapath)) {
+    cat("mantaRSDK:mantaSetwd Error - no subdirectory specified")
+    return(FALSE)
+  }
+    
+  if (mantapath == "..")  { # can we go up ?
+    # go up one level, but not supporting ../../../ 
+    # a bit janky but useful
+    path <- mantaGetwd()
+    splitpath <- strsplit(path, split="/")
+    path <- paste(splitpath[[1]][-length(splitpath[[1]])], collapse="/")
+    path_enc <- mantaExpandPath(path)
+    # So mantaExpandPath will return "" if user 
+    # tries to go up level from /stor or /public
+    if (path_enc == "") return(FALSE)
+  } else {
+    path_enc <- mantaPath(mantapath)
+  }
+
+  # is it really there ?
+  if (mantaAttempt(action=path_enc, method="GET", test = TRUE, silent = TRUE) == TRUE) {
+    assign("manta_cwd", path_enc, envir=manta_globals)
+    return(TRUE)
+  } else {
+    cat("mantaRSDK:mantaSetwd Cannot change to a missing subdirectory ",mantapath," \n")
+    return(FALSE)
+  }
 }

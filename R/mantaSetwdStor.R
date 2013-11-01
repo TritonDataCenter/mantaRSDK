@@ -6,15 +6,13 @@
 #' @export
 mantaSetwdStor <-
 function() {
-  #  Set Manta working directory to ~~/stor
-  #
-  # Args: none.
-  #
-  # Returns:
-  #
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+  
+  manta_cwd <- "~~/stor"
 
-    manta_cwd <- "~~/stor"
-
-    path_enc <- mantaExpandPath(manta_cwd)
-    assign("manta_cwd", path_enc, envir=manta_globals)
+  path_enc <- mantaExpandPath(manta_cwd)
+  assign("manta_cwd", path_enc, envir=manta_globals)
 }
