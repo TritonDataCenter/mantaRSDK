@@ -6,6 +6,6 @@
 #' @export
 mantaGetwd <-
 function() {
-  cwd <- sub("%20", " ", manta_globals$manta_cwd) 
+  cwd <- manta_globals$manta_cwd
   return (cwd)
 }

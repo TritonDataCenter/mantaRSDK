@@ -41,9 +41,7 @@ function(useEnv = TRUE) {
       stop("mantaRSDK:mantaInitialize environment variable not found: MANTA_URL")
     }
     manta_key_path <- paste("/",manta_user,"/keys/",manta_key_id, sep="")
-    manta_cwd <- paste("/", manta_user, "/stor", sep="")
-
- 
+    manta_cwd <- paste("/",manta_user, "/stor", sep="")
     assign("manta_user", manta_user, envir=manta_globals)
     assign("manta_key_id", manta_key_id, envir=manta_globals)
     assign("manta_key_path", manta_key_path, envir=manta_globals)

@@ -12,6 +12,9 @@ function() {
   #
   # Returns:
   #
-    manta_cwd <- paste("/", manta_globals$manta_user, "/stor", sep="")
-    assign("manta_cwd", manta_cwd, envir=manta_globals)
+
+    manta_cwd <- "~~/stor"
+
+    path_enc <- mantaExpandPath(manta_cwd)
+    assign("manta_cwd", path_enc, envir=manta_globals)
 }

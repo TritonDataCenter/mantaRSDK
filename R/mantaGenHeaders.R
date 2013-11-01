@@ -11,8 +11,6 @@
 #'
 mantaGenHeaders <-
 function() {
-  # TODO: 
-  #   Supply mantaRSDK version number information
 
   alg<-"rsa-sha256"
    

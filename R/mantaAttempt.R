@@ -1,18 +1,19 @@
 # Roxygen Comments mantaAttempt
 #' REST API Manta Caller with exception handling
 #'
-#' Note getURL verbose = TRUE writes to stderr - invisible 
-#' on Windows R. 
 #' mantaAttempt uses the current Manta URL
 #' and the current working manta directory set with
 #' mantaSetwd() and tries to list the directory.
 #' If test == TRUE, it returns pass/fail logical
-#' otherwise it behaves like stat. When action is passed
+#' which can stat a directory or object. When action is passed
 #' a valid path to a Manta object this returns the object
 #' JSON metadata.
 #'
 #' If passed a Manta subdirectory, it returns the directory
 #' JSON according to the length limit set with mantaSetLimits()
+#'
+#' Note getURL verbose = TRUE writes to stderr - invisible 
+#' on Windows R. 
 #'
 #' @param action string, optional. Path to a manta object or
 #' directory. When unspecified, uses current Manta Directory
@@ -22,11 +23,19 @@
 #' "GET", "POST", "OPTIONS", "PUT", "DELETE" or "HEAD" 
 #' from higher level library callers.
 #'
-#' @param json logical, optional. Set to FALSE to return R data
+#' @param headers, array of named strings, optional. The headers
+#' follow the RCurl structure of vector of strings where HTTP 
+#' header tags are the names, values as 
+#' named strings, no semicolons or delimiters.
 #' 
+#' @param returncode, string, optional. Set to expected HTTP
+#' return code, e.g. 200, 204 - used when test is TRUE
+#'
+#' @param json logical, optional. Set to FALSE to return R data
+#'
 #' @param test logical, optional, Set to TRUE to return logical 
-#' TRUE/FALSE the object/directory exists or does not. Also
-#' tests Manta name resolution.
+#' TRUE/FALSE the request passed or failed. Also
+#' tests Manta dns resolution.
 #'
 #' @param verbose logical, optional. Passed to RCurl GetURL, 
 #' Set to TRUE to see background REST communication.
@@ -37,11 +46,11 @@
 #'
 #' @export
 mantaAttempt <-
-function(action, method, json = TRUE, test = FALSE, verbose = FALSE) {
-# TODO mantaExpandPath should be used for action to expand ~~
-# change action to object - look for object (default is to GET object)
-# add (path, object) optional entry points - object in cwd or full path
+function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose = FALSE) {
 
+  if (missing(headers)) headers <- NULL
+  if (missing(returncode)) returncode <- 0
+  
   # If this is the first export function called in the library
   if (manta_globals$manta_initialized == FALSE) {
     mantaInitialize(useEnv = TRUE)
@@ -57,13 +66,13 @@ function(action, method, json = TRUE, test = FALSE, verbose = FALSE) {
     manta_do <- action
   } 
 
-  # Method groups
+  # Note about mapping of HTTP methods to Manta function groups (Node.js names)
   # "GET" mls, mget, mjob (list, get, outputs, errors, failures, inputs)
   # "POST" mjob (create, add, end input, cancel)
   # "PUT" mmkdir, mln, mput
   # "DELETE" mrm, mrmdir
-  # "OPTIONS" CORS
-  # "HEAD" mls
+  # "OPTIONS" used for CORS headers
+  # "HEAD" possible to use for mls to get directory length
 
   if (missing(method)) {
       curl_method <- "GET"
@@ -86,7 +95,7 @@ function(action, method, json = TRUE, test = FALSE, verbose = FALSE) {
   
   reply <- tryCatch(getURL(manta_call, 
                            curl = curl_handle,
-                           httpheader = mantaGenHeaders(), 
+                           httpheader = c(headers, mantaGenHeaders()), 
                            verbose = verbose, 
                            header = TRUE, 
                            customrequest = curl_method,
@@ -121,12 +130,22 @@ function(action, method, json = TRUE, test = FALSE, verbose = FALSE) {
    body_lines <- c("")
    no_body <- TRUE
   }
-  return_code = ""
-  return_string <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ] 
-  return_code <- strsplit(return_string, split=" ")[[1]][2]
+  returned_code = ""
+  returned_string <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ] 
+  returned_code <- strsplit(returned_string, split=" ")[[1]][2]
+
+
+  # for HTTP calls like DELETE that return no data.
+  if ((returncode != 0) && (test == TRUE)) {
+    if (as.integer(returned_code) == returncode) {
+      return(TRUE)
+    } else {
+      return(FALSE)
+    }
+  }
 
   # Server Error Responses
-  if (as.integer(return_code) >= 400) {
+  if (as.integer(returned_code) >= 400) {
     if (isValidJSON(body_lines[[1]], asText = TRUE)) {
       values <- fromJSON(body_lines[[1]])
 
@@ -142,7 +161,7 @@ function(action, method, json = TRUE, test = FALSE, verbose = FALSE) {
       cat("\n") 
     } else {  
       # not valid JSON returned, just return the error code...
-      cat(paste("mantaRSDK:mantaAttempt Unrecognized - Server Error Code: ", return_string, "\n", sep=" "))         
+      cat(paste("mantaRSDK:mantaAttempt Unrecognized - Server Error Code: ", returned_string, "\n", sep=" "))         
     } 
    
     if (test == TRUE) { 
