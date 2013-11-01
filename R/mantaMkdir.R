@@ -25,7 +25,7 @@ function(mantapath, p = FALSE) {
     }
 
     # is it already there?
-    if (mantaAttempt(action=path_enc, method="GET", test = TRUE) == TRUE) {
+    if (mantaAttempt(action=path_enc, method="GET", test = TRUE, silent = TRUE) == TRUE) {
          return(TRUE)  
     } 
 

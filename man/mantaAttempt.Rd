@@ -3,7 +3,8 @@
 \title{REST API Manta Caller with exception handling}
 \usage{
   mantaAttempt(action, method, headers, returncode,
-    json = TRUE, test = FALSE, verbose = FALSE)
+    json = TRUE, test = FALSE, verbose = FALSE,
+    silent = FALSE)
 }
 \arguments{
   \item{action}{string, optional. Path to a manta object or
@@ -32,6 +33,10 @@
 
   \item{verbose}{logical, optional. Passed to RCurl GetURL,
   Set to TRUE to see background REST communication.}
+
+  \item{silent}{logical, optional. Silences 400 error
+  messages that are ok when looking at object/subdir with
+  test = TRUE}
 }
 \value{
   The Manta reply encoded in JSON or as R data

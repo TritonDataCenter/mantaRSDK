@@ -40,13 +40,16 @@
 #' @param verbose logical, optional. Passed to RCurl GetURL, 
 #' Set to TRUE to see background REST communication.
 #' 
+#' @param silent logical, optional. Silences 400 error messages
+#' that are ok when looking at object/subdir with test = TRUE
+#'
 #' @return The Manta reply encoded in JSON or as R data
 #'
 #' @keywords Manta, manta
 #'
 #' @export
 mantaAttempt <-
-function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose = FALSE) {
+function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose = FALSE, silent = FALSE) {
 
   if (missing(headers)) headers <- NULL
   if (missing(returncode)) returncode <- 0
@@ -135,7 +138,7 @@ function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose
   returned_code <- strsplit(returned_string, split=" ")[[1]][2]
 
 
-  # for HTTP calls like DELETE that return no data.
+  # for HTTP calls like DELETE that return no data and return a specific OK code
   if ((returncode != 0) && (test == TRUE)) {
     if (as.integer(returned_code) == returncode) {
       return(TRUE)
@@ -144,8 +147,16 @@ function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose
     }
   }
 
+
+
+
   # Server Error Responses
   if (as.integer(returned_code) >= 400) {
+     # Some 400 error messages we don't care to see, just bail 
+     if  ((silent == TRUE) && (test == TRUE)) {
+        return(FALSE)
+     }
+
     if (isValidJSON(body_lines[[1]], asText = TRUE)) {
       values <- fromJSON(body_lines[[1]])
 
@@ -163,9 +174,9 @@ function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose
       # not valid JSON returned, just return the error code...
       cat(paste("mantaRSDK:mantaAttempt Unrecognized - Server Error Code: ", returned_string, "\n", sep=" "))         
     } 
-   
-    if (test == TRUE) { 
-      return(FALSE) 
+
+    if (test == TRUE) {
+      return(FALSE)
     } else {
       return("")
     }
