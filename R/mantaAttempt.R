@@ -31,6 +31,13 @@
 #' @param returncode, string, optional. Set to expected HTTP
 #' return code, e.g. 200, 204 - used when test is TRUE
 #'
+#' @param limit, numeric, optional. Set to limit number of
+#' returned listed JSON lines - number of directory entries
+#' Otherwise uses default value in mantaSetLimits
+#'
+#' @param marker, string, optional. Name or id string of
+#' directory entry to start next listing of length limit
+#'
 #' @param json logical, optional. Set to FALSE to return R data
 #'
 #' @param test logical, optional, Set to TRUE to return logical 
@@ -49,9 +56,10 @@
 #'
 #' @export
 mantaAttempt <-
-function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose = FALSE, silent = FALSE) {
+function(action, method, headers, returncode, limit, marker, json = TRUE, test = FALSE, verbose = FALSE, silent = FALSE) {
 
   if (missing(headers)) headers <- NULL
+
   if (missing(returncode)) returncode <- 0
   
   # If this is the first export function called in the library
@@ -95,7 +103,30 @@ function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose
 
   manta_call <- paste(manta_globals$manta_url, manta_do, sep="")
 
-  
+  queries <- 0
+  if (!missing(limit)) {
+    q_limit <- paste("limit=",limit,sep="")
+    queries <- queries + 1
+  } else q_limit <- ""
+
+  if (!missing(marker)) {
+    q_marker <- paste("marker=",marker,sep="")
+    queries <- queries + 1
+  } else q_marker <- ""
+
+   if (queries >  0) manta_call <- paste(manta_call,"?",sep="")
+   if (queries == 1) manta_call <- paste(manta_call, q_marker, q_limit, sep="")
+   if (queries == 2) manta_call <- paste(manta_call, q_marker, "&", q_limit, sep="")
+
+
+    
+#
+#  limit and marker go in query string... appended to manta_call
+#  ?limit=1000&marker=00026001.jpg
+#
+
+
+ 
   reply <- tryCatch(getURL(manta_call, 
                            curl = curl_handle,
                            httpheader = c(headers, mantaGenHeaders()), 
@@ -116,7 +147,7 @@ function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose
     if (test == TRUE) {
       return( FALSE )
     } else {  # empty string
-      return("")
+      return(list(count = 0, lines = ""))
     }
   }
 
@@ -178,7 +209,7 @@ function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose
     if (test == TRUE) {
       return(FALSE)
     } else {
-      return("")
+      return(list(count = 0, lines = ""))
     }
   }
     
@@ -203,25 +234,20 @@ function(action, method, headers, returncode, json = TRUE, test = FALSE, verbose
    return(TRUE) 
   }
 
-    
+
   # For Manta Subdirectory listings - get the number of entries
   result_set_count <- 0
   result_set_size <- header_lines[[1]][ charmatch("Result-Set-Size",header_lines[[1]]) ]
   if (nchar(result_set_size) != 0) {
     result_set_count <- as.integer(strsplit(result_set_size, split=" ")[[1]][2])
   }
+  
 
-    # use >= 0 here? 
-    #  if ((result_set_count > 0) && (result_set_count <= 256)) {
-    #  # nothing for the moment
-    #  } else {
-    #    cat("More than 256 entries, gather up to some limit\n")
-    #  }
-
+  #Return a list with count, lines
   if ((json == TRUE) || (no_body ==TRUE)) {
-    return(body_lines[[1]])
+    return(list(count = result_set_count, lines = body_lines[[1]]))
   } else {
-    return(lapply(body_lines[[1]],fromJSON))
+    return(list(count = result_set_count, lines = lapply(body_lines[[1]],fromJSON)))
   }
 
 }

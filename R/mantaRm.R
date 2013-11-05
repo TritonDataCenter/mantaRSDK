@@ -27,5 +27,7 @@ function(mantapath) {
    return(mantaAttempt(action=path_enc, method="DELETE", test = TRUE, returncode="204"))
  } 
 
+ #TODO Recursive removal of directory... after mls 
+
  return(FALSE)
 }

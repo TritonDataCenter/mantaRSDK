@@ -7,10 +7,10 @@ still contains the object contents at time of creation.}
   mantaSnapln(from, to)
 }
 \arguments{
-  \item{from}{string, requireed. Object in current
+  \item{from}{string, required. Object in current
   subdirectory or full Manta path to stored object.}
 
-  \item{to}{string, requireed. Snaplink name in current
+  \item{to}{string, required. Snaplink name in current
   subdirectory or full Manta path to the new SnapLink..}
 }
 \description{

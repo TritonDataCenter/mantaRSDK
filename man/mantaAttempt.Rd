@@ -2,8 +2,8 @@
 \alias{mantaAttempt}
 \title{REST API Manta Caller with exception handling}
 \usage{
-  mantaAttempt(action, method, headers, returncode,
-    json = TRUE, test = FALSE, verbose = FALSE,
+  mantaAttempt(action, method, headers, returncode, limit,
+    marker, json = TRUE, test = FALSE, verbose = FALSE,
     silent = FALSE)
 }
 \arguments{
@@ -23,6 +23,13 @@
 
   \item{returncode,}{string, optional. Set to expected HTTP
   return code, e.g. 200, 204 - used when test is TRUE}
+
+  \item{limit,}{numeric, optional. Set to limit number of
+  returned listed JSON lines - number of directory entries
+  Otherwise uses default value in mantaSetLimits}
+
+  \item{marker,}{string, optional. Name or id string of
+  directory entry to start next listing of length limit}
 
   \item{json}{logical, optional. Set to FALSE to return R
   data}

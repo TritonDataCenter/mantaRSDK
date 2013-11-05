@@ -3,10 +3,10 @@
 #' If the original object is overwritten/deleted, the SnapLink
 #' still contains the object contents at time of creation.
 #'
-#' @param from string, requireed. Object in current subdirectory
+#' @param from string, required. Object in current subdirectory
 #' or full Manta path to stored object.
 #'
-#' @param to string, requireed. Snaplink name in current subdirectory
+#' @param to string, required. Snaplink name in current subdirectory
 #' or full Manta path to the new SnapLink..
 #'
 #' @keywords Manta, manta

@@ -116,14 +116,14 @@ function(useEnv = TRUE) {
 
   assign("manta_error_classes", manta_error_classes, envir=manta_globals)
 
-  # we are at 10^6 directory entries per folder, so max_limit is set to that
-  # ruby api sets it to 1000.
+  # we are at 10^6 directory entries per folder, so max_limit is set as per
+  # ruby api to 1000.
 
 
   # some functions to get / set these are in order when they are 
   # actually in use.
   manta_defaults <- list(attempts = 3, connect_timeout = 5, send_timeout = 60, 
-                         receive_timeout = 60, max_limit = 1000000)
+                         receive_timeout = 60, max_limit = 1000)
 
   assign("manta_defaults", manta_defaults, envir=manta_globals)
 

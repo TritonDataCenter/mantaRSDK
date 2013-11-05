@@ -79,3 +79,5 @@ Collate:
     'mantaAccount.R'
     'mantaGetLimits.R'
     'mantaSetLimits.R'
+    'mantaSetwdJobs.R'
+    'mantaSetwdReports.R'

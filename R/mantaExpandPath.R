@@ -31,10 +31,19 @@ function(m_path, verbose = FALSE) {
     lead <- paste("/",manta_globals$manta_user, sep="")
     lead_stor <- paste(lead, "/stor", sep="")
     lead_public <- paste(lead, "/public", sep="")
-    if ( (is.na(charmatch(lead_stor,path))) && (is.na(charmatch(lead_public,path)))) {
+    lead_jobs <- paste(lead, "/jobs", sep="")
+    lead_reports <- paste(lead, "/reports", sep="")
+    if ( (is.na(charmatch(lead_stor,path))) && 
+         (is.na(charmatch(lead_public,path))) &&
+         (is.na(charmatch(lead_jobs,path))) &&
+         (is.na(charmatch(lead_reports,path)))
+       ) {
       if (verbose == TRUE) {
         cat("mantaRSDK:mantaExpandPath Error - Invalid subdirectory specified - must begin with:\n",
-           lead_stor, " -or- ", lead_public, "\n")
+           lead_stor, " -or- ", 
+           lead_public, " -or- ",
+           lead_jobs, " -or- ",
+           lead_reports, "\n")
       }
       return("")
     }
