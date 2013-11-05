@@ -1,5 +1,6 @@
 export(mantaAccount)
 export(mantaAttempt)
+export(mantaFind)
 export(mantaGetLimits)
 export(mantaGetwd)
 export(mantaLs)

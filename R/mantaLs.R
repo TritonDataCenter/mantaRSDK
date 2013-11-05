@@ -167,19 +167,9 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
   # Parse entries into Rstyle to normalize
   entries <- lapply(entries, Rstyle)
   
-  # Callback to get directory names from R entries
-  getnames <- function(line) { 
-    if (!is.na(charmatch("name", names(line)))) {
-      return(line$name)
-    }
-    if (!is.na(charmatch("id", names(line)))) {
-      return(line$id)
-    }
-  }
-
   # Regexp of names - strongest filter first...
   if (!missing(grepfor)) {
-      names <- unlist(lapply(entries, getnames))
+      names <- unlist(lapply(entries, mantagetnames))
       entries <- entries[grep(grepfor, names, ignore.case=ignore.case, perl=perl )]
   }
 
@@ -208,37 +198,6 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
 
   if (length(entries) == 0) { return("") }  # nothing left after filter
 
-  # Line formatting callbacks
-  liststyle <- function(line) {
-    if (!is.na(charmatch("name", names(line)))) {
-      return(paste(line$name, sep="") )
-    }
-    if (!is.na(charmatch("id", names(line)))) { 
-      return(paste(line$id,  sep="") )
-    }
-  }
-
-  # long style listing callback
-  verbosestyle <- function(line) { # mimic of ln -o but some of this is static
-    time_now <- as.POSIXlt(Sys.time(), "UTC")
-    # more than 6 months, show year instad of time
-    if ( as.numeric(as.difftime(182.5, units = 'days')) > as.numeric(difftime(time_now, line$mtime, units = 'days')) ) {
-      time <- format(line$mtime, "%d %b %H:%m")
-    } else {
-      time <- format(line$mtime, "%d %b  %Y")
-    }
-    if (line$type == "directory")  {
-      dn <- "d"
-    } else {
-      dn <- "-"
-    }
-    permissions <- paste(dn,"rwxr-xr-x",sep="")
-    size <- sprintf("%14s",line$size)
-    links <- "1"
-    owner <- manta_globals$manta_user
-    return( paste(permissions, links, owner, size, time, line$name, sep=" ") )
-  }
-
   # Full pathname callback
   pliststyle <- function(line) {
     if (!is.na(charmatch("name",names(line)))) {
@@ -249,20 +208,15 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
     }
   } 
 
-  # Disk Use callback
-  dusize <- function(line) {
-    return(line$size)
-  }
-
   switch(l,
     R={
       lines <- entries
     },
     names={
-      lines <- lapply(entries, liststyle)
+      lines <- lapply(entries, mantaliststyle)
     },
     l={
-      lines <- lapply(entries, verbosestyle)
+      lines <- lapply(entries, mantaunixstyle)
     },
     paths={
       lines <- lapply(entries, pliststyle)
@@ -274,22 +228,9 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
     du={
     # return disk size utilized of entries, in bytes
     # not factoring in number of reduncant copies
-      return(sum(unlist(lapply(entries, dusize))))
+      return(sum(unlist(lapply(entries, mantadusize))))
     }
   ) 
-
-
-###  Sorting directory entries
-
-# Callbacks to get sort field values from entries
-
-  gettime<- function(line) { 
-    return(line$mtime) 
-  }
-
-  getsize<- function(line) {
-    return(line$size)
-  }
 
 
 ### Sorted/filtered R entries or formatted lines
@@ -298,15 +239,15 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
     none={
     },
     name={
-      names <- lapply(entries, getnames)
+      names <- lapply(entries, mantagetnames)
       lines <- lines[order(unlist(names), decreasing = decreasing)]
     },
     size={
-      sizes <- lapply(entries, getsize)
+      sizes <- lapply(entries, mantagetsize)
       lines <- lines[order(unlist(sizes), decreasing = decreasing)]
     },
     time={
-      times <- lapply(entries, gettime)
+      times <- lapply(entries, mantagettime)
       times <- do.call(c,times) # Keeps the  R time structure for sorting...
       lines <- lines[order(times, decreasing = decreasing)]
     }
