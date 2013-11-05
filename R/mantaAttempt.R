@@ -133,6 +133,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
                            verbose = verbose, 
                            header = TRUE, 
                            customrequest = curl_method,
+                           .encoding = 'UTF-8',
                            timeout = curl_timeout),
                     COULDNT_RESOLVE_HOST = function(e) {
                            cat("mantaRSDK:mantaAttempt:getURL Cannot Resolve Manta Host at\n ", 
