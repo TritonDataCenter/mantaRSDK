@@ -1,4 +1,6 @@
-
+# TODO: 
+#   Windows openssl / or use R libraries
+#   Some kind of test to see if temp_digest.bin was formed 
 # Roxygen Comments mantaGenSignature
 #' Get time, digest and encrypt for HTTPS authentication
 #'
@@ -12,9 +14,6 @@
 #'
 mantaGenSignature <-
 function() {
-  # TODO: 
-  #   Windows openssl / or use R libraries
-  #   Some kind of test to see if temp_digest.bin was formed 
 
   openssl_cmd <- "openssl"
   digest_args <- paste("dgst -sha256 -sign", 

@@ -22,7 +22,7 @@ function(mantapath) {
   }
 
   if (missing(mantapath)) {
-    cat("mantaRSDK:mantaSetwd Error - no subdirectory specified")
+    cat("mantaSetwd Error - no subdirectory specified")
     return(FALSE)
   }
     
@@ -42,10 +42,12 @@ function(mantapath) {
 
   # is it really there ?
   if (mantaAttempt(action=path_enc, method="GET", test = TRUE, silent = TRUE) == TRUE) {
-    assign("manta_cwd", path_enc, envir=manta_globals)
+    assign("manta_cwd", path_enc, envir = manta_globals)
     return(TRUE)
   } else {
-    cat("mantaRSDK:mantaSetwd Cannot change to a missing subdirectory ",mantapath," \n")
+    msg <- paste("mantaSetwd Cannot change to a missing subdirectory ", mantapath, sep="")
+    bunyanLog.info(msg)
+    cat(msg,"\n")
     return(FALSE)
   }
 }

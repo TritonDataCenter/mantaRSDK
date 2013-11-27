@@ -11,13 +11,14 @@
 #' @param grepfor string optional. Regular expression passed to R grep for name search 
 #'
 #' @param l string optional. Specifies listing output format by  'names', 'l', 'paths', 
-#' 'n', 'du', 'R', 'Rraw', 'json'.
+#' 'URL', 'n', 'du', 'R', 'Rraw', 'json'.
 #' 'names' returns object/directory names.
 #' 'l' is a long ls -o  style of directory listing.
 #' 'paths' is a listing of full Manta object pathnames.
 #' 'n' is the number of entries in the directory only.
 #' 'du' is the number of bytes used by objects (not counting redundancy levels!).
 #' 'R' is normalized R structures from JSON with size = 0 for directories, 
+#' 'URL' is the browser format URL for object, access applies to ~~/public/ objects only
 #'  mtime in R time format.
 #' 'Rraw' is R struct unparsed, unsorted, unnormalized, 
 #'  can convert back to json with toJSON.
@@ -39,12 +40,15 @@
 #' used for reprocessing previously retrieved listings with specified
 #' mantapath if you wish to recover true 'paths'.
 #'
+#' @param internal logical, Internal use by mantaFind.
+#'
 #' @keywords Manta, manta
 #'
 #' @export
 mantaLs <-
 function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none', 
-          decreasing = FALSE, ignore.case = FALSE, perl = FALSE, verbose = FALSE) {
+          decreasing = FALSE, ignore.case = FALSE, perl = FALSE, verbose = FALSE,
+          internal = FALSE) {
 ## TODO stat mantapath if entered to see if it is an object, so don't send a GET object...
 
   # If this is the first export function called in the library
@@ -52,13 +56,14 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
     mantaInitialize(useEnv = TRUE)
   }
 
+
   if (missing(mantapath)) {
       mantapath <- mantaGetwd()
   }
 
   path_enc <- mantaPath(mantapath)
 
-  validl <- c('names', 'l', 'paths', 'n', 'du', 'R', 'Rraw', 'json')
+  validl <- c('names', 'l', 'paths', 'n', 'du', 'URL', 'R', 'Rraw', 'json')
   validsortby <- c('none', 'name', 'time', 'size')
   validitems <- c('a', 'd', 'o')
   
@@ -76,13 +81,19 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
 
 #cat(method, "- is the method used\n")
 
+    if (internal == FALSE) { # User calling mantaLs, not mantaFind
+      bunyanClearSetpoint()
+      bunyanSetpoint()
+    }
 
 #cat(limit, "-is the limit used\n")
  
     if (path_enc != "") {
       dir <- mantaAttempt(action=path_enc, method=method, json=TRUE, limit=limit, verbose=verbose)
     } else {
-      stop("mantaRSDK:mantaLS: path to list is invalid ", mantapath,"\n") 
+      msg <- paste("mantaLS: path to list is invalid ", mantapath,"\n",sep="")
+      bunyanLog.error(msg) 
+      stop(msg)
     }
 
 #cat("\n\n first HTTP call done\n")
@@ -106,7 +117,7 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
       return("")
 
   
-    # marker is the object name in the directory to begin from that point
+   # marker is the object name in the directory to begin from that point
    # limit changes the maximum number of entries - mantaSetLimits has default
 
 
@@ -122,6 +133,14 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
       setsofar <- length(entries) 
 #cat(setsofar,":",setsize," - are setsofar:setsize")
     }
+    if (internal == FALSE) { # User calling mantaLs, not mantaFind
+      errorcount <- bunyanTracebackN(level='ERROR')
+      if (errorcount > 0) {
+        msg <- paste("mantaLs: ",errorcount, " transmission Errors encountered, use bunyanTraceback(level='ERROR') to view\n")
+        bunyanLog.info(msg)
+        cat(msg)
+      }
+   }
  } else { # Input is previously retrieved JSON listing, so use that
    entries <- json
  }
@@ -208,6 +227,10 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
     }
   } 
 
+  urlstyle <-function(line) {
+    return(paste(manta_globals$manta_url,pliststyle(line),sep=""))
+  }
+
   switch(l,
     R={
       lines <- entries
@@ -217,6 +240,9 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
     },
     l={
       lines <- lapply(entries, mantaunixstyle)
+    },
+    URL={
+      lines <- lapply(entries, urlstyle)
     },
     paths={
       lines <- lapply(entries, pliststyle)

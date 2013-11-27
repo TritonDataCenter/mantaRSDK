@@ -1,3 +1,0 @@
-mantaError <-
-function() {
-}

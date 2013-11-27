@@ -8,7 +8,14 @@ UNDER CONSTRUCTION
 Currently you need a working Manta account, 
 Unix/Linux/Windows R, environment variables set for Manta use, 
 and openSSL installed and working. 
+
 If you have the Node.js manta CLI working, this should work.
+
+
+### Windows Installation
+install_github() requires Rtools in addition to the R package 
+http://cran.r-project.org/bin/windows/Rtools
+
 
 
 ### From R ###
@@ -16,7 +23,7 @@ If you have the Node.js manta CLI working, this should work.
 
 Install:
 ```
-install.packages(devtools)
+install.packages("devtools")
 library(devtools)
 install_github("mantaRSDK", username="cwvhogue")
 ```

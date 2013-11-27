@@ -1,10 +1,10 @@
-\name{mantaFind}
-\alias{mantaFind}
-\title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy}
+\name{mantaFind.du}
+\alias{mantaFind.du}
+\title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy
+Output is disk utilized in bytes NOT counting redundancy levels}
 \usage{
-  mantaFind(mantapath, grepfor, entries, l = "paths",
-    items = "o", level = 0, sortby = "none", findroot = 1,
-    decreasing = FALSE, ignore.case = FALSE, perl = FALSE,
+  mantaFind.du(mantapath, grepfor, entries, items = "o",
+    level = 0, ignore.case = FALSE, perl = FALSE,
     verbose = FALSE, info = TRUE)
 }
 \arguments{
@@ -19,21 +19,6 @@
   reprocessing/reformatting retrieved R tree information
   saved with mantaFind(l='R')->tree}
 
-  \item{l}{string optional. Specifies listing output format
-  by 'paths', 'n', 'du', 'R' 'paths' is a listing of full
-  Manta object pathnames needed for mantaJobs 'l' is a
-  Unix-y listing style with full pathnames 'sizes' is a
-  listing of sizes in bytes, no pathnames 'size_path' is a
-  listing of size [space] path 'URL' is a listing of the
-  URLs (access applies to objects in ~~/public/ only) 'n'
-  is the number of entries found 'du' is the number of
-  bytes used by objects (not counting redundancy levels!).
-  'R' is the R object collected by find with mtime parsed,
-  full path names mantaFind(l='R') -> tree saves the
-  directory tree for rerocessing with mantaFind(mantapath,
-  entries = tree, ...) Parameters grepfor and items are
-  ignored on reprocessed trees.}
-
   \item{items}{string optional. 'a' for all, 'd' for
   directory, 'o' for object. Ignored for reprocessed trees}
 
@@ -42,12 +27,6 @@
   depth of the hierarchical directory search. If level <=
   0, search depth is unrestricted. Level parameter is
   ignored on reprocessed search trees.}
-
-  \item{sortby}{string, optional. Specify 'none', 'name',
-  'time', or 'size'.}
-
-  \item{decreasing}{logical, optional. Argument passed to R
-  order for sorting.}
 
   \item{ignore.case}{logical, optional. Argument passed to
   R grep for searching.}
@@ -60,9 +39,6 @@
 
   \item{info}{logical, optional. Print status message about
   child path progress.}
-
-  \item{findroot}{integer, internal. Indicates nested
-  calls, not to be used.}
 }
 \description{
   Searching for object or directory names with regular

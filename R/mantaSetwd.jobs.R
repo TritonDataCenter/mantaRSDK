@@ -1,16 +1,16 @@
-# Roxygen Comments mantaSetwdReports
-#' Sets Manta working directory to ~~/reports
+# Roxygen Comments mantaSetwd.jobs
+#' Sets Manta working directory to ~~/jobs
 #'
 #' @keywords Manta, manta
 #'
 #' @export
-mantaSetwdReports <-
+mantaSetwd.jobs <-
 function() {
   # If this is the first export function called in the library
   if (manta_globals$manta_initialized == FALSE) {
     mantaInitialize(useEnv = TRUE)
   }
-  manta_cwd <- "~~/reports"
+  manta_cwd <- "~~/jobs"
   path_enc <- mantaExpandPath(manta_cwd)
   assign("manta_cwd", path_enc, envir=manta_globals)
 }

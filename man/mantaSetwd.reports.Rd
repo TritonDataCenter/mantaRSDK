@@ -1,8 +1,8 @@
-\name{mantaSetwdReports}
-\alias{mantaSetwdReports}
+\name{mantaSetwd.reports}
+\alias{mantaSetwd.reports}
 \title{Sets Manta working directory to ~~/reports}
 \usage{
-  mantaSetwdReports()
+  mantaSetwd.reports()
 }
 \description{
   Sets Manta working directory to ~~/reports

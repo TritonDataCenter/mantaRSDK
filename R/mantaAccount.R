@@ -1,7 +1,4 @@
-# TODO.  Read account information from saved file
-#        Refactor mantaInit/mantaInitialize to be called from mantaAccount 
-#        for Windows support
-#        Test mantademo / cwvhogue switching Unix/Windows
+# TODO.  bunyan-ify errors
 #
 # Roxygen Comments mantaAccount
 #' Changes current Manta account information 

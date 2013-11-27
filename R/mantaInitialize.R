@@ -13,6 +13,7 @@
 mantaInitialize <-
 function(useEnv = TRUE) {
   warn <- FALSE
+  bunyanSetLog(level = 'TRACE', logfile = "mantaRSDK.log", memlines = 1000)
   if (useEnv == TRUE) {
     # The default openssl location
     if (.Platform$OS.type == "unix") {
@@ -22,23 +23,31 @@ function(useEnv = TRUE) {
       # Windows 
       homedrive <- Sys.getenv("HOMEDRIVE")
       homepath <- Sys.getenv("HOMEPATH")
-      ssl_key_path <- paste(homedrive,homepath,"\\.ssh\\id_rsa", sep="")
+      ssl_key_path <- paste(homedrive, homepath, "\\.ssh\\id_rsa", sep="")
     }
     if (file.exists(ssl_key_path) != TRUE) {
-      cat(paste("mantaRSDK:mantaInitialize  Warning: - private key not found at:", "\n", ssl_key_path,
-          "\n See help(mantaAccount) help(mantaWhoami)", sep=""))
+      msg <- paste("mantaInitialize - private key not found at:", "\n", ssl_key_path,
+          "\n See help(mantaAccount) help(mantaWhoami)", sep="")
+      cat(msg)
+      bunyanLog.error(msg = msg)
     }
     manta_user <- Sys.getenv("MANTA_USER")
     if (nchar(manta_user) == 0) {
-      stop("mantaRSDK:mantaInitialize environment variable not found: MANTA_USER")
+      msg <- "mantaInitialize environment variable not found: MANTA_USER"
+      bunyanLog.error(msg = msg)
+      stop(msg)
     }
     manta_key_id <- Sys.getenv("MANTA_KEY_ID")
     if (nchar(manta_key_id) == 0) {
-      stop("mantaRSDK:mantaInitialize environment variable not found: MANTA_KEY_ID")
+      msg <- "mantaInitialize environment variable not found: MANTA_KEY_ID"
+      bunyanLog.error(msg = msg)
+      stop(msg)
     }
     manta_url <- Sys.getenv("MANTA_URL")
     if (nchar(manta_user) == 0) {
-      stop("mantaRSDK:mantaInitialize environment variable not found: MANTA_URL")
+      msg <- "mantaInitialize environment variable not found: MANTA_URL"
+      bunyanLog.error(msg = msg)
+      stop(msg)
     }
     manta_key_path <- paste("/",manta_user,"/keys/",manta_key_id, sep="")
     manta_cwd <- paste("/",manta_user, "/stor", sep="")
@@ -50,22 +59,42 @@ function(useEnv = TRUE) {
     assign("ssl_key_path", ssl_key_path, envir=manta_globals)
   } else {
     # This is an update call from mantaAccount - requires all six values set.
-    if (nchar(manta_globals$manta_user) == 0)
-      stop("mantaRSDK:mantaAccount:mantaInitialize Error - No initial Manta username set.\n See help(mantaAccount)\n")
-    if (nchar(manta_globals$manta_key_id) == 0)
-      stop("mantaRSDK:mantaAccount:mantaInitialize Error - No initial Manta Key ID set.\n See help(mantaAccount)\n")
-    if (nchar(manta_globals$manta_url) == 0)
-      stop("mantaRSDK:mantaAccount:mantaInitialize Error - No initial Manta URL set.\n See help(mantaAccount)\n")
-    if (nchar(manta_globals$ssl_key_path) == 0)
-      stop("mantaRSDK:mantaAccount:mantaInitialize Error - No initial SSH key location set.\n See help(mantaAccount)\n")
-    if (nchar(manta_globals$manta_key_path) == 0)
-      stop("mantaRSDK:mantaAccount:mantaInitialize Internal Error - Manta key path not set.\n See help(mantaAccount)\n")
-    if (nchar(manta_globals$manta_cwd) == 0)
-      stop("mantaRSDK:mantaAccount:mantaInitialize Internal Error - Manta cwd not set.\n See help(mantaAccount)\n")
+    if (nchar(manta_globals$manta_user) == 0) {
+      msg <- "mantaAccount:mantaInitialize Error - No initial Manta username set.\n See help(mantaAccount)\n"
+      bunyanLog.error(msg = msg)
+      stop(msg)
+    }
+    if (nchar(manta_globals$manta_key_id) == 0) {
+      msg <- "mantaAccount:mantaInitialize Error - No initial Manta Key ID set.\n See help(mantaAccount)\n"
+      bunyanLog.error(msg = msg)
+      stop(msg)
+    }
+    if (nchar(manta_globals$manta_url) == 0) {
+      msg <- "mantaAccount:mantaInitialize Error - No initial Manta URL set.\n See help(mantaAccount)\n"
+      bunyanLog.error(msg = msg)
+      stop(msg)
+    }
+    if (nchar(manta_globals$ssl_key_path) == 0) {
+      msg <- "mantaAccount:mantaInitialize Error - No initial SSH key location set.\n See help(mantaAccount)\n"
+      bunyanLog.error(msg = msg)
+      stop(msg)
+    }
+    if (nchar(manta_globals$manta_key_path) == 0) {
+      msg <- "mantaAccount:mantaInitialize Internal Error - Manta key path not set.\n See help(mantaAccount)\n"
+      bunyanLog.error(msg = msg)
+      stop(msg)
+    }
+    if (nchar(manta_globals$manta_cwd) == 0) {
+      msg <- "mantaAccount:mantaInitialize Internal Error - Manta cwd not set.\n See help(mantaAccount)\n"
+      bunyanLog.error(msg = msg)
+      stop(msg)
+    }
     # Find the specified SSH key file or warn user to fix it...
     if (file.exists(manta_globals$ssl_key_path) != TRUE) {
-      cat(paste("mantaRSDK:mantaAccount:mantaInitialize - Warning - private SSH key file not found at:", 
-                 "\n", manta_globals$ssl_key_path, "\n See help(mantaAccount)\n", sep=""))
+      msg <- paste("mantaAccount:mantaInitialize - Warning - private SSH key file not found at:", 
+                 "\n", manta_globals$ssl_key_path, "\n See help(mantaAccount)\n", sep="")
+      bunyanLog.warn(msg = msg)
+      cat(msg)
       warn <- TRUE
     }
   }
@@ -131,16 +160,21 @@ function(useEnv = TRUE) {
   assign("manta_methods", manta_methods, envir=manta_globals)
   
   r_version <- as.character(getRversion())
-  user_agent <- paste("R-",r_version, "/mantaRSDK", sep="")
+  r_version <- paste("R-",r_version)
+  user_agent <- paste(r_version, "/mantaRSDK", sep="")
   assign("user_agent", user_agent, envir=manta_globals)
-
+  session <- sessionInfo()
+  RSDK_version <- session$otherPkgs$mantaRSDK$Version
+  assign("RSDK_version", RSDK_version, envir=manta_globals)
 
   # If we made it this far, we have values for everything. 
   if (warn == TRUE) {     
      assign("manta_initialized", FALSE, envir=manta_globals)
+     bunyanLog.info("mantaRSDK failed to initialize")
      return(FALSE)
   } else {
      assign("manta_initialized", TRUE, envir=manta_globals)
+     bunyanLog.info("mantaRSDK initialized")
      return(TRUE)
   }
 }

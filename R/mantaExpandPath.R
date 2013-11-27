@@ -36,16 +36,17 @@ function(m_path, verbose = FALSE) {
     if ( (is.na(charmatch(lead_stor,path))) && 
          (is.na(charmatch(lead_public,path))) &&
          (is.na(charmatch(lead_jobs,path))) &&
-         (is.na(charmatch(lead_reports,path)))
-       ) {
-      if (verbose == TRUE) {
-        cat("mantaRSDK:mantaExpandPath Error - Invalid subdirectory specified - must begin with:\n",
+         (is.na(charmatch(lead_reports,path))) ) {
+       msg <- paste("mantaExpandPath Error - Invalid subdirectory specified - must begin with:\n",
            lead_stor, " -or- ", 
            lead_public, " -or- ",
            lead_jobs, " -or- ",
-           lead_reports, "\n")
-      }
-      return("")
+           lead_reports, sep="")
+       bunyanLog.error(msg)
+       if (verbose == TRUE) {
+         cat(msg,"\n")
+       }
+       return("")
     }
 
     # encode any spaces if foreign characters the string...

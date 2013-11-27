@@ -1,10 +1,10 @@
-# Roxygen Comments mantaSetwdPublic
+# Roxygen Comments mantaSetwd.public
 #' Sets Manta working directory to ~~/public
 #'
 #' @keywords Manta, manta
 #'
 #' @export
-mantaSetwdPublic <-
+mantaSetwd.public <-
 function() {
   # If this is the first export function called in the library
   if (manta_globals$manta_initialized == FALSE) {

@@ -1,8 +1,8 @@
-\name{mantaSetwdPublic}
-\alias{mantaSetwdPublic}
+\name{mantaSetwd.public}
+\alias{mantaSetwd.public}
 \title{Sets Manta working directory to ~~/public}
 \usage{
-  mantaSetwdPublic()
+  mantaSetwd.public()
 }
 \description{
   Sets Manta working directory to ~~/public

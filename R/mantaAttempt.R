@@ -89,9 +89,12 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
       curl_method <- "GET"
   } else {
      curl_method <- method
-     if (is.na(charmatch(curl_method,manta_globals$manta_methods)))
-      stop("mantaRSDK:mantaAttempt: Error invalid RCURL method. \nPassed [", curl_method, 
-           "] , is not in ", manta_globals$manta_methods, "\n" )
+     if (is.na(charmatch(curl_method,manta_globals$manta_methods))) {
+       msg <- paste("mantaAttempt: Error invalid RCURL method. \nPassed [", curl_method, 
+           "] , is not in ", manta_globals$manta_methods, "\n",sep="" )
+       bunyanLog.error(msg)
+       stop(msg)
+     }
   }
 
   # Use a handle for multiple passes for long directory listings
@@ -125,24 +128,33 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
 #  ?limit=1000&marker=00026001.jpg
 #
 
+## Bunyan Error Logging, encode the request
+#  
+  httpheader = c(headers, mantaGenHeaders())
+
+  req <- list(url = manta_call, method = curl_method, headers = httpheader)
+  bunyanLog.debug(msg ="getURL", req = req, version = manta_globals$RSDK_version) 
 
  
   reply <- tryCatch(getURL(manta_call, 
                            curl = curl_handle,
-                           httpheader = c(headers, mantaGenHeaders()), 
+                           httpheader = httpheader, 
                            verbose = verbose, 
                            header = TRUE, 
                            customrequest = curl_method,
                            .encoding = 'UTF-8',
                            timeout = curl_timeout),
                     COULDNT_RESOLVE_HOST = function(e) {
-                           cat("mantaRSDK:mantaAttempt:getURL Cannot Resolve Manta Host at\n ", 
-                           manta_globals$manta_url ,"\n")                        
+                           msg <- paste("mantaAttempt:getURL Cannot Resolve Manta Host at\n ", 
+                           manta_globals$manta_url ,"\n",sep="")
+                           bunyanLog.error(msg = msg, version = manta_globals$RSDK_version)                         
                            },
                     error = function(e) {
-                           cat("mantaRSDK:mantaAttempt:getURL HTTP error: ", e$message, "\n")
+                           msg <- paste("mantaAttempt:getURL HTTP error: ", e$message, "\n", sep="")
+                           bunyanLog.error(msg = msg, version = manta_globals$RSDK_version) 
                           }
                     )
+
 
   if (is.null(reply)) {    # there was no reply from the server 
     if (test == TRUE) {
@@ -153,7 +165,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   }
 
 
-  # Something was returned from server
+
   split_reply <- strsplit(reply, split = "\r\n\r\n")
   header <- split_reply[[1]][1]
   body <- split_reply[[1]][-1] # in R this removes the first element in the array
@@ -170,6 +182,15 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   returned_code <- strsplit(returned_string, split=" ")[[1]][2]
 
 
+  # Something was returned from server
+  # Lots of values including time, size, etc in getCurlInfo...
+  # remote_ip <- getCurlInfo(curl_handle)$primary.ip
+  # returned_code <-  getCurlInfo(curl_handle)$response.code
+
+  res <- list(statusCode = returned_code, headers = header_lines)
+  bunyanLog.debug(msg ="mantaAttempt server return", res = res, version = manta_globals$version) 
+
+
   # for HTTP calls like DELETE that return no data and return a specific OK code
   if ((returncode != 0) && (test == TRUE)) {
     if (as.integer(returned_code) == returncode) {
@@ -179,13 +200,12 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     }
   }
 
-
-
-
   # Server Error Responses
   if (as.integer(returned_code) >= 400) {
-     # Some 400 error messages we don't care to see, just bail 
+     # Some 400 error messages we don't care to see, just log & bail 
      if  ((silent == TRUE) && (test == TRUE)) {
+        msg <- paste("mantaAttempt, silent test, Server return code: ", returned_code,sep="")
+        bunyanLog.info(msg = msg, version = manta_globals$version)
         return(FALSE)
      }
 
@@ -194,19 +214,18 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
 
       # this checks the error strings to see if it is on the list...
       if (sum(charmatch(values, manta_globals$manta_error_classes, nomatch = 0)) > 0) {
-        cat("mantaRSDK:mantaAttempt Manta Service Error: ")
+        msg <- "mantaAttempt Manta Service Error: "
       } else {
-        cat("mantaRSDK:mantaAttempt Unknown Error Class: ")
+        msg <- "mantaAttempt Unknown Error Class: "
       }
 
       # It was valid JSON, so show it as the return error message
-      cat(values)
-      cat("\n") 
+      msg <- paste(msg, values,"\n",sep="")
     } else {  
       # not valid JSON returned, just return the error code...
-      cat(paste("mantaRSDK:mantaAttempt Unrecognized - Server Error Code: ", returned_string, "\n", sep=" "))         
+      msg <- paste("mantaAttempt Unrecognized - Server Error Code: ", returned_string, "\n", sep=" ")         
     } 
-
+    bunyanLog.error(msg = msg, version = manta_globals$version) 
     if (test == TRUE) {
       return(FALSE)
     } else {
@@ -218,9 +237,10 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   # Sanity check to see that response is JSON 
   if (no_body == FALSE) {
     if (isValidJSON(body_lines[[1]], asText = TRUE) == FALSE) {
-      cat("mantaRSDK:mantaAttempt Error - Server Response is not parseable JSON using RJSONIO: \n")
-      cat(body_lines[[1]][1],"\n")
-      cat("\n")
+      msg <-  paste("mantaRSDK:mantaAttempt Error - Server Response is not parseable JSON using RJSONIO: \n", sep="")
+      msg <- paste(msg,body_lines[[1]][1],"\n\n",sep="")
+      bunyanLog.error(msg)
+      cat(msg)
       if (test == TRUE) { 
         return(FALSE)
       } else {
