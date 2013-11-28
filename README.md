@@ -120,7 +120,8 @@ Installing the mantaRSDK package in R
 
 
 ### mantaRSDK Installation
-The mantaRSDK uses install_github() which requires the Rtools package
+The mantaRSDK uses install_github() which requires the Rtools package:
+
 http://cran.r-project.org/bin/windows/Rtools
 
 ### From R ###
