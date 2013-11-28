@@ -24,7 +24,7 @@ Getting Started with Manta
 2) Create a private/public ssh key pair using the Joyent
 web console, as prompted when you sign up. Copy and save 
 the value of your SSH key id which will look something like this:  
-91:b4:d2:34:f1:b8:3c:1b:11:de:b7:6c:e4:3c:4e:01 
+91:b4:d2:34:f1:b8:3c:1b:11:d1:b7:6c:e4:3c:4e:01 
 
 3.1) UNIX (WINDOWS - skip ahead and do steps 3.3 - 3.5 )
 Put the private key file and public key files into a .ssh 
@@ -42,7 +42,7 @@ a text editor:
 ```
 export MANTA_URL=https://us-east.manta.joyent.com
 export MANTA_USER=yourusername
-export MANTA_KEY_ID=91:b4:d2:34:f1:b8:3c:1b:11:de:b7:6c:e4:3c:4e:01 
+export MANTA_KEY_ID=91:b4:d2:34:f1:b8:3c:1b:11:d1:b7:6c:e4:3c:4e:01 
 ```
 then source the file:
 ```
