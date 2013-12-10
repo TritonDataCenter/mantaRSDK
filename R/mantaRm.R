@@ -1,8 +1,13 @@
 # Roxygen Comments mantaRm
 #' Removes Manta object specified by full manta path or from current
-#' working manta directory. Option r = TRUE does recursive delete
+#' working manta directory. 
+#'
+#' Option r = TRUE does recursive delete
 #' of object and subdirectories.
-#' Returns TURE if object successfully removed
+#' Returns TURE if object and tree successfully removed without warnings/errors
+#' You can use mantaFind to prepare a list of pathnames to objects with detailed
+#' searching and filtering specifications and then use lapply(pathnamelist, mantaRm) 
+#' to delete the items.
 #'
 #' @param mantapath string, required.
 #' 
@@ -41,16 +46,6 @@ function(mantapath, r = FALSE, info = TRUE) {
      cat("Gathering subdirectory structure for deletion...\n")
     }
     tree <- mantaFind(l='R', items='a', info=info)
-    errors <- bunyanTracebackN(level='ERROR')
-    if (errors > 0) {
-      msg = paste("mantaRm: mantaFind ",errors, " transmission errors encountered, delete aborted\n",
-                  "View mantaRSDK log or try bunyanTraceback()\n",sep="")
-      bunyanLog.error(msg)
-      cat(msg)
-      return(FALSE)
-    }
-
-    # Watch for errors encountered
     bunyanClearSetpoint()
     bunyanSetpoint()
 
@@ -59,7 +54,7 @@ function(mantapath, r = FALSE, info = TRUE) {
     # then objects.
   
     # Delete callback
-    deletefunction <- function(line) {
+    deletefunction_do <- function(line) {
       # is this an object or directory
        if (line$type == "directory") {
          if (!is.na(charmatch("name", names(line)))) {
@@ -71,7 +66,7 @@ function(mantapath, r = FALSE, info = TRUE) {
              } 
            } else {
              msg = paste("mantaRm: Unable to remove directory ", line$name, sep="")
-             bunyanLog.error(msg)
+             bunyanLog.warn(msg)
              cat(msg,"\n")
            }
          }
@@ -84,7 +79,7 @@ function(mantapath, r = FALSE, info = TRUE) {
              }
            } else {
              msg = paste("mantaRm: Unable to remove directory ", line$id, sep="")
-             bunyanLog.error(msg)
+             bunyanLog.warn(msg)
              cat(msg,"\n")
            }
          }
@@ -99,7 +94,7 @@ function(mantapath, r = FALSE, info = TRUE) {
              }
            } else {
              msg = paste("mantaRm: Unable to remove object ", line$name, sep="")
-             bunyanLog.error(msg)
+             bunyanLog.warn(msg)
              cat(msg,"\n") 
            }
          }
@@ -112,26 +107,57 @@ function(mantapath, r = FALSE, info = TRUE) {
              }
            } else {
              msg = paste("mantaRm: Unable to remove object ", line$id, sep="")
-             bunyanLog.error(msg)
+             bunyanLog.warn(msg)
              cat(msg,"\n")
            }
          }
        }
     } 
 
+    deletefunction_try <- function(line) {
+      timeout <- manta_globals$manta_defaults$receive_timeout  # default is 60
+      msg <- "mantaRm Network Transmission Error encountered - Sleeping for 5 seconds"
+      errorcount <- bunyanTracebackErrors()
+      repeat {
+        deletefunction_do(line) 
+        #Errors come from mantaAttempt - are transmission errors, Warnings are from from deletefunction_do
+        newerrors <- bunyanTracebackErrors()
+        if (errorcount == newerrors) {
+          # no new errors, warnings are allowed 
+          # (e.g. if taks 2 puts object into tree subdir that is not yet deleted by this task 1)
+          break
+        }
+        errorcount <- newerrors
+        if (timeout > 0) {
+          bunyanLog.info(msg)
+          if (info == TRUE) {
+            cat(paste(msg,"\n"))
+          }
+          Sys.sleep(5)
+          timeout <- timeout - 5
+        } else {
+           # Network access is compromised, so we stop
+           msg <- "mantaRm Stopped - Network Timeout.  Check logs for details."
+           bunyanLog.error(msg)
+           stop(msg)
+        }
+      }
+    }
+
     # Go through the tree one at a time...
     if (tree[1] != "") {
-      lapply(tree, deletefunction)
-      errors <- bunyanTracebackN(level='ERROR')
-      if (errors == 0) {
-        return(TRUE)   
-      } else {
-        # errors encountered
-        msg = paste("mantaRm: Recursive delete failed to remove ", errors, "  entries\n",
-                   "View mantaRSDK log or try bunyanTraceback()\n",sep="")
-        bunyanLog.error(msg)
-        cat(msg)
+      lapply(tree, deletefunction_try)
+      errors <- bunyanTracebackErrors()
+      warns <- bunyanTracebackWarnings()  #warnings is an R function -reseved word. like log...
+      if ((errors > 0) || (warns > 0)) {
+        # errors or warnings encountered
+        msg = paste("mantaRm: [", errors, "] Errors and [", warns, "] Warnings encountered. \n",
+                   "Intended mantaRm operation may be incomplete.",sep="")
+        bunyanLog.info(msg)
+        cat(paste(msg,"\n"))
         return(FALSE)
+      } else {
+        return(TRUE)
       }
     } else {
       return(FALSE) # no entries

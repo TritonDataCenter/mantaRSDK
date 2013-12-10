@@ -237,7 +237,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   # Sanity check to see that response is JSON 
   if (no_body == FALSE) {
     if (isValidJSON(body_lines[[1]], asText = TRUE) == FALSE) {
-      msg <-  paste("mantaRSDK:mantaAttempt Error - Server Response is not parseable JSON using RJSONIO: \n", sep="")
+      msg <-  paste("mantaAttempt Error - Server Response is not parseable JSON using RJSONIO: \n", sep="")
       msg <- paste(msg,body_lines[[1]][1],"\n\n",sep="")
       bunyanLog.error(msg)
       cat(msg)

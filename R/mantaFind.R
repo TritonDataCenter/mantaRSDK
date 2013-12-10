@@ -2,8 +2,8 @@
 #' Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy
 #'
 #' Searching for object or directory names with regular expressions (using R grep).
-#' Sorting listings by filename, time, or size.
-#' Can report disk size, number of objects, number of subdirectories.
+#' Sorting listings by filename, time, or size. Can report entries within a time
+#' window. Can report disk size, number of objects, number of subdirectories.
 #'
 #' @param mantapath string, required. Object/subdir in current subdirectory
 #' or full Manta path to stored object or subdirectory
@@ -25,11 +25,9 @@
 #' 'du' is the number of bytes used by objects (not counting redundancy levels!).
 #' 'R' is the R object collected by find with mtime parsed, full path names
 #'  mantaFind(l='R') -> tree saves the directory tree for rerocessing with
-#'  mantaFind(mantapath, entries = tree, ...) Parameters grepfor and items are 
-#'  ignored on reprocessed trees.   
+#'  mantaFind(mantapath, entries = tree, ...) 
 #'
 #' @param items string optional. 'a' for all, 'd' for directory, 'o' for object.
-#' Ignored for reprocessed trees
 #'
 #' @param level integer optional. Maximum number of subdirectory child levels 
 #' to visit, in other words, the depth of the hierarchical directory search. If level
@@ -37,6 +35,13 @@
 #' search trees.
 #'
 #' @param sortby string, optional. Specify 'none', 'name', 'time', or 'size'.
+#' Sorting selection is independent of time-bounded find.
+#'
+#' @param starttime POSIXlt time, optional. Start time for time-bounded find.
+#' When used without endtime, endtime is set to current UTC time.
+#'
+#' @param endtime POSIXlt time, optinoal. End time for time-bounded find.
+#' When used without starttime, starttime is set to start of Manta service
 #'
 #' @param decreasing logical, optional. Argument passed to R order for sorting.
 #'
@@ -52,8 +57,8 @@
 #'
 #' @export
 mantaFind <-
-function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortby = 'none', findroot = 1,
-          decreasing = FALSE, ignore.case = FALSE, perl = FALSE, verbose = FALSE, info = TRUE) {
+function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortby = 'none', starttime, endtime,
+          decreasing = FALSE, ignore.case = FALSE, perl = FALSE, verbose = FALSE, info = TRUE, findroot = 1) {
 
   # If this is the first export function called in the library
   if (manta_globals$manta_initialized == FALSE) {
@@ -81,6 +86,60 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
     stop("mantaFind Invalid items='",items,"' argument, try help(mantaFind)\n")
   }
 
+  if (l == 'URL') {
+    # must begin with /$MANTA_USER/public
+    lead <- paste("/", manta_globals$manta_user, "/public", sep="")
+    if  (is.na(charmatch(lead, path_enc))) {
+       stop("mantaFind Invalid Manta subdirectory for public URLs - must be in ", lead)
+    }
+  }
+
+
+  timerange <- FALSE
+  if ( (!missing(starttime)) && (!missing(endtime)) ) {
+    # Time window - arg checking
+    capture.output(str(starttime, give.head=FALSE, give.length=FALSE, no.list=TRUE)) -> starttime_str
+    capture.output(str(endtime, give.head=FALSE, give.length=FALSE, no.list=TRUE)) -> endtime_str
+    if ( (length(grep("POSIXlt", starttime_str)) == 0) ||
+         (length(grep("POSIXlt", endtime_str)) == 0) ) {
+      stop("mantaFind Invalid parameters\nstarttime and endtime values must be properly formed as R time variables using as.POSIXlt()\n")
+    }
+    if ((endtime - starttime) < 0) {
+      temptime <- starttime
+      starttime <- endtime
+      endtime <- temptime
+    }
+    timerange <- TRUE
+  }
+  
+  if ( (missing(starttime)) && (!missing(endtime)) ) {
+    # time window up to 
+    capture.output(str(endtime, give.head=FALSE, give.length=FALSE, no.list=TRUE)) -> endtime_str
+    if ( (length(grep("POSIXlt", endtime_str)) == 0) ) {
+      stop("mantaFind Invalid parameters\nendtime value must be properly formed as R time variables using as.POSIXlt()\n")
+    }
+    # Set the start time to the beginning of Manta Service
+    starttime <- as.POSIXlt("2013-01-01 00:01", "UTC") # Before this date Manta did not exist
+    if ((endtime - starttime) < 0) {
+       stop("mantaFind Invalid parameters\n endtime specified is older than Manta itself, noting to find\n")
+    }
+    timerange <- TRUE
+  }
+  
+  if ( (missing(endtime)) && (!missing(starttime)) ) {
+    capture.output(str(starttime, give.head=FALSE, give.length=FALSE, no.list=TRUE)) -> starttime_str
+    if ( (length(grep("POSIXlt", starttime_str)) == 0) ) {
+      stop("mantaFind Invalid parameters\n starttime value must be properly formed as R time variables using as.POSIXlt()\n")
+    } 
+    # Set the end time to now.
+    endtime <-  as.POSIXlt(Sys.time(), "UTC")
+    if ((endtime - starttime) < 0) {
+       stop("mantaFind Invalid parameters\n starttime specified is in the future, noting to find\n")
+    }
+    timerange <- TRUE
+  }
+
+
   msg <- paste("mantaFind: start at ", mantapath ,sep="")
   bunyanLog.info(msg = msg)
   if ((findroot == 1) && (info == TRUE)) {
@@ -94,19 +153,52 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
       # error Setpoint at the start of call to mantaFind
       bunyanClearSetpoint()
       bunyanSetpoint()
+      assign("find_list",list(),envir=manta_globals)
+      assign("find_dir_count", 0, envir=manta_globals)
+      countdown <- manta_globals$manta_defaults$connect_timeout # default is 5s
+    } else {
+      countdown <- manta_globals$manta_defaults$receive_timeout # default is 60s
     }
 
     # get the raw directory listing in json format from Manta
-    json <- mantaLs(mantapath=curlUnescape(path_enc), l ='json', internal = TRUE)
+    # Modified for up to 90s dns or network fails for child subdirectories.
+    
+    msg <- "mantaFind: Network Error - Sleeping for 5 seconds"
+    errorcount <- bunyanTracebackErrors()
+    repeat {
+      json <- mantaLs(mantapath=curlUnescape(path_enc), l ='json', internal = TRUE)
+      newerrors <- bunyanTracebackErrors()
+      if (errorcount == newerrors) { 
+        # no new errors
+        break 
+      }   
+      errorcount <- newerrors
+      if (countdown > 0) { 
+        bunyanLog.info(msg)
+        if (info == TRUE) {
+          cat(paste(msg,"\n"))
+        }
+        Sys.sleep(5)
+        countdown <- countdown - 5
+      } else {
+        # we timed out, not likely to recover
+        msg <- "mantaFind Stopped after timeout - loss of network connectivity to Manta service, check logs for detail"
+        bunyanLog.error(msg)
+        break 
+      }
+    }
+
+    if (countdown <= 0) {
+       stop(msg)
+    }
+
     if (length(json) == 1) {
-      if (json[1] == "") return("")
+        if (json[1] == "") return("")
     }
 
     # extract the subdirectories as paths for recursive descent
     # using already gathered json above
     subdirs <- mantaLs(mantapath = curlUnescape(path_enc), json=json, l = 'paths', items = 'd', internal = TRUE)
-
-    result <- list()
 
     if (length(subdirs[subdirs != ""]) != 0) {
       # there are subdirectories here
@@ -122,107 +214,137 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
             if (info == TRUE) {
               cat(msg,"\n")
             }
-          result <- c(result, mantaFind(subdirs[i], grepfor = grepfor, l = 'R', items = items, level = level, sortby = 'none',
-                      findroot = findroot + 1, verbose = verbose))
-          result <- result[result != ""]  #remove null results, it is ok if this is an empty list.
+          nothing <- mantaFind(subdirs[i], grepfor = grepfor, l = 'R', items = items, level = level, sortby = 'none',
+                      findroot = findroot + 1, verbose = verbose)
         }
       }
     }
-  
-    # Child directory entries are now gathered
-    # prepare the current directory R entries, grep/items filtered
-    # no sorting yet - this is done with saved json fetched above
-    cur_results <- mantaLs(mantapath=curlUnescape(path_enc), json=json, l = 'R', items = items, grepfor = grepfor,
-                         ignore.case = ignore.case, perl = perl, sortby = 'none', verbose = verbose, internal = TRUE)
-
-    # Prepend path callback to replace name with full pathname
-    prependpath <- function(line) {
-     if (!is.na(charmatch("name",names(line)))) {
-       line$name <- (paste(curlUnescape(path_enc), "/", line$name, sep=""))
-      }
-      if (!is.na(charmatch("id",names(line)))) {
-       line$id <- (paste(curlUnescape(path_enc), "/", line$id, sep=""))
-      }
-      return(line)
-    }
- 
-    # Are there any results in the current path 
-    if (length(cur_results[cur_results != ""]) != 0) {  
-
-      # Then prepend the path to all the results to mark their origin subdir
-      cur_results <- lapply(cur_results,prependpath)
-    }
-
-    # Attach to the child results, these are all R stuctures so far
-    # and can be  empty
-    entries <- c(result, cur_results)
-
+    
+    manta_globals$find_dir_count <- manta_globals$find_dir_count + 1
+    manta_globals$find_list[[manta_globals$find_dir_count]] <- list(path = curlUnescape(path_enc), json = json)   
     if (findroot != 1) {
-      # Return the found R structured entries with children
-      # and all the embedded pathnames 
-      # to the parent mantaFind call
-      return(entries)
+      return()
     } else {
       # This is the top level call to mantaFind
-      # Here - all the children are retrieved
-      # Do any requested sorting on the R results
-      # and return in requested output format
-      errorcount <- bunyanTracebackN(level='ERROR')
-      if (errorcount > 0) {
-        msg <- paste("mantaFind: ",errorcount, " transmission Errors encountered, use bunyanTraceback(level='ERROR') to view\n")
-        bunyanLog.info(msg)
-        cat(msg,"\n")
+      # convert manta_globals$find_list into structured R entries
+      ## Callback 2 onvert JSON chunks into R structure, 
+      RNormalize <- function(line, path) {
+        entry <- fromJSON(line)
+        if (mode(entry) == "character") {
+          entry <- as.vector(entry, mode="list")
+        }
+        if (is.na(charmatch("size",names(entry)))) {
+          entry$size <- 0
+        }
+        # parse the timestamp into R
+        time <- strptime(entry$mtime, tz = "GMT", "%Y-%m-%dT%H:%M:%OS")
+        # Replace mtime with parsed R time
+        entry$mtime <- time
+        # prepend the path to the name 
+        if (!is.na(charmatch("name",names(entry)))) {
+           entry$name <- (paste(path, "/", entry$name, sep=""))
+        }
+          if (!is.na(charmatch("id",names(entry)))) {
+           entry$id <- (paste(path, "/", entry$id, sep=""))
+        }
+        return(entry)
       }
-   }
+ 
+      ## Callback 1 R normalize, size setting, path prepending and time parsing callback
+      RstylePath <- function(line) {
+        path <- line$path
+        path_entries <- lapply(line$json, RNormalize, path=path)
+        
+      }
 
-
+      # Parse entries into Rstyle and normalize
+      entries <- unlist(lapply(manta_globals$find_list, RstylePath), recursive = FALSE)
+      # done with manta_globals$find_list - reclaim that memory
+      manta_globals$find_list <- list()
+      # R entries now ready ...
+    }
   } else {
-    # user-supplied tree made from previous mantaFind call
+    # user-supplied R entries made from previous mantaFind call
     if (info == TRUE) {
       cat("Using previously retrieved mantaFind directory\n")
     }
-
-    # apply filter/grep here.
-    # Cleanup 
-    if (length(entries) == 0) return("")
-    entries <- entries[!sapply(entries, is.null)]
-    entries <- entries[entries != ""]
-    if (length(entries) == 0) return("")
-
-    # Regexp of names - strongest filter first...
-    if (!missing(grepfor)) {
-      names <- unlist(lapply(entries, mantagetnames))
-      entries <- entries[grep(grepfor, names, ignore.case=ignore.case, perl=perl )]
-    }
-
-    # Directory entry type filter callback
-    filtertype <- function(line) {
-      if (items == "a") {
-          return(line)
-      }
-      if (items == "d") {
-        if (line$type == "directory") {
-          return(line)
-        }
-      }
-      if (items == "o") {
-        if (line$type == "object") {
-          return(line)
-        }
-      }
-    }
-
-    # Filter by object or diretory
-    entries <- lapply(entries, filtertype)
-    entries <- entries[!sapply(entries, is.null)]
   }
 
-  # Cleanup 
-  if (length(entries) == 0) return("")
+  # Cleanup blank, zero entries
+  if (length(entries) == 0) {
+    return("")
+  }
   entries <- entries[!sapply(entries, is.null)]
   entries <- entries[entries != ""]
-  if (length(entries) == 0) return("")
+  if (length(entries) == 0) {
+     return("")
+  }
 
+  ## apply filters/grep here.
+
+  ## Regexp filtering of names - strongest filter first..
+  # Applies regular expression across entire pathname ....
+  if (!missing(grepfor)) {
+    names <- unlist(lapply(entries, mantagetnames))
+    entries <- entries[grep(grepfor, names, ignore.case=ignore.case, perl=perl )]
+    # Anything left?
+    if (length(entries) == 0) {
+     return("")
+    }
+  }
+
+
+  ## Directory entry type filter callback
+  filtertype <- function(line) {
+    if (items == "d") {
+      if (line$type == "directory") {
+        return(line)
+      }
+    }
+    if (items == "o") {
+      if (line$type == "object") {
+        return(line)
+      }
+    }
+  }
+
+  ## item type filtering (directory, file or both)
+  if (items != "a") {
+    # filter by entry type
+    entries <- lapply(entries, filtertype)
+    entries <- entries[!sapply(entries, is.null)]
+    # Anything left?
+    if (length(entries) == 0) {
+      return("")
+    }
+  }
+
+
+  ## Time window filtering:
+  if (timerange == TRUE ) {
+    # starttime and endtime set and checked, use to filter find results       
+    times <- lapply(entries, mantagettime)
+    times <- do.call(c,times) # Keeps the  R time structure, order...
+    # extract entries within time window
+    # greater than starttime
+    times_start <- which(times >= starttime)
+    entries <- entries[times_start]
+    # Anything left?
+    if (length(entries) == 0) { 
+      return("")
+    }
+    times <- times[times_start]
+    # extract entries smaller than endtime
+    times_end <- which(times <= endtime)
+    entries <- entries[times_end]
+    # Anything left?
+    if (length(entries) == 0) {
+      return("")
+    }
+  }
+
+
+  ## callback to return size and path style entries
   getsizepath<-function(line) {
     if (!is.na(charmatch("name", names(line)))) {
       name <- (line$name)
@@ -233,19 +355,19 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
    return(list(size = as.numeric(line$size), path = name))
   }
     
-  
+  ## callback to return URL style entries
   urlstyle <-function(line) {
     return(paste(manta_globals$manta_url,mantaliststyle(line),sep=""))
   }
 
-  # set the output format, for numbers, return those
+  ## set the output format, for numbers, return those
   switch(l,
       R={
         lines <- entries
       },
       paths={ 
       # note we are using the liststyle callback here
-      # as the R entries have full paths now embeded in the
+      # and the R entries have full paths now embeded in the
       # name field        
         lines <- lapply(entries, mantaliststyle)
       },
@@ -272,6 +394,7 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
       }
   )
 
+
   ### Sorted/filtered R entries or formatted lines
   switch(sortby,
       none={
@@ -291,11 +414,10 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
       }
   )
 
-  # Return results in l format 'paths', 'n', 'du', 'R'
+  ## Return results in l format 'paths', 'n', 'du', 'R'
   if ((l == "R") || (l == "size_path")) {  # don't flatten the R stuctures
       return(lines)
   } else { # flatten the lines
       return(do.call(c,lines))
-  }
-  
+  }  
 }

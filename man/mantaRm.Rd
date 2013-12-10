@@ -1,9 +1,7 @@
 \name{mantaRm}
 \alias{mantaRm}
 \title{Removes Manta object specified by full manta path or from current
-working manta directory. Option r = TRUE does recursive delete
-of object and subdirectories.
-Returns TURE if object successfully removed}
+working manta directory.}
 \usage{
   mantaRm(mantapath, r = FALSE, info = TRUE)
 }
@@ -17,10 +15,9 @@ Returns TURE if object successfully removed}
   console.}
 }
 \description{
-  Removes Manta object specified by full manta path or from
-  current working manta directory. Option r = TRUE does
-  recursive delete of object and subdirectories. Returns
-  TURE if object successfully removed
+  Option r = TRUE does recursive delete of object and
+  subdirectories. Returns TURE if object and tree
+  successfully removed without warnings/errors
 }
 \keyword{Manta,}
 \keyword{manta}

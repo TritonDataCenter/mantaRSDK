@@ -10,18 +10,22 @@
 #' or full Manta path to stored object or subdirectory
 #'
 #' @param grepfor string optional. Regular expression passed to R grep for name search.
-#' Ignored for reprocessed trees
 #'
 #' @param entries saved mantaFind R data, optional. For reprocessing/reformatting 
 #' retrieved R tree information saved with  mantaFind(l='R')->tree
 #'
 #' @param items string optional. 'a' for all, 'd' for directory, 'o' for object.
-#' Ignored for reprocessed trees
 #'
 #' @param level integer optional. Maximum number of subdirectory child levels 
 #' to visit, in other words, the depth of the hierarchical directory search. If level
 #' <= 0, search depth is unrestricted. Level parameter is ignored on reprocessed 
 #' search trees.
+#'
+#' @param starttime POSIXlt time, optional. Start time for time-bounded find.
+#' When used without endtime, endtime is set to current UTC time.
+#'
+#' @param endtime POSIXlt time, optinoal. End time for time-bounded find.
+#' When used without starttime, starttime is set to start of Manta service
 #'
 #' @param ignore.case logical, optional. Argument passed to R grep for searching.
 #'
@@ -33,11 +37,12 @@
 #'
 #' @export
 mantaFind.n <-
-function(mantapath, grepfor, entries, items = 'o', level = 0,
+function(mantapath, grepfor, entries, items = 'o', level = 0, starttime, endtime,
           ignore.case = FALSE, perl = FALSE, verbose = FALSE, info = TRUE) {
 
    return(mantaFind(mantapath = mantapath, l='n', grepfor = grepfor, entries = entries,
-                    items = items, level = level, sortby = 'none', findroot = 1, 
+                    items = items, level = level, starttime = starttime, endtime = endtime, 
+                    sortby = 'none', findroot = 1, 
                     decreasing = FALSE, ignore.case = ignore.case, perl = perl,
                     verbose = verbose, info = info))   
 }

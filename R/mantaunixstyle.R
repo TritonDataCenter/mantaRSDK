@@ -8,7 +8,7 @@ mantaunixstyle <- function(line) {
     time_now <- as.POSIXlt(Sys.time(), "UTC")
     # more than 6 months, show year instad of time
     if ( as.numeric(as.difftime(182.5, units = 'days')) > as.numeric(difftime(time_now, line$mtime, units = 'days')) ) {
-      time <- format(line$mtime, "%d %b %H:%m")
+      time <- format(line$mtime, "%d %b %H:%M")
     } else {
       time <- format(line$mtime, "%d %b  %Y")
     }

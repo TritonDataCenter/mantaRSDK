@@ -4,9 +4,9 @@
 Output is R list of size and full manta pathnames}
 \usage{
   mantaFind.sizepath(mantapath, grepfor, entries,
-    items = "o", level = 0, sortby = "none",
-    decreasing = FALSE, ignore.case = FALSE, perl = FALSE,
-    verbose = FALSE, info = TRUE)
+    items = "o", level = 0, sortby = "none", starttime,
+    endtime, decreasing = FALSE, ignore.case = FALSE,
+    perl = FALSE, verbose = FALSE, info = TRUE)
 }
 \arguments{
   \item{mantapath}{string, required. Object/subdir in
@@ -14,20 +14,28 @@ Output is R list of size and full manta pathnames}
   or subdirectory}
 
   \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search. Ignored for reprocessed trees}
+  to R grep for name search.}
 
   \item{entries}{saved mantaFind R data, optional. For
   reprocessing/reformatting retrieved R tree information
   saved with mantaFind(l='R')->tree}
 
   \item{items}{string optional. 'a' for all, 'd' for
-  directory, 'o' for object. Ignored for reprocessed trees}
+  directory, 'o' for object.}
 
   \item{level}{integer optional. Maximum number of
   subdirectory child levels to visit, in other words, the
   depth of the hierarchical directory search. If level <=
   0, search depth is unrestricted. Level parameter is
   ignored on reprocessed search trees.}
+
+  \item{starttime}{POSIXlt time, optional. Start time for
+  time-bounded find. When used without endtime, endtime is
+  set to current UTC time.}
+
+  \item{endtime}{POSIXlt time, optinoal. End time for
+  time-bounded find. When used without starttime, starttime
+  is set to start of Manta service}
 
   \item{sortby}{string, optional. Specify 'none', 'name',
   'time', or 'size'.}

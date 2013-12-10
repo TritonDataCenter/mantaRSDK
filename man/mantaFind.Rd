@@ -3,9 +3,10 @@
 \title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy}
 \usage{
   mantaFind(mantapath, grepfor, entries, l = "paths",
-    items = "o", level = 0, sortby = "none", findroot = 1,
-    decreasing = FALSE, ignore.case = FALSE, perl = FALSE,
-    verbose = FALSE, info = TRUE)
+    items = "o", level = 0, sortby = "none", starttime,
+    endtime, decreasing = FALSE, ignore.case = FALSE,
+    perl = FALSE, verbose = FALSE, info = TRUE,
+    findroot = 1)
 }
 \arguments{
   \item{mantapath}{string, required. Object/subdir in
@@ -31,11 +32,10 @@
   'R' is the R object collected by find with mtime parsed,
   full path names mantaFind(l='R') -> tree saves the
   directory tree for rerocessing with mantaFind(mantapath,
-  entries = tree, ...) Parameters grepfor and items are
-  ignored on reprocessed trees.}
+  entries = tree, ...)}
 
   \item{items}{string optional. 'a' for all, 'd' for
-  directory, 'o' for object. Ignored for reprocessed trees}
+  directory, 'o' for object.}
 
   \item{level}{integer optional. Maximum number of
   subdirectory child levels to visit, in other words, the
@@ -44,7 +44,16 @@
   ignored on reprocessed search trees.}
 
   \item{sortby}{string, optional. Specify 'none', 'name',
-  'time', or 'size'.}
+  'time', or 'size'. Sorting selection is independent of
+  time-bounded find.}
+
+  \item{starttime}{POSIXlt time, optional. Start time for
+  time-bounded find. When used without endtime, endtime is
+  set to current UTC time.}
+
+  \item{endtime}{POSIXlt time, optinoal. End time for
+  time-bounded find. When used without starttime, starttime
+  is set to start of Manta service}
 
   \item{decreasing}{logical, optional. Argument passed to R
   order for sorting.}
@@ -67,7 +76,8 @@
 \description{
   Searching for object or directory names with regular
   expressions (using R grep). Sorting listings by filename,
-  time, or size. Can report disk size, number of objects,
-  number of subdirectories.
+  time, or size. Can report entries within a time window.
+  Can report disk size, number of objects, number of
+  subdirectories.
 }
 
