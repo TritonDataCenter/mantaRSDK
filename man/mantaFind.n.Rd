@@ -32,7 +32,7 @@ Output is number of found entries}
   time-bounded find. When used without endtime, endtime is
   set to current UTC time.}
 
-  \item{endtime}{POSIXlt time, optinoal. End time for
+  \item{endtime}{POSIXlt time, optional. End time for
   time-bounded find. When used without starttime, starttime
   is set to start of Manta service}
 

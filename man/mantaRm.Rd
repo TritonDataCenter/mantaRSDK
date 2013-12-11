@@ -17,7 +17,10 @@ working manta directory.}
 \description{
   Option r = TRUE does recursive delete of object and
   subdirectories. Returns TURE if object and tree
-  successfully removed without warnings/errors
+  successfully removed without warnings/errors You can use
+  mantaFind to prepare a list of pathnames to objects with
+  detailed searching and filtering specifications and then
+  use lapply(pathnamelist, mantaRm) to delete the items.
 }
 \keyword{Manta,}
 \keyword{manta}
