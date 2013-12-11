@@ -71,6 +71,14 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
   if (is.na(match(sortby,validsortby))) stop("mantaRSDK:mantaLs Invalid sortby='",sortby,"' argument, try help(mantaLs)\n") 
   if (is.na(match(items,validitems))) stop("mantaRSDK:mantaLs Invalid items='",items,"' argument, try help(mantaLs)\n") 
 
+  if (l == 'URL') {
+    # must begin with /$MANTA_USER/public
+    lead <- paste("/", manta_globals$manta_user, "/public", sep="")
+    if  (is.na(charmatch(lead, path_enc))) {
+       stop("mantaLs Invalid Manta subdirectory for public URLs - must be in ", lead)
+    }
+  }
+
 
   if (missing(json)) { 
 

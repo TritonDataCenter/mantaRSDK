@@ -24,7 +24,7 @@
 #' @param starttime POSIXlt time, optional. Start time for time-bounded find.
 #' When used without endtime, endtime is set to current UTC time.
 #'
-#' @param endtime POSIXlt time, optinoal. End time for time-bounded find.
+#' @param endtime POSIXlt time, optional. End time for time-bounded find.
 #' When used without starttime, starttime is set to start of Manta service
 #'
 #' @param ignore.case logical, optional. Argument passed to R grep for searching.
