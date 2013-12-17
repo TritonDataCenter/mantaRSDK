@@ -98,3 +98,4 @@ Collate:
     'mantaSetwd.public.R'
     'mantaSetwd.reports.R'
     'mantaSetwd.stor.R'
+    'mantaXfer.R'
