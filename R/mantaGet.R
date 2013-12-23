@@ -30,6 +30,13 @@
 mantaGet <-
 function(mantapath, filename,  buffer = FALSE, metadata = FALSE, verbose = FALSE) {
 
+
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
+
   if ( missing(mantapath) && missing(filename) ) {
          stop("mantaGet - No Manta object specified, no local file specified.")
   } else {

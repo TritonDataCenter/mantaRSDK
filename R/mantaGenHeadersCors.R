@@ -1,3 +1,0 @@
-mantaGenHeadersCors <-
-function() {
-}

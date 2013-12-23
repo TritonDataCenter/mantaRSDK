@@ -1,3 +1,5 @@
+#TODO handle multiple GETs to same filename by appending (n) to filename...
+
 # Roxygen Comments mantaXfer
 #'
 #' mantaXfer is the core routine for mantaPut mantaGet and
@@ -14,15 +16,11 @@
 #'
 #' @param buffer optional. Raw buffer to put. 
 #'
-#' @param object optional. Name of R object to PUT only
-#'
 #' @param returnmetadata logical required. For GET function returns metadata.
 #'
 #' @param returnbuffer logical required. For GET function returns buffer.
 #'
 #' @param md5 logical optional. Test md5 hash of data before/after transfer
-#'
-#' @param envir optional. Environment of R object
 #'
 #' @param headers, array of named strings, optional. The headers
 #' follow the RCurl structure of vector of strings where HTTP 
@@ -40,8 +38,8 @@
 #'
 #' @export
 mantaXfer <-
-function(action, method, filename, buffer, object, returnmetadata = FALSE, returnbuffer = FALSE, 
-         md5 = FALSE, envir, headers, verbose = FALSE) {
+function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer = FALSE, 
+         md5 = FALSE, headers, verbose = FALSE) {
 
   # If this is the first export function called in the library
   if (manta_globals$manta_initialized == FALSE) {
@@ -51,8 +49,8 @@ function(action, method, filename, buffer, object, returnmetadata = FALSE, retur
 
   if (missing(headers)) headers <- NULL
   if (missing(action)) stop("mantaXfer: No Manta object specified")
-  if (missing(filename) && missing(buffer) && missing(object)) {
-   stop("mantaXfer: Missing local object/file information")
+  if (missing(filename) && missing(buffer)) {
+   stop("mantaXfer: Missing local file information")
   }
   
   if (missing(method)) {
@@ -69,7 +67,6 @@ function(action, method, filename, buffer, object, returnmetadata = FALSE, retur
   manta_call <- paste(manta_globals$manta_url, action, sep="")
   if (curl_method == "GET") {
     returncode <- 200
-    # one of buffer, object file
     if (!missing(filename)) {
       if (file.exists(filename) == TRUE) {
         msg <- paste("mantaXfer - File to GET already exists:", filename, "\n", sep="")
@@ -100,7 +97,7 @@ function(action, method, filename, buffer, object, returnmetadata = FALSE, retur
                            stop(msg)                        
                            },
                     error = function(e) {
-                           msg <- paste("mantaXfer GET HTTP error: ", e$message, "\n", sep="")
+                           msg <- paste("mantaXfer GET HTTP or RCURL error: ", e$message, "\n", sep="")
                            bunyanLog.error(msg = msg, version = manta_globals$RSDK_version)
                            stop(msg) 
                           }
@@ -129,35 +126,42 @@ function(action, method, filename, buffer, object, returnmetadata = FALSE, retur
   } else {  
     # it is a PUT
     returncode <- 204
-    # one of buffer, object file
-    if (!missing(filename)) {
-      if (file.exists(filename) != TRUE) {
-        msg <- paste("mantaXfer - File to PUT not found at:", filename, "\n", sep="")
-        bunyanLog.error(msg = msg)
-        stop(msg)
-      }
-      f <- CFILE(filename,"rb")
-      fsize <- file.info(filename)[1, "size"]
-    } else {
-      if (!missing(object)) { # we have a buffer      
-      f <- rawConnection(buf, "rb")
-      fsize <- length(buf)
-      } else { # we have an R object
-        filename <- tempfile()
-        save(object, envir=envir, filename)
-        f <- CFILE(filename, "rb")
-        fsize <- file.info(filename)[1, "size"]
-      }
+    filetemp <- ""
+    if (missing(filename)) filename = ""
+    if (!missing(buffer)) { # we have a buffer      
+        # RCURL stock does not read from a buffer 
+        # must write to tempfile
+        # these don't work: 
+        #                 f <-  file(buffer, "rb", raw = TRUE)
+        #                  con <- rawConnection(buffer, open = "rb")
+        filetemp <- tempfile()
+        f <- file(filetemp, "wb")
+        fsize <- length(buffer)
+        writeBin(object =  buffer, con = f)
+        flush(f)
+        close(f)
+        f <- CFILE(filetemp, "rb")
+    }
+    if (filename != "") { # we have a file to read supplied
+       if (file.exists(filename) != TRUE) {
+          msg <- paste("mantaXfer - File to PUT not found at:", filename, "\n", sep="")
+          bunyanLog.error(msg = msg)
+          stop(msg)
+        }      
+       f <- CFILE(filename,"rb")
+       fsize <- file.info(filename)[1, "size"]
+    } else { # use the tempfile
+      filename <- filetemp
     }
     if (md5 == TRUE) {
-      openssl_cmd <- "openssl"
-      digest_args <- paste("dgst -md5 -binary",
+       openssl_cmd <- "openssl"
+       digest_args <- paste("dgst -md5 -binary",
                            "-out temp_digest.bin",
                            sep=" ")
-      encrypt_args <- "enc -base64 -in temp_digest.bin"
-      system2(openssl_cmd, args=digest_args, stdin=filename, stdout = FALSE)
-      md5hash <- paste(system2(openssl_cmd, args=encrypt_args, stdout = TRUE), collapse = '')
-      headers <- c(headers, 'content-md5' = md5hash)
+       encrypt_args <- "enc -base64 -in temp_digest.bin"
+       system2(openssl_cmd, args=digest_args, stdin=filename, stdout = FALSE)
+       md5hash <- paste(system2(openssl_cmd, args=encrypt_args, stdout = TRUE), collapse = '')
+       headers <- c(headers, 'content-md5' = md5hash)
     }
     curl_handle <- getCurlHandle()
     httpheader <- c(headers, mantaGenHeaders())
@@ -180,7 +184,7 @@ function(action, method, filename, buffer, object, returnmetadata = FALSE, retur
                            stop(msg)
                            },
                     error = function(e) {
-                           msg <- paste("mantaXfer PUT HTTP error: ", e$message, "\n", sep="")
+                           msg <- paste("mantaXfer PUT HTTP or RCURL error: ", e$message, "\n", sep="")
                            bunyanLog.error(msg = msg, version = manta_globals$RSDK_version) 
                            stop(msg)
                           }

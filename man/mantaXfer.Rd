@@ -3,9 +3,9 @@
 \title{mantaXfer is the core routine for mantaPut mantaGet and
 related data transfer routines}
 \usage{
-  mantaXfer(action, method, filename, buffer, object,
+  mantaXfer(action, method, filename, buffer,
     returnmetadata = FALSE, returnbuffer = FALSE,
-    md5 = FALSE, envir, headers, verbose = FALSE)
+    md5 = FALSE, headers, verbose = FALSE)
 }
 \arguments{
   \item{action}{string, optional. Path to a manta object.}
@@ -17,8 +17,6 @@ related data transfer routines}
 
   \item{buffer}{optional. Raw buffer to put.}
 
-  \item{object}{optional. Name of R object to PUT only}
-
   \item{returnmetadata}{logical required. For GET function
   returns metadata.}
 
@@ -27,8 +25,6 @@ related data transfer routines}
 
   \item{md5}{logical optional. Test md5 hash of data
   before/after transfer}
-
-  \item{envir}{optional. Environment of R object}
 
   \item{headers,}{array of named strings, optional. The
   headers follow the RCurl structure of vector of strings

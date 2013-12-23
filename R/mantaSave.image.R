@@ -1,33 +1,30 @@
-# Roxygen Comments mantaDump
-#' Uses dump() to write text parsable  R data to Manta Storage Service 
+# Roxygen Comments mantaSave.image
+#' Saves R workspace to Manta Storage Service like R save.image()
 #'
-#' mantaDump is a wrapper for dump and mantaXfer, which implements the RCURL transfer
+#' mantaSave.image uses mantaSave,  mantaXfer, which implements the RCURL transfer
 #'
-#' @param list required.  See dump()  List of R objects to dump. Name of R object in 
-#' quotes works as well.
-#'
-#' @param mantapath required. Path/filename to where uploaded R source will go on 
+#' @param mantapath optional. Path/filename to where uploaded data will go on 
 #' Manta or Manta object/file name in current working Manta directory. If no 
-#' extension is provided on the filename, or a non R data style extension, 
-#' ".R" is appended to the end of the filename.  
+#' extension is provided on the filename, or a non R data style extension 
+#' ".rda" is appended to the end of the filename.  
 #' 
-#' @param md5 logical. Test md5 hash of R dump tempfile before/after PUT transfer.
+#' @param md5 logical. Test md5 hash of R data tempfile before/after PUT transfer.
 #'
-#' @param headers  Headers for HTTP transfer, in RCurl style. See mantaPut()
+#' @param headers optional. Headers for HTTP transfer, in RCurl style. See mantaPut()
 #' User metadata headers may be provided, E.g.:
 #  headers = c('m-Title' = "Model Fitting Test", 'm-Iteration' = "42")
-#' Avoid supplying the content-type header, which is set to the R source code 
-#' "text/R-code" and the durability-level header which is handled 
+#' Avoid supplying the content-type header, which is set to the R data type 
+#' "application/x-r-data", and the durability-level header which is handled 
 #' via the durability parameter. 
 #'
 #' @param durability optional. Number of copies to store on Manta (2-6). If not
 #' provided, uses saved value from mantaSetLimits(), system default is 2.
 #'
-#' @param envir optional. See dump(). Environment of R object being passed.
+#' @param ascii optional. See save().
 #'
-#' @param control optional.  See dump().
+#' @param version optional. See save().
 #'
-#' @param evaluate optional.  See dump().
+#' @param compress optional. See save().
 #'
 #' @param info logical required. Set to FALSE to silence output messages while downloading.
 #'
@@ -40,10 +37,9 @@
 #' @keywords Manta, manta
 #'
 #' @export
-mantaDump <-
-function(list, mantapath = "dumpdata.R", md5 = FALSE,
-         headers, durability = 2, envir = parent.frame(), control = "all", 
-         evaluate = TRUE,  info = TRUE, verbose = FALSE) {
+mantaSave.image <-
+function(mantapath, md5 = TRUE, headers, durability = 2, version = NULL, 
+         ascii = FALSE,  compress = !ascii, info = TRUE, verbose = FALSE) {
 
 
   # If this is the first export function called in the library
@@ -52,37 +48,45 @@ function(list, mantapath = "dumpdata.R", md5 = FALSE,
   }
 
 
-  if ( substr(mantapath, nchar(mantapath), nchar(mantapath)) == "/" )  {
-    stop("mantaDump. Cannot resolve target file name to store R memory object on Manta - mantapath ends in /")
+    opts <- getOption("save.image.defaults")
+    if (is.null(opts)) 
+        opts <- getOption("save.defaults")
+    if (missing(ascii) && !is.null(opts$ascii)) 
+        ascii <- opts$ascii
+    if (missing(compress) && !is.null(opts$compress)) 
+        compress <- opts$compress
+    if (missing(version)) 
+        version <- opts$version
+
+  if ( substr(mantapath, nchar(mantapath), nchar(mantapath)) == "/" ) {   
+    stop("mantaSave.image. Cannot resolve target file name to store R memory object on Manta - mantapath ends in /")
   }
 
-  if (missing(list)) stop("mantaDump. No objects specified in list.")
-
   temp_f <- tempfile()
-  ex <- sapply(list, exists, envir = envir)
-  if (!any(ex))  stop("mantaDump. No objects specified in list.")
 
-  dump(list = list, file = temp_f,  append = FALSE, control = control, 
-    envir = envir, evaluate = evaluate) 
+  save(list = ls(envir = .GlobalEnv, all.names = TRUE), file = temp_f,  
+        version = version, ascii = ascii, compress = compress, 
+        envir = .GlobalEnv, precheck = FALSE)
 
-  # File extensions conforming to .R type 
+  # File extensions conforming to RData type 
   pathsplit <- strsplit(mantapath,"/")
   to_filename <- pathsplit[[1]][length(pathsplit[[1]])]
-  extensions <- c( "r", "R") 
+  extensions <- c( "rda", "RData", "Rdata", "rdata") 
   ## does filename have extension, if not append one
   namesplit <- strsplit(to_filename,"[.]")
-  if (length(namesplit[[1]]) > 1) { #extension present
-    # case where supplied is ".R" gives a count of 2, so this is ok - 
+  if (length(namesplit[[1]]) > 1) { 
+    # extension present
+    # case where supplied is ".Rdata" gives a count of 2, so this is ok - 
     ext <- namesplit[[1]][length(namesplit[[1]])]
     if (is.na(match(ext, extensions))) { 
       # Extension does not match, append another valid extension
-      # so "myfile.csv" becomes "myfile.csv.R"
-      mantapath <- paste(mantapath, ".R", sep = "")  
+      # so "myimage.now" becomes "myimage.now.RData"
+      mantapath <- paste(mantapath, ".RData", sep = "")  
     }
   } else { 
     # no extension supplied, append extension
-    # so "myfile" becomes "myfile.R"
-    mantapath <- paste(mantapath, ".R", sep = "")
+    # so "myfile" becomes "myfile.RData"
+    mantapath <- paste(mantapath, ".Rdata", sep = "")
   }
 
 
@@ -93,7 +97,7 @@ function(list, mantapath = "dumpdata.R", md5 = FALSE,
   }
 
   if (path_enc == "") {
-    msg <- paste("mantaSave - Argument error - mantapath: [", mantapath, "]\n", sep = "")
+    msg <- paste("mantaSave.image - Argument error - mantapath: [", mantapath, "]\n", sep = "")
     bunyanLog.error(msg)
     stop(msg)
   } 
@@ -105,7 +109,7 @@ function(list, mantapath = "dumpdata.R", md5 = FALSE,
     if (durability < 2) durability <- 2
   }
 
-  content_header <- c('content-type' = "text/R-code")
+  content_header <- c('content-type' = "application/x-r-data")
   # Set durability-level header if not Manta default value of 2
   if (durability != 2) {
      put_headers <- c(content_header, 'x-durability-level' = durability)
@@ -118,7 +122,7 @@ function(list, mantapath = "dumpdata.R", md5 = FALSE,
     put_headers <- c(put_headers, headers)
   }
 
-  msg <- paste("Uploading R dump text to Manta: ", mantapath, "\n",  sep="")
+  msg <- paste("Uploading R memory data to Manta object: ", mantapath, "\n",  sep="")
   bunyanLog.debug(msg)
   if (info == TRUE) {
     cat(msg)

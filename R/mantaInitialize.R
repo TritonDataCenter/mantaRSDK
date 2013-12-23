@@ -151,7 +151,7 @@ function(useEnv = TRUE) {
 
   # some functions to get / set these are in order when they are 
   # actually in use.
-  manta_defaults <- list(attempts = 3, connect_timeout = 5, send_timeout = 60, 
+  manta_defaults <- list(durability_level = 2, connect_timeout = 5, send_timeout = 60, 
                          receive_timeout = 60, max_limit = 1000)
 
   assign("manta_defaults", manta_defaults, envir=manta_globals)
