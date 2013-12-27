@@ -31,8 +31,8 @@
   \item{marker,}{string, optional. Name or id string of
   directory entry to start next listing of length limit}
 
-  \item{json}{logical, optional. Set to FALSE to return R
-  data}
+  \item{json}{logical, optional. FALSE means don't return
+  JSON}
 
   \item{test}{logical, optional, Set to TRUE to return
   logical TRUE/FALSE the request passed or failed. Also

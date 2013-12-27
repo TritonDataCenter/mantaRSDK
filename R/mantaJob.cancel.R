@@ -1,4 +1,4 @@
-mantaJobCancel <-
+mantaJob.cancel <-
 function() {
   # Cancels a running Manta compute job
   #

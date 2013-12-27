@@ -83,16 +83,15 @@
 
   Example - Map/Reduce Unix Word Count
 
-  job <- mantaJob.setup( name = "word count", mantaMap(exec
-  = "wc"), mantaReduce(exec = "awk '{ l += $1; w += $2; c
-  += $3 } END { print l, w, c }'")))
+  job <- mantaJob.setup("word count", mantaMap("wc"),
+  mantaReduce("awk '{ l += $1; w += $2; c += $3 } END {
+  print l, w, c }'"))
 
   To launch the job, specify the inputs and job R structure
   made with mantaJob.setup like so:
 
-  mantaJob.launch(inputs =
-  mantaLs.paths("~~/public/shakespeare", grepfor =
-  "[.]txt"), job)
+  mantaJob.launch(mantaLs.paths("~~/public/shakespeare",
+  grepfor = "[.]txt"), job)
 
   Note that you do not have to specify the input for a
   Reduce task, the service pipelines the output of the

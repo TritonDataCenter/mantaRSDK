@@ -1,9 +1,10 @@
-mantaJobsListRunning <-
+# Roxygen Comments mantaJobs.running
+#' mantaJobs lists ~~/jobs directory
+#'
+#' @keywords Manta, manta
+#'
+#' @export
+mantaJobs.running <-
 function() {
-  # Lists all running Manta jobs on account
-  #
-  # Args:
-  #
-  # Returns:
-  #
+  return(mantaLs(mantapath = "~~/jobs?state=running", l='names', sortby = 'time'))
 }

@@ -38,7 +38,7 @@
 #' @param marker, string, optional. Name or id string of
 #' directory entry to start next listing of length limit
 #'
-#' @param json logical, optional. Set to FALSE to return R data
+#' @param json logical, optional. FALSE means don't return JSON
 #'
 #' @param test logical, optional, Set to TRUE to return logical 
 #' TRUE/FALSE the request passed or failed. Also
@@ -235,20 +235,26 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     
   # OK, so no HTTP, resolve, server errors reported, some response received, 
   # Sanity check to see that response is JSON 
-  if (no_body == FALSE) {
+  if (no_body == FALSE) { # there is a body...
     if (isValidJSON(body_lines[[1]], asText = TRUE) == FALSE) {
-      msg <-  paste("mantaAttempt Error - Server Response is not parseable JSON using RJSONIO: \n", sep="")
-      msg <- paste(msg,body_lines[[1]][1],"\n\n",sep="")
-      bunyanLog.error(msg)
-      cat(msg)
-      if (test == TRUE) { 
-        return(FALSE)
-      } else {
-        # We grind to a halt without valid JSON response, some fix required
-        stop("Unable to process response.\n")
+      if (json == TRUE) {
+        msg <-  paste("mantaAttempt Error - Server Response is not parseable JSON using RJSONIO: \n", sep="")
+        msg <- paste(msg,body_lines[[1]][1],"\n\n",sep="")
+        bunyanLog.error(msg)
+        cat(msg)
+        if (test == TRUE) { 
+          return(FALSE)
+        } else {
+          # We grind to a halt without valid JSON response, some fix required
+          stop("Unable to process response.\n")
+        }
+      } else { # json is FALSE, caller expects non-json return, 
+               #  message body is present but not valid JSON - return as is
+        return(body_lines[[1]])
       }
     }
-  }
+  } 
+
   
   # So we made it through, for testing purposes
   if (test == TRUE) { 
@@ -262,13 +268,14 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   if (nchar(result_set_size) != 0) {
     result_set_count <- as.integer(strsplit(result_set_size, split=" ")[[1]][2])
   }
-  
 
-  #Return a list with count, lines
-  if ((json == TRUE) || (no_body ==TRUE)) {
+  # at this point body is valid JSON. For json FALSE, convert JSON to R
+  #Return a list with count, lines 
+  if ((json == TRUE) || (no_body == TRUE)) {
     return(list(count = result_set_count, lines = body_lines[[1]]))
   } else {
-    return(list(count = result_set_count, lines = lapply(body_lines[[1]],fromJSON)))
+    return(list(count = result_set_count, lines = lapply(body_lines[[1]],fromJSON)))  
   }
+
 
 }

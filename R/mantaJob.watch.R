@@ -1,4 +1,4 @@
-mantaJobState <-
+mantaJob.watch <-
 function() {
   # Used by mantaJobList* functions
   #
