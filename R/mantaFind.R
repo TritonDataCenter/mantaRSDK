@@ -1,3 +1,4 @@
+# TODO fix wrong initial directory error - unwrap first call to mantaLs()
 # Roxygen Comments mantaFind
 #' Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy
 #'
@@ -156,6 +157,10 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
       assign("find_list",list(),envir=manta_globals)
       assign("find_dir_count", 0, envir=manta_globals)
       countdown <- manta_globals$manta_defaults$connect_timeout # default is 5s
+#  here try mantaLs and stop on wrong starting directory errors
+#
+#
+
     } else {
       countdown <- manta_globals$manta_defaults$receive_timeout # default is 60s
     }
