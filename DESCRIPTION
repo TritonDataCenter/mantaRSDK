@@ -89,3 +89,4 @@ Collate:
     'mantaJobs.R'
     'mantaMap.R'
     'mantaReduce.R'
+    'mantaJob.launch.R'
