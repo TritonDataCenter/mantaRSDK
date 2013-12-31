@@ -36,16 +36,19 @@ function(mantapath, r = FALSE, info = TRUE) {
 
   if (path_enc == "") return(FALSE)
 
+  silent <- FALSE
+  if (info == FALSE) silent <- TRUE
+
   if (r == FALSE) {
     # non recursive
-    return(mantaAttempt(action=path_enc, method="DELETE", test = TRUE, returncode="204"))
+    return(mantaAttempt(action=path_enc, method="DELETE", test = TRUE, silent = silent, returncode="204"))
   } else {
     # recursive
     # Call mantaFind to get tree
     if (info == TRUE) {
      cat("Gathering subdirectory structure for deletion...\n")
     }
-    tree <- mantaFind(l='R', items='a', info=info)
+    tree <- mantaFind(mantapath = mantapath,  l='R', items='a', info=info)
     bunyanClearSetpoint()
     bunyanSetpoint()
 

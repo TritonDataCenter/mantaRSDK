@@ -1,5 +1,6 @@
 # Roxygen Comments mantaSnapln
-#' Snaplinks are combination snapshots and symbolic links. 
+#' mantaSnapLn Makes Snaplinks - combination snapshots and symbolic links. 
+#'
 #' If the original object is overwritten/deleted, the SnapLink
 #' still contains the object contents at time of creation.
 #'
@@ -20,7 +21,7 @@ function(from, to) {
   }
 
  if (missing(from) || missing(to)) {
-   cat("mantaRSDK:mantaSnapln Error - Missing argument - from or to")
+   cat("mantaSnapln Error - Missing argument - from or to")
    return(FALSE)
  }
 

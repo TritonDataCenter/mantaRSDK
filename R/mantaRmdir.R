@@ -17,7 +17,7 @@ function(mantapath) {
   }
 
  if (missing(mantapath)) {
-     cat("mantaRSDK:mantaRmdir Error - no Manta object or path to object specified")
+     cat("mantaRmdir Error - no Manta object or path to object specified")
      return(FALSE)
  }
 

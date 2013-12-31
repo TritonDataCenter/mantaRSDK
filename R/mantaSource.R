@@ -90,7 +90,7 @@ function(mantapath, local = FALSE, verbose = FALSE, max.deparse.length = 150,
     file.remove(filename)
     return(TRUE)
   } else {
-    msg <- paste("mantaLoad metadata mismatch, expecting:", mimetype, " received: " , type, sep="")
+    msg <- paste("mantaSource metadata mismatch, expecting:", mimetype, " received: " , type, sep="")
     bunyanLog.error(msg)
     cat(msg)
     file.remove(filename)

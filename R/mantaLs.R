@@ -9,6 +9,7 @@
 #' or full Manta path to stored object or subdirectory
 #'
 #' @param grepfor string optional. Regular expression passed to R grep for name search 
+#' USE "[.]txt" to match extensions, not ".txt"
 #'
 #' @param l string optional. Specifies listing output format by  'names', 'l', 'paths', 
 #' 'URL', 'n', 'du', 'R', 'Rraw', 'json'.
@@ -67,9 +68,9 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
   validsortby <- c('none', 'name', 'time', 'size')
   validitems <- c('a', 'd', 'o')
   
-  if (is.na(match(l,validl))) stop("mantaRSDK:mantaLs Invalid l='",l,"' argument, try help(mantaLs)\n") 
-  if (is.na(match(sortby,validsortby))) stop("mantaRSDK:mantaLs Invalid sortby='",sortby,"' argument, try help(mantaLs)\n") 
-  if (is.na(match(items,validitems))) stop("mantaRSDK:mantaLs Invalid items='",items,"' argument, try help(mantaLs)\n") 
+  if (is.na(match(l,validl))) stop("mantaLs Invalid l='",l,"' argument, try help(mantaLs)\n") 
+  if (is.na(match(sortby,validsortby))) stop("mantaLs Invalid sortby='",sortby,"' argument, try help(mantaLs)\n") 
+  if (is.na(match(items,validitems))) stop("mantaLs Invalid items='",items,"' argument, try help(mantaLs)\n") 
 
   if (l == 'URL') {
     # must begin with /$MANTA_USER/public
@@ -99,7 +100,7 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
     if (path_enc != "") {
       dir <- mantaAttempt(action=path_enc, method=method, json=TRUE, limit=limit, verbose=verbose)
     } else {
-      msg <- paste("mantaLS: path to list is invalid ", mantapath,"\n",sep="")
+      msg <- paste("mantaLs: path to list is invalid ", mantapath,"\n",sep="")
       bunyanLog.error(msg) 
       stop(msg)
     }

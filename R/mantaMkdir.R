@@ -17,7 +17,7 @@ function(mantapath, p = FALSE) {
   }
 
  if (missing(mantapath)) {
-     cat("mantaRSDK:mantaMkdir Error - no subdirectory specified")
+     cat("mantaMkdir Error - no subdirectory specified")
      return(FALSE)
  }
 

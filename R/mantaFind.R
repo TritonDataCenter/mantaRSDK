@@ -10,7 +10,8 @@
 #' or full Manta path to stored object or subdirectory
 #'
 #' @param grepfor string optional. Regular expression passed to R grep for name search.
-#' Ignored for reprocessed trees
+#' Ignored for reprocessed trees. Uses R regexps, e.g. USE "[.]txt", NOT ".txt" to 
+#' match filename extensions.
 #'
 #' @param entries saved mantaFind R data, optional. For reprocessing/reformatting 
 #' retrieved R tree information saved with  mantaFind(l='R')->tree

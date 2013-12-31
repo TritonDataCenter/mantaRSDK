@@ -12,7 +12,8 @@ redundancy levels}
   or subdirectory}
 
   \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search}
+  to R grep for name search USE "[.]txt" to match
+  extensions, not ".txt"}
 
   \item{items}{string optional. 'a' for all, 'd' for
   directory, 'o' for object.}

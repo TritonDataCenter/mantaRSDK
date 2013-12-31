@@ -1,10 +1,11 @@
 \name{mantaAttempt}
 \alias{mantaAttempt}
-\title{REST API Manta Caller with exception handling}
+\title{raw REST API Manta Caller with exception handling for internal
+use. Exported for access HTTP HEAD and metadata retrieval.}
 \usage{
   mantaAttempt(action, method, headers, returncode, limit,
-    marker, json = TRUE, test = FALSE, verbose = FALSE,
-    silent = FALSE)
+    marker, json = TRUE, test = FALSE, silent = FALSE,
+    verbose = FALSE)
 }
 \arguments{
   \item{action}{string, optional. Path to a manta object or
@@ -31,36 +32,40 @@
   \item{marker,}{string, optional. Name or id string of
   directory entry to start next listing of length limit}
 
-  \item{json}{logical, optional. FALSE means don't return
-  JSON}
+  \item{json}{logical, optional. FALSE means return R data,
+  TRUE means return JSON data.}
 
   \item{test}{logical, optional, Set to TRUE to return
-  logical TRUE/FALSE the request passed or failed. Also
-  tests Manta dns resolution.}
+  logical TRUE/FALSE as to whether the request passed or
+  failed.  Also affects the behavior of the silent
+  parameter. See return for output table.}
+
+  \item{silent}{logical, optional. Controls whether 400
+  service errors are emitted by cat() or stop() depending
+  on the value of test. See return for output table.}
 
   \item{verbose}{logical, optional. Passed to RCurl GetURL,
   Set to TRUE to see background REST communication.}
-
-  \item{silent}{logical, optional. Silences 400 error
-  messages that are ok when looking at object/subdir with
-  test = TRUE}
 }
 \value{
-  The Manta reply encoded in JSON or as R data
+  The Manta reply data in JSON or R format, OR a logical
+  value if test = TRUE. Return values and Manta server
+  error message display or stop() behavior depends on
+  values of test, silent: test = TRUE, silent = TRUE
+  mantaAttempt logical - success returned Errors are logged
+  test = TRUE, silent = FALSE mantaAttempt logical -
+  success returned Errors are logged, emitted to console.
+  test = FALSE, silent = TRUE mantaAttempt data returned
+  Errors are logged, empty data on error test = FALSE,
+  silent = FALSE mantaAttempt data returned Errors are
+  logged, stop() on 400 series errors
 }
 \description{
-  mantaAttempt uses the current Manta URL and the current
-  working manta directory set with mantaSetwd() and tries
-  to list the directory. If test == TRUE, it returns
-  pass/fail logical which can stat a directory or object.
-  When action is passed a valid path to a Manta object this
-  returns the object JSON metadata.
+  If test == TRUE, it returns pass/fail logical If passed a
+  Manta subdirectory, it returns the directory JSON
+  according to the length limit set with mantaSetLimits()
 }
 \details{
-  If passed a Manta subdirectory, it returns the directory
-  JSON according to the length limit set with
-  mantaSetLimits()
-
   Note getURL verbose = TRUE writes to stderr - invisible
   on Windows R.
 }

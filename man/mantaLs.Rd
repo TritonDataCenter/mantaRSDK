@@ -13,7 +13,8 @@
   or subdirectory}
 
   \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search}
+  to R grep for name search USE "[.]txt" to match
+  extensions, not ".txt"}
 
   \item{l}{string optional. Specifies listing output format
   by 'names', 'l', 'paths', 'URL', 'n', 'du', 'R', 'Rraw',

@@ -14,7 +14,9 @@
   or subdirectory}
 
   \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search. Ignored for reprocessed trees}
+  to R grep for name search. Ignored for reprocessed trees.
+  Uses R regexps, e.g. USE "[.]txt", NOT ".txt" to match
+  filename extensions.}
 
   \item{entries}{saved mantaFind R data, optional. For
   reprocessing/reformatting retrieved R tree information
