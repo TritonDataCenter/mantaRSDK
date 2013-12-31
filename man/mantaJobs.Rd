@@ -1,11 +1,11 @@
 \name{mantaJobs}
 \alias{mantaJobs}
-\title{mantaJobs lists ~~/jobs directory}
+\title{Lists all Manta job identifiers, sorted by time.}
 \usage{
   mantaJobs()
 }
 \description{
-  mantaJobs lists ~~/jobs directory
+  Lists all Manta job identifiers, sorted by time.
 }
 \keyword{Manta,}
 \keyword{manta}

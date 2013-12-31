@@ -1,6 +1,6 @@
 \name{mantaSource}
 \alias{mantaSource}
-\title{mantaSource Downloads and applies source() to parse R code file specified in mantapath}
+\title{Downloads and applies source() to parse R code file specified in mantapath}
 \usage{
   mantaSource(mantapath, local = FALSE, verbose = FALSE,
     max.deparse.length = 150,
@@ -28,8 +28,8 @@
   TRUE or FALSE depending on success of GET transfer
 }
 \description{
-  mantaSource Downloads and applies source() to parse R
-  code file specified in mantapath
+  Downloads and applies source() to parse R code file
+  specified in mantapath
 }
 \keyword{Manta,}
 \keyword{manta}

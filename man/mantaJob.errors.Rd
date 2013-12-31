@@ -1,6 +1,6 @@
 \name{mantaJob.errors}
 \alias{mantaJob.errors}
-\title{mantaJob.errors returns JSON error messages given Manta job identifier}
+\title{Returns JSON Manta error messages given Manta job identifier}
 \usage{
   mantaJob.errors(jobid, readable = TRUE)
 }
@@ -15,15 +15,8 @@
   pretty prints JSON to the console.}
 }
 \description{
-  JSON error message return values Name Type Description
-  ------------------------ id String job id phase Number
-  phase number of the failure what String a human readable
-  summary of what failed code String programmatic error
-  code message String human readable error message stderr
-  String (optional) a key that saved the stderr for the
-  given command key String (optional) the input key being
-  processed when the task failed (if the service can
-  determine it)
+  Returns JSON Manta error messages given Manta job
+  identifier
 }
 \keyword{Manta,}
 \keyword{manta}

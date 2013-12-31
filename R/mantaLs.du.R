@@ -1,5 +1,5 @@
 # Roxygen Comments mantaLs.du
-#' mantaLs.du Returns disk used in bytes of directory listings, NOT counting
+#' Returns disk used in bytes of directory listings, NOT counting
 #' redundancy levels  
 #'
 #' Used for getting number of bytes occupied by objects matching directory query

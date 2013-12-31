@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJobs.running
-#' mantaJobs lists ~~/jobs directory
+#' Lists running Manta job identifiers
 #'
 #' @keywords Manta, manta
 #'

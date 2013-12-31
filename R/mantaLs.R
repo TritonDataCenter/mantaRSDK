@@ -1,5 +1,5 @@
 # Roxygen Comments mantaLs
-#' mantaLs lists, searches, filters, sorts and formats directory listings
+#' Lists, searches, filters, sorts and formats Manta directory listings
 #'
 #' Used for getting disk size, number of objects, number of subdirectories.
 #' Searching for filenames with regular expressions (using R grep). 

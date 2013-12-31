@@ -1,6 +1,6 @@
 \name{mantaJob.input}
 \alias{mantaJob.input}
-\title{mantaJob.input returns list of input objects given Manta job identifier}
+\title{Returns list of input objects given Manta job identifier}
 \usage{
   mantaJob.input(jobid)
 }
@@ -11,8 +11,7 @@
   run on the service e.g. mantaJob.errors(mantaJob.last())}
 }
 \description{
-  mantaJob.input returns list of input objects given Manta
-  job identifier
+  Returns list of input objects given Manta job identifier
 }
 \keyword{Manta,}
 \keyword{manta}

@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.input
-#' mantaJob.input returns list of input objects given Manta job identifier
+#' Returns list of input objects given Manta job identifier
 #'
 #' @param jobid character required. Manta job identifier such as
 #' "70c30bab-873b-66da-ebc8-ced12bd35ac4"  or use mantaJob.last()

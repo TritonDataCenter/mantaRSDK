@@ -1,6 +1,6 @@
 \name{mantaLs}
 \alias{mantaLs}
-\title{mantaLs lists, searches, filters, sorts and formats directory listings}
+\title{Lists, searches, filters, sorts and formats Manta directory listings}
 \usage{
   mantaLs(mantapath, grepfor, json, l = "names",
     items = "a", sortby = "none", decreasing = FALSE,

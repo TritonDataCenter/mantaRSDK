@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.output
-#' mantaJob.output returns list of output objects given Manta job identifier
+#' Returns list of output objects given Manta job identifier
 #'
 #'
 #' @param jobid character required. Manta job identifier such as

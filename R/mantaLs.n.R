@@ -1,5 +1,5 @@
 # Roxygen Comments mantaLs.n
-#' mantaLs.n Returns number of files matched in directory listing
+#' Returns number of files matched in Manta directory listing
 #'  
 #'
 #' Used for getting number of objects/subdir in a directory. Default uses
@@ -9,6 +9,7 @@
 #' or full Manta path to stored object or subdirectory
 #'
 #' @param grepfor string optional. Regular expression passed to R grep for name search 
+#' USE "[.]txt" to match extensions, not ".txt"
 #' 
 #' @param items string optional. 'a' for all, 'd' for directory, 'o' for object. 
 #' 

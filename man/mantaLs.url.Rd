@@ -1,6 +1,6 @@
 \name{mantaLs.url}
 \alias{mantaLs.url}
-\title{mantaLs.url lists, searches, filters, sorts and formats directory listings
+\title{Lists, searches, filters, sorts and formats Manta directory listings
 Output is long ls -o unix style of directory listing}
 \usage{
   mantaLs.url(mantapath, grepfor, json, items = "a",

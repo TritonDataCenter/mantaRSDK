@@ -5,7 +5,7 @@
 ## TEST WINDOWS PATHS
 # Roxygen Comments mantaGet
 #'
-#' mantaGet Transfers object specified in mantapath to file or buffer
+#' Transfers object specified in mantapath to file or buffer
 #'
 #' @param mantapath string, optional. Path to a manta object or object name in current
 #' working Manta directory for retrieval. 

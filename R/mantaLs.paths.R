@@ -1,6 +1,6 @@
 # Roxygen Comments mantaLs.paths
-#' mantaLs.paths lists, searches, filters, sorts and formats directory listings  
-#' Output is full manta pathnames of directory listing
+#' Lists, searches, filters, sorts and formats Manta directory listings  
+#' Output is full Manta pathnames of directory listing
 #'
 #' Searching for filenames with regular expressions (using R grep). 
 #' Sorting listings by filename, time, or size

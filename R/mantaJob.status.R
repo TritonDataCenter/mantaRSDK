@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.status
-#' mantaJob.status returns JSON job status data given Manta job identifier
+#' Returns JSON Manta job status data given Manta job identifier
 #'
 #'
 #' @param jobid character required. Manta job identifier such as

@@ -1,7 +1,7 @@
 \name{mantaLs.paths}
 \alias{mantaLs.paths}
-\title{mantaLs.paths lists, searches, filters, sorts and formats directory listings
-Output is full manta pathnames of directory listing}
+\title{Lists, searches, filters, sorts and formats Manta directory listings
+Output is full Manta pathnames of directory listing}
 \usage{
   mantaLs.paths(mantapath, grepfor, json, items = "a",
     sortby = "none", decreasing = FALSE,

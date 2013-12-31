@@ -1,6 +1,6 @@
 \name{mantaLoad}
 \alias{mantaLoad}
-\title{mantaLoad Loads R data object specified in mantapath.}
+\title{Loads R data object specified in mantapath.}
 \usage{
   mantaLoad(mantapath, envir = parent.frame(), info = TRUE,
     verbose = FALSE)
@@ -23,7 +23,7 @@
   TRUE or FALSE depending on success of GET transfer
 }
 \description{
-  mantaLoad Loads R data object specified in mantapath.
+  Loads R data object specified in mantapath.
 }
 \keyword{Manta,}
 \keyword{manta}

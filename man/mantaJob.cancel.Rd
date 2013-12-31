@@ -1,6 +1,6 @@
 \name{mantaJob.cancel}
 \alias{mantaJob.cancel}
-\title{mantaJob.cancel Sends Manta a cancel message to stop running job}
+\title{Sends Manta a cancel message to stop running job}
 \usage{
   mantaJob.cancel(jobid)
 }
@@ -11,8 +11,7 @@
   run on the service e.g. mantaJob.errors(mantaJob.last())}
 }
 \description{
-  mantaJob.cancel Sends Manta a cancel message to stop
-  running job
+  Sends Manta a cancel message to stop running job
 }
 \keyword{Manta,}
 \keyword{manta}

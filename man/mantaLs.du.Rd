@@ -1,6 +1,6 @@
 \name{mantaLs.du}
 \alias{mantaLs.du}
-\title{mantaLs.du Returns disk used in bytes of directory listings, NOT counting
+\title{Returns disk used in bytes of directory listings, NOT counting
 redundancy levels}
 \usage{
   mantaLs.du(mantapath, grepfor, json, items = "a",

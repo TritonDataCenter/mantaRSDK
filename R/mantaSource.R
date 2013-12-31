@@ -1,6 +1,6 @@
 # Roxygen Comments mantaSource
 #'
-#' mantaSource Downloads and applies source() to parse R code file specified in mantapath
+#' Downloads and applies source() to parse R code file specified in mantapath
 #'
 #' @param mantapath string, optional. Path to a manta R code file or file  name in current
 #' working Manta directory for retrieval. 

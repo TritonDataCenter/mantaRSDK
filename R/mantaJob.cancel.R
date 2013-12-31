@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.cancel
-#' mantaJob.cancel Sends Manta a cancel message to stop running job
+#' Sends Manta a cancel message to stop running job
 #'
 #' @param jobid character required. Manta job identifier such as
 #' "70c30bab-873b-66da-ebc8-ced12bd35ac4"  or use mantaJob.last()

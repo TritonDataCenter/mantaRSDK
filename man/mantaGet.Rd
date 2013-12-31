@@ -1,6 +1,6 @@
 \name{mantaGet}
 \alias{mantaGet}
-\title{mantaGet Transfers object specified in mantapath to file or buffer}
+\title{Transfers object specified in mantapath to file or buffer}
 \usage{
   mantaGet(mantapath, filename, buffer = FALSE,
     metadata = FALSE, verbose = FALSE)
@@ -30,8 +30,7 @@
   TRUE or FALSE depending on success of GET transfer
 }
 \description{
-  mantaGet Transfers object specified in mantapath to file
-  or buffer
+  Transfers object specified in mantapath to file or buffer
 }
 \keyword{Manta,}
 \keyword{manta}

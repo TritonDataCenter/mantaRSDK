@@ -1,6 +1,6 @@
 \name{mantaLs.n}
 \alias{mantaLs.n}
-\title{mantaLs.n Returns number of files matched in directory listing}
+\title{Returns number of files matched in Manta directory listing}
 \usage{
   mantaLs.n(mantapath, grepfor, json, items = "a",
     ignore.case = FALSE, perl = FALSE, verbose = FALSE)
@@ -11,7 +11,8 @@
   or subdirectory}
 
   \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search}
+  to R grep for name search USE "[.]txt" to match
+  extensions, not ".txt"}
 
   \item{items}{string optional. 'a' for all, 'd' for
   directory, 'o' for object.}

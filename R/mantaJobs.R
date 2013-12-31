@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJobs
-#' mantaJobs lists ~~/jobs directory
+#' Lists all Manta job identifiers, sorted by time.
 #'
 #' @keywords Manta, manta
 #'

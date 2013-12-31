@@ -1,5 +1,5 @@
 # Roxygen Comments mantaLs.url
-#' mantaLs.url lists, searches, filters, sorts and formats directory listings  
+#' Lists, searches, filters, sorts and formats Manta directory listings  
 #' Output is long ls -o unix style of directory listing
 #'
 #' Used for getting disk size, number of objects, number of subdirectories.

@@ -1,20 +1,16 @@
 # Roxygen Comments mantaJob.errors
-#' mantaJob.errors returns JSON error messages given Manta job identifier
-#' 
-#' JSON error message return values
-#' Name		Type	Description
-#' ------------------------
-#' id		String	job id
-#' phase	Number	phase number of the failure
-#' what		String	a human readable summary of what failed
-#' code		String	programmatic error code
-#' message	String	human readable error message
-#' stderr	String	(optional) a key that saved the stderr for the given command
-#' key		String	(optional) the input key being processed when 
-#' 			the task failed (if the service can determine it)
-#'
-#'
-#'
+# JSON error message return values
+# Name		Type	Description
+# ------------------------
+# id		String	job id
+# phase	Number	phase number of the failure
+# what		String	a human readable summary of what failed
+# code		String	programmatic error code
+# message	String	human readable error message
+# stderr	String	(optional) a key that saved the stderr for the given command
+# key		String	(optional) the input key being processed when 
+# 			the task failed (if the service can determine it)
+#' Returns JSON Manta error messages given Manta job identifier
 #'
 #' @param jobid character required. Manta job identifier such as
 #' "70c30bab-873b-66da-ebc8-ced12bd35ac4"  or use mantaJob.last()

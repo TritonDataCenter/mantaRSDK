@@ -1,6 +1,6 @@
 \name{mantaJob.status}
 \alias{mantaJob.status}
-\title{mantaJob.status returns JSON job status data given Manta job identifier}
+\title{Returns JSON Manta job status data given Manta job identifier}
 \usage{
   mantaJob.status(jobid, readable = TRUE)
 }
@@ -16,8 +16,8 @@
   console.}
 }
 \description{
-  mantaJob.status returns JSON job status data given Manta
-  job identifier
+  Returns JSON Manta job status data given Manta job
+  identifier
 }
 \keyword{Manta,}
 \keyword{manta}

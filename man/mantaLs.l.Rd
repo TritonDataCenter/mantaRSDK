@@ -1,6 +1,6 @@
 \name{mantaLs.l}
 \alias{mantaLs.l}
-\title{mantaLs.l lists, searches, filters, sorts and formats directory listings
+\title{Lists, searches, filters, sorts and formats Manta directory listings
 Output is long ls -o unix style of directory listing}
 \usage{
   mantaLs.l(mantapath, grepfor, json, items = "a",
@@ -13,7 +13,8 @@ Output is long ls -o unix style of directory listing}
   or subdirectory}
 
   \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search}
+  to R grep for name search USE "[.]txt" to match
+  extensions, not ".txt"}
 
   \item{items}{string optional. 'a' for all, 'd' for
   directory, 'o' for object.}
