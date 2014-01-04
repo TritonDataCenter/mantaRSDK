@@ -50,7 +50,9 @@ function(m_path, verbose = FALSE) {
     }
 
     # encode any spaces if foreign characters the string...
-    path_enc <- curlEscape(path)   # this adds in unnecessary slash encoding, undo that.
+    path_enc <- curlEscape(path)   # this adds in unwanted slash, ?, =  encoding, undo that.
     path_enc <- gsub("%2F","/",path_enc) 
+    path_enc <- gsub("%3F","?",path_enc) # for conditionals
+    path_enc <- gsub("%3D","=",path_enc) # for conditionals
     return(path_enc)
 }

@@ -1,14 +1,14 @@
-\name{mantaJob.output}
-\alias{mantaJob.output}
+\name{mantaJob.outputs}
+\alias{mantaJob.outputs}
 \title{Returns list of output objects given Manta job identifier}
 \usage{
-  mantaJob.output(jobid, silent = FALSE)
+  mantaJob.outputs(jobid, silent = FALSE)
 }
 \arguments{
-  \item{jobid}{character required. Manta job identifier
-  such as "70c30bab-873b-66da-ebc8-ced12bd35ac4" or use
-  mantaJob.last() to fetch the jobid of the last manta Job
-  run on the service e.g. mantaJob.output(mantaJob.last())}
+  \item{jobid}{character optional. Manta job identifier
+  such as "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default
+  uses mantaJobs.tail() to fetch the jobid of the last
+  Manta Job run on the service}
 
   \item{silent}{logical required. Set to TRUE for
   non-interactive use of the function to suppress stop() on

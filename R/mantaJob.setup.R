@@ -35,7 +35,7 @@ function(name, ... )  {
   }
   job_json <- toJSON(job)
   if (isValidJSON(job_json, asText = TRUE)) {
-   return(job)
+   return(list(job = job, token = "FEEDB0B0"))
   } else {
     msg <- paste("mantaJob.setup - Malformed JSON, check arguments: ... must be return values from mantaMap or mantaReduce")
     bunyanLog.error(msg)

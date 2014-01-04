@@ -12,11 +12,9 @@
 # 			the task failed (if the service can determine it)
 #' Returns JSON Manta error messages given Manta job identifier
 #'
-#' @param jobid character required. Manta job identifier such as
-#' "70c30bab-873b-66da-ebc8-ced12bd35ac4"  or use mantaJob.last()
-#' to fetch the jobid of the last manta Job run on the service
-#' e.g. mantaJob.errors(mantaJob.last())
-#' 
+#' @param jobid character optional. Manta job identifier such as
+#' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
+#' to fetch the jobid of the last Manta Job run on the service
 #'
 #' @param readable logical. Set to FALSE to return the JSON error strings, or
 #' NULL if no errors found..
@@ -27,7 +25,9 @@
 #' @export
 mantaJob.errors <-
 function(jobid, readable = TRUE) {
-  if (missing(jobid)) stop("No job identifier provided")
+  if (missing(jobid)) {
+    jobid <- mantaJobs.tail()
+  }
   ## Look for live/err
   action <- paste("/",manta_globals$manta_user,"/jobs/",jobid,"/live/err", sep="")
   result <-  mantaAttempt(action, method = "GET", returncode = 200,  json = TRUE, silent = TRUE, test = TRUE)
@@ -38,7 +38,7 @@ function(jobid, readable = TRUE) {
   } else {
     json <- mantaAttempt(action, method = "GET", returncode = 200,  json = TRUE, silent = TRUE)
   }
-  if(json$lines != "") { 
+  if(json$lines[1] != "") { 
      if (readable == TRUE) {
        cat(paste(toJSON(fromJSON(json$lines), pretty=TRUE), "\n", sep=""))
      } else {

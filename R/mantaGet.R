@@ -1,8 +1,3 @@
-## TODO
-## parse the metadata into something useful by user
-## HEADERS
-## USER METADATA
-## TEST WINDOWS PATHS
 # Roxygen Comments mantaGet
 #'
 #' Transfers object specified in mantapath to file or buffer
