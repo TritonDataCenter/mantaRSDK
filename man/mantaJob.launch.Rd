@@ -70,13 +70,13 @@ optionally polls job status. Returns job identifier.}
   status <- mantaJob.launch( inputs =
   mantaLs.paths("~~/public/shakespeare", grepfor =
   "[.]txt"), job = mantaJob.setup( name = "word count",
-  mantaMap("wc"), mantaReduce("awk '{ l += $1; w += $2; c
-  += $3 } END { print l, w, c }'") ) )
+  mantaMap("wc"), mantaReduce("awk '\{ l += $1; w += $2; c
+  += $3 \} END \{ print l, w, c \}'") ) )
 
   Getting Job Results: mantaJob.status(jobid) # check to
   see if job is complete, as JSON information
   mantajob.done(jobid) # returns logical job done
-  (TRUE/FALSE) mantaJob.output(jobid) # retrieve list of
+  (TRUE/FALSE) mantaJob.outputs(jobid) # retrieve list of
   paths to Manta output objects mantaJob.errors(jobid) #
   retrieve JSON formatted job error information
 }

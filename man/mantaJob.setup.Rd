@@ -25,8 +25,8 @@ mantaMap(), and/or mantaReduce() functions. Does not specify job input.}
   Example - Map/Reduce Unix Word Count
 
   job <- mantaJob.setup("word count", mantaMap("wc"),
-  mantaReduce("awk '{ l += $1; w += $2; c += $3 } END {
-  print l, w, c }'"))
+  mantaReduce("awk '\{ l += $1; w += $2; c += $3 \} END \{
+  print l, w, c \}'"))
 
   mantaJob.launch(inputs =
   mantaLs.paths("~~/public/shakespeare", grepfor =

@@ -91,3 +91,8 @@ Collate:
     'mantaJobs.tail.R'
     'mantaJob.inputs.R'
     'mantaJob.outputs.R'
+    'mantaExists.R'
+    'mantaLoad.ws.R'
+    'mantaMetadata.R'
+    'mantaSave.ws.R'
+    'mantaSetwd.ws.R'

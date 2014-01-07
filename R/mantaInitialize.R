@@ -160,9 +160,10 @@ function(useEnv = TRUE) {
   assign("manta_methods", manta_methods, envir=manta_globals)
   
   r_version <- as.character(getRversion())
-  r_version <- paste("R-",r_version)
+  r_version <- paste("R-",r_version, sep="")
   user_agent <- paste(r_version, "/mantaRSDK", sep="")
   assign("user_agent", user_agent, envir=manta_globals)
+  assign("r_version", r_version, envir=manta_globals)
   session <- sessionInfo()
   RSDK_version <- session$otherPkgs$mantaRSDK$Version
   assign("RSDK_version", RSDK_version, envir=manta_globals)

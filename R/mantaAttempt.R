@@ -76,8 +76,14 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     mantaInitialize(useEnv = TRUE)
   }
 
-  # action needs some regexp sanity checking - needs to 
-  # have username,  /stor or /public 
+  # In the case of mantaJob.running, call to mantaAttempt has a query in the action.
+  # so we need to stop pasting additional query info to the end of this as is
+  # the case for mantaLs.
+  action_has_query <- FALSE
+  if (grepl("?", action) || grepl("=", action)) {
+   # action has some additional query parameters and is not from mantaLs()
+    action_has_query <- TRUE
+  }
 
   # for now - for Setwd... to be refactored
   if (missing(action)) {
@@ -85,6 +91,8 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   } else {
     manta_do <- action
   } 
+
+
 
   # Note about mapping of HTTP methods to Manta function groups (Node.js names)
   # "GET" mls, mget, mjob (list, get, outputs, errors, failures, inputs)
@@ -115,6 +123,10 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
 
   manta_call <- paste(manta_globals$manta_url, manta_do, sep="")
 
+#  for mantaLs()
+#  limit and marker go in query string... appended to manta_call
+#  ?limit=1000&marker=00026001.jpg
+
   queries <- 0
   if (!missing(limit)) {
     q_limit <- paste("limit=",limit,sep="")
@@ -126,15 +138,13 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     queries <- queries + 1
   } else q_marker <- ""
 
+  if (action_has_query == FALSE) { 
+   # Ok to add the marker and limit query
    if (queries >  0) manta_call <- paste(manta_call,"?",sep="")
    if (queries == 1) manta_call <- paste(manta_call, q_marker, q_limit, sep="")
    if (queries == 2) manta_call <- paste(manta_call, q_marker, "&", q_limit, sep="")
-
+  }
     
-#
-#  limit and marker go in query string... appended to manta_call
-#  ?limit=1000&marker=00026001.jpg
-#
 
 ## Bunyan Error Logging, encode the request
 #  
@@ -144,14 +154,26 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   bunyanLog.debug(msg ="getURL", req = req, version = manta_globals$RSDK_version) 
   msg <- ""
  
+
+ # Yes, the HEAD method requires the nobody = TRUE parameter, hence the duplication.
+
+ opts <- list(httpheader = httpheader, 
+              verbose = verbose, 
+              header = TRUE,
+              customrequest = curl_method,
+              nobody = FALSE,
+              timeout = curl_timeout
+            )
+
+  if (curl_method == "HEAD") {
+    opts$nobody <- TRUE
+  }
+
   reply <- tryCatch(getURL(manta_call, 
+                           .opts = opts,
                            curl = curl_handle,
-                           httpheader = httpheader, 
-                           verbose = verbose, 
-                           header = TRUE, 
-                           customrequest = curl_method,
-                           .encoding = 'UTF-8',
-                           timeout = curl_timeout),
+                           .encoding = 'UTF-8'
+                            ),
                     COULDNT_RESOLVE_HOST = function(e) {
                            msg <- paste("Cannot Resolve Manta Host at\n ", 
                            manta_globals$manta_url ,"\n",sep="")
@@ -231,7 +253,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
       msg <- paste(msg, values,"\n",sep="")
     } else {  
       # not valid JSON returned, use the error code line and any text contents ...
-      msg <- paste("Unrecognized Server Error. code: ", returned_string, "\n", sep=" ")         
+      msg <- paste("Manta Server Error: ", returned_string, "\n", sep=" ")         
     } 
     if (silent == TRUE) {
       msg <- paste("Silent call - ", msg, sep = "")
@@ -277,7 +299,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
       } else { 
         # json is FALSE, caller expects non-json return, 
         # message body is present but not valid JSON - return body as is
-        # used by mantaJob.input , mantaJob.output
+        # used by mantaJob.inputs , mantaJob.outputs
         return(body_lines[[1]])
       }
     }

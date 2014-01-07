@@ -19,7 +19,7 @@
 #' Example  - Map/Reduce Unix Word Count
 #'
 #' job <- mantaJob.setup("word count", mantaMap("wc"),
-#' mantaReduce("awk '{ l += $1; w += $2; c += $3 } END { print l, w, c }'"))
+#' mantaReduce("awk '\{ l += $1; w += $2; c += $3 \} END \{ print l, w, c \}'"))
 #'
 #' To launch the job, specify the inputs and job R structure made with mantaJob.setup like so:
 #'

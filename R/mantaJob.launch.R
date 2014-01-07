@@ -9,11 +9,11 @@
 #' Example - Manta Map/Reduce UNIX Word Count:
 #'
 #' status <- mantaJob.launch( 
-#'    inputs = mantaLs.paths("~~/public/shakespeare", grepfor = "[.]txt"), 
-#'    job = mantaJob.setup(
-#'             name = "word count",
-#'             mantaMap("wc"),
-#'             mantaReduce("awk '{ l += $1; w += $2; c += $3 } END { print l, w, c }'")
+#'   inputs = mantaLs.paths("~~/public/shakespeare", grepfor = "[.]txt"), 
+#'   job = mantaJob.setup( 
+#'           name = "word count",
+#'            mantaMap("wc"),
+#'           mantaReduce("awk '\{ l += $1; w += $2; c += $3 \} END \{ print l, w, c \}'")
 #'          )
 #' )
 #'
@@ -21,7 +21,7 @@
 #"
 #' mantaJob.status(jobid) # check to see if job is complete, as JSON information
 #' mantajob.done(jobid)   # returns logical job done (TRUE/FALSE)
-#' mantaJob.output(jobid) # retrieve list of paths to Manta output objects
+#' mantaJob.outputs(jobid) # retrieve list of paths to Manta output objects
 #' mantaJob.errors(jobid) # retrieve JSON formatted job error information
 #
 #' @param inputs, optional. List of inputs as a vector of character, each containing 
@@ -208,6 +208,7 @@ function(inputs, job, batchsize = 500,  watch = TRUE, sleep = 30, watchtimeout =
       req <- list(url = manta_call, method = "POST", headers = httpheader)
       bunyanLog.debug(msg ="curlPerform POST", req = req, version = manta_globals$RSDK_version)
       body <- paste(input_batch, "\n", collapse = "", sep="")
+      body <- substring(body, 1, nchar(body) - 1) # remove trailing newline 
       reply <- curlpost(url = manta_call, curl = curl, httpheader = httpheader, body = body,  verbose = verbose)
       ## 204 return code - is sometimes #202 
       returned_code <- replysplit(reply, returncode = "204", code = TRUE)

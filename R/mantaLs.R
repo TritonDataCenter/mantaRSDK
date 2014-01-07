@@ -107,9 +107,11 @@ function(mantapath, grepfor, json, l = 'names', items = 'a', sortby = 'none',
 
 #cat("\n\n first HTTP call done\n")
 
+    setsize <- 0 
 
-    setsize <- 0
-    setsize <- dir$count
+    if (!is.na(dir$count)) {
+      setsize <- dir$count
+    }
   
 #cat(setsize, "- is setsize\n")
 
