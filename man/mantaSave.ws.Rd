@@ -1,6 +1,6 @@
 \name{mantaSave.ws}
 \alias{mantaSave.ws}
-\title{Saves R workspace to Manta ~~/stor/R-3.0.1/ workspace directory
+\title{Saves R workspace to Manta R workspace directory
 with an audit trail of backups.}
 \usage{
   mantaSave.ws()

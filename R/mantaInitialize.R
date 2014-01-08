@@ -167,6 +167,8 @@ function(useEnv = TRUE) {
   session <- sessionInfo()
   RSDK_version <- session$otherPkgs$mantaRSDK$Version
   assign("RSDK_version", RSDK_version, envir=manta_globals)
+  hostname <- as.character(Sys.info()["nodename"])
+  assign("hostname", hostname, envir=manta_globals)
 
   # If we made it this far, we have values for everything. 
   if (warn == TRUE) {     

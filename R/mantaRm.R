@@ -28,7 +28,7 @@ function(mantapath, r = FALSE, info = TRUE) {
   }
 
   if (missing(mantapath)) {
-    cat("mantaRm Error - no Manta object or path to object specified")
+    cat("mantaRm Error - no Manta object or path to object specified\n")
     return(FALSE)
   }
 

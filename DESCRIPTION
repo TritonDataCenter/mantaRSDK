@@ -96,3 +96,6 @@ Collate:
     'mantaMetadata.R'
     'mantaSave.ws.R'
     'mantaSetwd.ws.R'
+    'mantaCat.R'
+    'mantaJob.outputs.cat.R'
+    'mantaJob.errors.stderr.R'
