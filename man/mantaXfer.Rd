@@ -10,7 +10,8 @@ related data transfer routines}
 \arguments{
   \item{action}{string, optional. Path to a manta object.}
 
-  \item{method}{string, required. "GET", or "PUT"}
+  \item{method}{string, required. "GET", or "PUT" or
+  "HEAD"}
 
   \item{filename}{optional. Path to local file for PUT or
   GET}

@@ -10,7 +10,7 @@
 #'
 #' @param action string, optional. Path to a manta object.
 #' 
-#' @param method string, required. "GET", or "PUT"
+#' @param method string, required. "GET", or "PUT" or "HEAD"
 #'
 #' @param filename optional. Path to local file for PUT or GET
 #'
@@ -57,15 +57,20 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
       stop("mantaXfer - method argument not specified")
   } else {
      curl_method <- method
-     if (is.na(charmatch(curl_method, c("PUT", "GET")))) {
+     if (is.na(charmatch(curl_method, c("PUT", "GET", "HEAD")))) {
        msg <- paste("mantaXfer: Error invalid RCURL method. \nPassed [", curl_method, 
-           "] , is not PUT or GET\n", sep="" )
+           "] , is not PUT or GET or HEAD\n", sep="" )
        bunyanLog.error(msg)
        stop(msg)
      }
   }
+  if (curl_method == "HEAD") {
+   return(mantaAttempt(action, method = curl_method)) 
+  }
+
   manta_call <- paste(manta_globals$manta_url, action, sep="")
-  if (curl_method == "GET") {
+
+  if (curl_method == "GET")  {
     returncode <- 200
     if (!missing(filename)) {
       if (file.exists(filename) == TRUE) {
@@ -79,7 +84,7 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
     curl_handle <- getCurlHandle()
     httpheader <- mantaGenHeaders() 
     req <- list(url = manta_call, method = curl_method, headers = httpheader)
-    bunyanLog.debug(msg ="getURL GET", req = req, version = manta_globals$RSDK_version) 
+    bunyanLog.debug(msg ="getURL", req = req, version = manta_globals$RSDK_version) 
     buf <- binaryBuffer()
     reply <- tryCatch(getURL(url = manta_call, 
                            curl = curl_handle,
@@ -166,7 +171,7 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
     curl_handle <- getCurlHandle()
     httpheader <- c(headers, mantaGenHeaders())
     req <- list(url = manta_call, method = curl_method, headers = httpheader)
-    bunyanLog.debug(msg ="getURL PUT", req = req, version = manta_globals$RSDK_version) 
+    bunyanLog.debug(msg ="getURL", req = req, version = manta_globals$RSDK_version) 
     reply <- tryCatch(getURL(manta_call, 
                            curl = curl_handle,
                            httpheader = httpheader,

@@ -3,12 +3,12 @@
 \title{Transfers object specified in mantapath to file or buffer}
 \usage{
   mantaGet(mantapath, filename, buffer = FALSE,
-    metadata = FALSE, verbose = FALSE)
+    metadata = FALSE, info = TRUE, verbose = FALSE)
 }
 \arguments{
-  \item{mantapath}{string, optional. Path to a manta object
-  or object name in current working Manta directory for
-  retrieval.}
+  \item{mantapath}{vector of character, optional. Path to a
+  manta object or object name in current working Manta
+  directory for retrieval. Vectorized.}
 
   \item{filename}{optional. Assumes this is the filename in
   the current path. Downloads file to the local path
@@ -17,10 +17,13 @@
   object.}
 
   \item{buffer}{logical required. When TRUE return a buffer
-  with data.}
+  with data. Not supported for vectorized mantapath input.}
 
   \item{metadata}{logical optional. Set TRUE to Retrieve R
   metadata in return value.}
+
+  \item{info}{logical. Set to FALSE to suppress Downloading
+  message.}
 
   \item{verbose}{logical, optional. Passed to RCurl GetURL,
   Set to TRUE to see background REST communication on

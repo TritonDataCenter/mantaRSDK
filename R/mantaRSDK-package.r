@@ -95,7 +95,7 @@
 #'   mantaSave.image()
 #'
 #' Useful Bunyan Debug/Log Utilities
-#'
+#' 
 #'   bunyanSetLog()
 #'   bunyanBuffer()
 #'   bunyanSetpoint()

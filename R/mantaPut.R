@@ -10,6 +10,13 @@
 #'
 #' To save a raw R buffer, pass the string with its name e.g. buffer = "myRawBuffer"
 #'
+#' One limitation of the mantaRSDK is that it is not designed to handle large 
+#' (multi-Gigabyte or larger) objects. Uploads - mantaPut() - work from files, 
+#' but Downloads - mantaGet() - fill the R memory space to their completion 
+#' before being written to a file. To download files larger than your R memory, 
+#' use the Manta Node.js command line tool mget. The Node.js based Manta command  
+#' line tools employ streams, so object size is not a limitation.
+#'
 #' The Content-Type information metatdata for the file is obtained using the 
 #' RCurl library function guessMIMEtype on the filename.ext provided, or it can be set 
 #' by passing a header parameter, which is an RCurl style HTTP header list of named 
@@ -34,11 +41,11 @@
 #' a destination file name at the end of the path with an extension for proper
 #' guessing of Content-Type header information.
 #' 
-#' @param filename optional. Path to local file to PUT. If only a filename is given, 
-#' assumes file is in path specified by getwd(). 
+#' @param filename vector of character, optional. Path to local file to PUT. If only a filename is given, 
+#' assumes file is in path specified by getwd(). Vectorized.
 #'
 #' @param buffer optional. Raw buffer of data to put. If filename is specified, buffer is 
-#' ignored and filename contents are uploaded.
+#' ignored and filename contents are uploaded. Not vectorized.
 #'
 #' @param md5 logical optional. Test md5 hash of file/raw buffer before/after PUT transfer. 
 #'
@@ -47,7 +54,7 @@
 #' E.g. headers = c('content-type' = "image/jpg", 'x-durability-level' = 4)
 #' Manta user metadata is prefixed with "m-", E.g.
 #' headers = c('content-type' = "x-chemical/x-pdb", 'm-molecule-class' = "protein")
-#'
+#' 
 #' @param info logical required. Set to FALSE to silence output messages while downloading.
 #'
 #' @param verbose logical, optional. Passed to RCurl GetURL,
@@ -71,6 +78,19 @@ function(filename, mantapath, buffer, md5 = FALSE, headers, info = TRUE, verbose
 
   if ( missing(filename) && missing(buffer) ) {
     stop("mantaPut, No file, or R raw buffer specified - missing values for filename or buffer arguments.")
+  }
+
+  if (!missing(filename)) {
+    if (length(filename) > 1) {
+      if (info == TRUE) {
+       cat(paste("Uploading ", length(filename), " files.\n"))
+      }
+      if (missing(headers)) {
+        return(unlist(lapply(filename, mantaPut, md5 = md5, info = info, verbose = verbose)))
+      } else {
+        return(unlist(lapply(filename, mantaPut, md5 = md5, info = info, headers = headers, verbose = verbose)))
+      }
+    }
   }
 
   memorydata <- FALSE

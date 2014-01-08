@@ -16,13 +16,13 @@
   the path with an extension for proper guessing of
   Content-Type header information.}
 
-  \item{filename}{optional. Path to local file to PUT. If
-  only a filename is given, assumes file is in path
-  specified by getwd().}
+  \item{filename}{vector of character, optional. Path to
+  local file to PUT. If only a filename is given, assumes
+  file is in path specified by getwd(). Vectorized.}
 
   \item{buffer}{optional. Raw buffer of data to put. If
   filename is specified, buffer is ignored and filename
-  contents are uploaded.}
+  contents are uploaded. Not vectorized.}
 
   \item{md5}{logical optional. Test md5 hash of file/raw
   buffer before/after PUT transfer.}

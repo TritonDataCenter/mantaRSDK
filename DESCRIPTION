@@ -93,7 +93,6 @@ Collate:
     'mantaJob.outputs.R'
     'mantaExists.R'
     'mantaLoad.ws.R'
-    'mantaMetadata.R'
     'mantaSave.ws.R'
     'mantaSetwd.ws.R'
     'mantaCat.R'
