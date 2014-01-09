@@ -1,7 +1,7 @@
 Package: mantaRSDK
 Type: Package
 Title: Joyent Manta Storage Service R Software Development Kit
-Version: 0.1.0
+Version: 0.8.0
 Date: 2013-10-07
 Authors@R: c(person("Christopher","Hogue",role = c("aut","cre"),
     email="christopher.hogue@joyent.com"))
@@ -20,7 +20,7 @@ Description: Manta R SDK. Functions to transmit/receive
     Manta system R access via Node.js.
     GitHub - www.github.com/cwvhogue/mantaRSDK
 SystemRequirements: Node.js, manta-node
-Copyright: Joyent Inc. 2013
+Copyright: Joyent Inc. 2014
 License: MIT
 URL: www.joyent.com
 BugReports: www.github.com/cwvhogue/mantaRSDK/issues
