@@ -1,6 +1,6 @@
 \name{mantaJob.errors}
 \alias{mantaJob.errors}
-\title{Returns JSON Manta error messages given Manta job identifier}
+\title{Returns JSON Manta error messages given Manta job identifier.}
 \usage{
   mantaJob.errors(jobid, readable = TRUE)
 }
@@ -16,7 +16,7 @@
 }
 \description{
   Returns JSON Manta error messages given Manta job
-  identifier
+  identifier.
 }
 \keyword{Manta,}
 \keyword{manta}

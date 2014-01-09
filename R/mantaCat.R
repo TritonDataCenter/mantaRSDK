@@ -1,5 +1,5 @@
 # Roxygen Comments mantaCat
-#' Retrieves data from Manta and uses cat() to print contents to the console.
+#' Retrieves object from Manta and uses cat() to print contents to the R console.
 #'
 #' @param mantapath string, required.
 #' 

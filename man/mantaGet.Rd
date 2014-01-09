@@ -1,6 +1,6 @@
 \name{mantaGet}
 \alias{mantaGet}
-\title{Transfers object specified in mantapath to file or buffer}
+\title{Downloads Manta object(s) (vectorized) specified to file(s) or buffer.}
 \usage{
   mantaGet(mantapath, filename, buffer = FALSE,
     metadata = FALSE, info = TRUE, verbose = FALSE)
@@ -8,7 +8,13 @@
 \arguments{
   \item{mantapath}{vector of character, optional. Path to a
   manta object or object name in current working Manta
-  directory for retrieval. Vectorized.}
+  directory for retrieval. Vectorized, e.g.
+  mantaGet(mantaLs.paths(items = 'o')) will download the
+  contents of the Manta working directory to your local
+  working R directory, and mantaGet(mantaLs.paths(items =
+  'o'), metadata = TRUE) will download and return just the
+  metadata in R format for the Manta working directory
+  contents.}
 
   \item{filename}{optional. Assumes this is the filename in
   the current path. Downloads file to the local path
@@ -33,7 +39,15 @@
   TRUE or FALSE depending on success of GET transfer
 }
 \description{
-  Transfers object specified in mantapath to file or buffer
+  One limitation of the mantaRSDK is that it is not
+  designed to handle large (multi-Gigabyte or larger)
+  objects. Uploads - mantaPut() - work from files, but
+  Downloads - mantaGet() - fill the R memory space to their
+  completion before being written to a file. To download
+  files larger than your R memory, use the Manta Node.js
+  command line tool mget. The Node.js based Manta command
+  line tools employ streams, so object size is not a
+  limitation.
 }
 \keyword{Manta,}
 \keyword{manta}

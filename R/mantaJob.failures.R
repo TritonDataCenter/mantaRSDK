@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.failures
-#' mantaJob.failures returns list of failures given Manta job identifier
+#' Returns list of failures given Manta job identifier.
 #'
 #'
 #' @param jobid character optional. Manta job identifier such as
@@ -11,6 +11,10 @@
 #' @export
 mantaJob.failures <-
 function(jobid) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
   if (missing(jobid)) {
     jobid <- mantaJobs.tail()
   }

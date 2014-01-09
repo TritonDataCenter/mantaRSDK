@@ -1,11 +1,11 @@
 \name{mantaJobs.running}
 \alias{mantaJobs.running}
-\title{Lists running Manta job identifiers}
+\title{Lists identifiers of any running Manta jobs.}
 \usage{
   mantaJobs.running()
 }
 \description{
-  Lists running Manta job identifiers
+  Lists identifiers of any running Manta jobs.
 }
 \keyword{Manta,}
 \keyword{manta}

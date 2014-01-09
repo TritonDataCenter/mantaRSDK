@@ -1,7 +1,7 @@
 \name{mantaJob.setup}
 \alias{mantaJob.setup}
-\title{Constructor for R format Manta Job including name, and tasks as defined by
-mantaMap(), and/or mantaReduce() functions. Does not specify job input.}
+\title{Constructor for R format Manta Job including name, and UNIX command line tasks as defined by
+mantaMap(), and/or mantaReduce() functions.}
 \usage{
   mantaJob.setup(name, ...)
 }

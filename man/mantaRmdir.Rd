@@ -1,18 +1,19 @@
 \name{mantaRmdir}
 \alias{mantaRmdir}
-\title{Removes Manta subdirectory specified by full manta path or from current
-working manta directory
-Returns TURE if object successfully removed}
+\title{Removes Manta subdirectory.}
 \usage{
   mantaRmdir(mantapath)
 }
 \arguments{
   \item{mantapath}{string, required.}
 }
+\value{
+  logical, TRUE if object successfully removed.
+}
 \description{
-  Removes Manta subdirectory specified by full manta path
-  or from current working manta directory Returns TURE if
-  object successfully removed
+  Specifiy the full manta path or the just subdirectory
+  name from current working Manta directory. Returns TRUE
+  if object successfully removed
 }
 \keyword{Manta,}
 \keyword{manta}

@@ -1,5 +1,5 @@
 # Roxygen Comments mantaGetwd
-#' Gets Manta working directory, removes space encoding
+#' Gets Manta working directory.
 #'
 #' @keywords Manta, manta
 #'

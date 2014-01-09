@@ -1,5 +1,5 @@
 # Roxygen Comments mantaSetLimits
-#' Sets Manta connection timeouts and limits currently active
+#' Sets Manta durability level, connection timeouts and limits currently active
 #'
 #' Use mantaGetLimits to see the settings structure and default values.
 #' Pass a structure in R or JSON to this function to change values.

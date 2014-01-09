@@ -1,6 +1,6 @@
 \name{mantaJob.outputs}
 \alias{mantaJob.outputs}
-\title{Returns list of output objects given Manta job identifier}
+\title{Returns list of output Manta objects given Manta job identifier.}
 \usage{
   mantaJob.outputs(jobid, silent = FALSE)
 }
@@ -16,7 +16,8 @@
   set. N.B. Errors are logged and in the bunyan buffer.}
 }
 \description{
-  Returns list of output objects given Manta job identifier
+  Returns list of output Manta objects given Manta job
+  identifier.
 }
 \keyword{Manta,}
 \keyword{manta}

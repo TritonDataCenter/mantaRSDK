@@ -1,6 +1,6 @@
 # Roxygen Comments mantaGet
 #'
-#' Transfers object specified in mantapath to file or buffer.
+#' Downloads Manta object(s) (vectorized) specified to file(s) or buffer.
 #'
 #' One limitation of the mantaRSDK is that it is not designed to handle large 
 #' (multi-Gigabyte or larger) objects. Uploads - mantaPut() - work from files, 

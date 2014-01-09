@@ -1,6 +1,6 @@
 # Roxygen Comments mantaJob.setup
-#' Constructor for R format Manta Job including name, and tasks as defined by
-#' mantaMap(), and/or mantaReduce() functions. Does not specify job input.
+#' Constructor for R format Manta Job including name, and UNIX command line tasks as defined by
+#' mantaMap(), and/or mantaReduce() functions.
 #'
 #' Function to construct R structure for mantaJob.launch. Specify a name 
 #' for the Manta job and tasks to execute via one or more calls to 
@@ -26,6 +26,10 @@
 #' @export
 mantaJob.setup <- 
 function(name, ... )  {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
   phases <- list(...)
   job <- list()
   if (missing(name)) {

@@ -68,6 +68,10 @@ mantaReduce <-
 function(exec, init, assets, reducers, memory, disk) {
 #asssets - use assets = mantaLs.paths(items = o, grepfor = "[.]sh") to make a list of all the *.sh files in the current directory for an asset list
 
+    # If this is the first export function called in the library
+    if (manta_globals$manta_initialized == FALSE) {
+      mantaInitialize(useEnv = TRUE)
+    }
   
    if ( missing(exec) && missing(init) ) {
      msg <- ("mantaReduce - no exec or init shell command to execute")

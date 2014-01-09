@@ -6,6 +6,7 @@ Joyent Manta R Software Development Kit
 STILL - UNDER CONSTRUCTION
 
 System Requirements
+====================
 To use this you need a working Manta account, 
 Unix/Linux/Windows R v3.0 or up, as well as
 environment variables set for Manta use, 
@@ -151,3 +152,49 @@ Remove:
 library(mantaRSDK)
 detach(package:mantaRSDK, unload=TRUE)
 ```
+
+
+###  Manta Account Management
+```
+     mantaAccount() mantaWhoami() mantaGetLimits() mantaSetLimits()
+```
+
+###  Manta Hierarchical Directory Operations
+
+```
+     mantaGetwd() mantaSetwd() mantaSetwd.jobs() mantaSetwd.public()
+     mantaSetwd.reports() mantaSetwd.stor() mantaSetwd.ws()
+     mantaMkdir() mantaRmdir() mantaLs() mantaLs.du() mantaLs.l()
+     mantaLs.n() mantaLs.paths() mantaLs.url() mantaFind()
+     mantaFind.du() mantaFind.l() mantaFind.n() mantaFind.sizepath()
+     mantaFind.sizes() mantaFind.url()
+```
+
+###  Manta Object Store Operations
+
+```
+     mantaExists() mantaPut() mantaGet() mantaCat() mantaRm()
+     mantaSnapln() mantaDump() mantaSource() mantaSave() mantaLoad()
+     mantaSave.ws() mantaLoad.ws()
+```
+
+###  Manta Compute Job Operations
+
+```
+     mantaJob.setup() mantaMap() mantaReduce() mantaJob.launch()
+     mantaJob.status() mantaJob.done() mantaJob.cancel()
+     mantaJob.errors() mantaJob.errors.stderr() mantaJob.failures()
+     mantaJob.inputs() mantaJob.outputs() mantaJob.outputs.cat()
+     mantaJobs() mantaJobs.running() mantaJobs.tail()
+```
+
+###  Exposed Low Level Calls
+```
+     mantaAttempt() mantaXfer() mantaSave.image()
+```
+
+###  Useful Bunyan Debug/Log Utilities
+```
+     bunyanSetLog() bunyanBuffer() bunyanTraceback()
+```
+

@@ -1,5 +1,5 @@
 # Roxygen Comments mantaMkdir
-#' Makes a Manta subdirectory
+#' Makes a Manta subdirectory, optionally with parent directories.
 #'
 #' @param mantapath string, required.
 #'

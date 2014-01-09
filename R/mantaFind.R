@@ -1,6 +1,6 @@
 # TODO fix wrong initial directory error - unwrap first call to mantaLs()
 # Roxygen Comments mantaFind
-#' Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy
+#' Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
 #'
 #' Searching for object or directory names with regular expressions (using R grep).
 #' Sorting listings by filename, time, or size. Can report entries within a time

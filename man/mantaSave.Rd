@@ -1,6 +1,6 @@
 \name{mantaSave}
 \alias{mantaSave}
-\title{Saves R data to Manta Storage Service wrapping R function 'save'}
+\title{Uploads R data to Manta Storage Service using R function save().}
 \usage{
   mantaSave(..., list = character(),
     mantapath = stop("'mantapath' destination file or full path must be specified"),

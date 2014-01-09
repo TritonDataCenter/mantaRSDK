@@ -1,5 +1,5 @@
 # Roxygen Comments mantaSave.image
-#' Saves R workspace to Manta Storage Service like R save.image()
+#' Workspace Upload function that calls R save.image(); used by mantaSave.ws().
 #'
 #' mantaSave.image uses mantaSave,  mantaXfer, which implements the RCURL transfer
 #'

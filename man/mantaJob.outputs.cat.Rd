@@ -1,8 +1,8 @@
 \name{mantaJob.outputs.cat}
 \alias{mantaJob.outputs.cat}
-\title{Retrieves list of output objects given Manta job identifier, then
+\title{Retrieves list of Manta output objects given Manta job identifier, then
 retrieves each object from Manta and uses cat() to print contents
-to the console}
+to the R console.}
 \usage{
   mantaJob.outputs.cat(jobid)
 }
@@ -13,9 +13,9 @@ to the console}
   Manta Job run on the service}
 }
 \description{
-  Retrieves list of output objects given Manta job
+  Retrieves list of Manta output objects given Manta job
   identifier, then retrieves each object from Manta and
-  uses cat() to print contents to the console
+  uses cat() to print contents to the R console.
 }
 \keyword{Manta,}
 \keyword{manta}

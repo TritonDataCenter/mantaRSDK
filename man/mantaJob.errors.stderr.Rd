@@ -1,7 +1,7 @@
 \name{mantaJob.errors.stderr}
 \alias{mantaJob.errors.stderr}
-\title{Retrieves list of errors  given Manta job identifier, then
-retrieves each stderr message (if any) and uses mantaCat() to print contents
+\title{Retrieves JSON errors given Manta job identifier, then retrieves each stderr message
+archived on Manta (if any) and uses mantaCat() to print contents of stderr
 to the console.}
 \usage{
   mantaJob.errors.stderr(jobid)
@@ -13,9 +13,10 @@ to the console.}
   Manta Job run on the service}
 }
 \description{
-  Retrieves list of errors given Manta job identifier, then
-  retrieves each stderr message (if any) and uses
-  mantaCat() to print contents to the console.
+  Retrieves JSON errors given Manta job identifier, then
+  retrieves each stderr message archived on Manta (if any)
+  and uses mantaCat() to print contents of stderr to the
+  console.
 }
 \keyword{Manta,}
 \keyword{manta}

@@ -1,5 +1,5 @@
 # Roxygen Comments mantaExists
-#' Tests to see if a Manta file or subdirectory exists
+#' Tests to see if a Manta object or subdirectory exists.
 #'
 #' @param mantapath character, required.
 #'

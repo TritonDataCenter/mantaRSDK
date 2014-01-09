@@ -1,6 +1,6 @@
 \name{mantaLoad.ws}
 \alias{mantaLoad.ws}
-\title{Loads current R workspace from Manta R workspace directory}
+\title{Loads last current R workspace from Manta R workspace directory.}
 \usage{
   mantaLoad.ws(envir = parent.frame())
 }
@@ -12,8 +12,8 @@
   logical.
 }
 \description{
-  Loads current R workspace from Manta R workspace
-  directory
+  Loads last current R workspace from Manta R workspace
+  directory.
 }
 \keyword{Manta,}
 \keyword{manta}

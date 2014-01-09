@@ -1,5 +1,5 @@
 # Roxygen Comments mantaDump
-#' Uses dump() to write text parsable  R data to Manta Storage Service 
+#' Uses dump() to upload text parsable R data to Manta Storage Service.
 #'
 #' mantaDump is a wrapper for dump and mantaXfer, which implements the RCURL transfer
 #'

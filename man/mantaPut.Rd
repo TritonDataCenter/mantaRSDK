@@ -1,6 +1,6 @@
 \name{mantaPut}
 \alias{mantaPut}
-\title{Saves a file, or raw R buffer data to Manta Storage Service.}
+\title{Uploads file(s) (vectorized), or raw R buffer data to Manta Storage Service.}
 \usage{
   mantaPut(filename, mantapath, buffer, md5 = FALSE,
     headers, info = TRUE, verbose = FALSE)
@@ -57,6 +57,16 @@
 
   To save a raw R buffer, pass the string with its name
   e.g. buffer = "myRawBuffer"
+
+  One limitation of the mantaRSDK is that it is not
+  designed to handle large (multi-Gigabyte or larger)
+  objects. Uploads - mantaPut() - work from files, but
+  Downloads - mantaGet() - fill the R memory space to their
+  completion before being written to a file. To download
+  files larger than your R memory, use the Manta Node.js
+  command line tool mget. The Node.js based Manta command
+  line tools employ streams, so object size is not a
+  limitation.
 
   The Content-Type information metatdata for the file is
   obtained using the RCurl library function guessMIMEtype

@@ -1,5 +1,5 @@
 # Roxygen Comments mantaSave
-#' Saves R data to Manta Storage Service wrapping R function 'save'
+#' Uploads R data to Manta Storage Service using R function save().
 #'
 #' To save an R object, 
 #' 

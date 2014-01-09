@@ -1,5 +1,5 @@
 # Roxygen Comments mantaLoad.ws
-#' Loads current R workspace from Manta R workspace directory
+#' Loads last current R workspace from Manta R workspace directory.
 #'
 #' @param envir optional. Enviroment into which workspace is loaded.
 #'

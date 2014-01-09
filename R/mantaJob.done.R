@@ -30,6 +30,11 @@
 #' @export
 mantaJob.done <-
 function(jobid, poll = FALSE, sleep = 30, timeout  = 600, silent = FALSE) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
   if (missing(jobid)) {
      jobid <- mantaJobs.tail()
   }

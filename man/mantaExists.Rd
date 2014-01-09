@@ -1,6 +1,6 @@
 \name{mantaExists}
 \alias{mantaExists}
-\title{Tests to see if a Manta file or subdirectory exists}
+\title{Tests to see if a Manta object or subdirectory exists.}
 \usage{
   mantaExists(mantapath)
 }
@@ -11,7 +11,7 @@
   logical.
 }
 \description{
-  Tests to see if a Manta file or subdirectory exists
+  Tests to see if a Manta object or subdirectory exists.
 }
 \keyword{Manta,}
 \keyword{manta}

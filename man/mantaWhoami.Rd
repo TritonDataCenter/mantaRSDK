@@ -1,6 +1,6 @@
 \name{mantaWhoami}
 \alias{mantaWhoami}
-\title{Returns Manta username currently active}
+\title{Reports the active Manta account information.}
 \usage{
   mantaWhoami(all = FALSE, user = TRUE, dc_url = FALSE,
     key_id = FALSE, ssl_key = FALSE, json = FALSE)
@@ -28,11 +28,11 @@
   JSON or R values as specified.
 }
 \description{
-  Report the active Manta account. This is initially
-  obtained from environment variables MANTA_USER,
-  MANTA_KEY, MANTA_URL. Save account settings, data center
-  as JSON with this function. Change/restore account
-  settings with mantaAccount and JSON values.
+  The active Manta account is initially obtained from
+  environment variables MANTA_USER, MANTA_KEY, MANTA_URL.
+  Save account settings, data center as JSON with this
+  function. Change/restore account settings with
+  mantaAccount and JSON values.
 }
 \details{
   Save all current settings with:

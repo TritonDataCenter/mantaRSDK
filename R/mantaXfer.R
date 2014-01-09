@@ -1,9 +1,7 @@
 #TODO handle multiple GETs to same filename by appending (n) to filename...
 
 # Roxygen Comments mantaXfer
-#'
-#' mantaXfer is the core routine for mantaPut mantaGet and
-#' related data transfer routines
+#' raw REST API Manta Caller for mantaPut mantaGet and related data transfer routines.
 #'
 #' Note getURL verbose = TRUE writes to stderr - invisible 
 #' on Windows R. 

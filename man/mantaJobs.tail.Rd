@@ -1,6 +1,6 @@
 \name{mantaJobs.tail}
 \alias{mantaJobs.tail}
-\title{Returns the last run Manta job identifiers, sorted by time.}
+\title{Returns identifier of last run Manta job identifier, or from offset n up from end of list.}
 \usage{
   mantaJobs.tail(n = 1)
 }
@@ -10,8 +10,8 @@
   and so on.}
 }
 \description{
-  Returns the last run Manta job identifiers, sorted by
-  time.
+  Returns identifier of last run Manta job identifier, or
+  from offset n up from end of list.
 }
 \keyword{Manta,}
 \keyword{manta}

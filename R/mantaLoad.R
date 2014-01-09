@@ -1,6 +1,6 @@
 # Roxygen Comments mantaLoad
 #'
-#' Loads R data object specified in mantapath.
+#' Downloads specified Manta object containing R data and uses R function load().
 #'
 #' @param mantapath string, optional. Path to a manta R data file or file name in current
 #' working Manta directory for retrieval. 

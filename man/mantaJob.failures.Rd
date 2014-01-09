@@ -1,6 +1,6 @@
 \name{mantaJob.failures}
 \alias{mantaJob.failures}
-\title{mantaJob.failures returns list of failures given Manta job identifier}
+\title{Returns list of failures given Manta job identifier.}
 \usage{
   mantaJob.failures(jobid)
 }
@@ -11,8 +11,7 @@
   Manta Job run on the service}
 }
 \description{
-  mantaJob.failures returns list of failures given Manta
-  job identifier
+  Returns list of failures given Manta job identifier.
 }
 \keyword{Manta,}
 \keyword{manta}

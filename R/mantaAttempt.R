@@ -1,6 +1,8 @@
 # Roxygen Comments mantaAttempt
 #' raw REST API Manta Caller with exception handling for internal 
-#' use. Exported for access HTTP HEAD and metadata retrieval.
+#' use. 
+#' 
+#' Exported for access HTTP HEAD and metadata retrieval.
 #'
 #' If test == TRUE, it returns pass/fail logical
 #' If passed a Manta subdirectory, it returns the directory

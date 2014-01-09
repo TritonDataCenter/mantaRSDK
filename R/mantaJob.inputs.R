@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.inputs
-#' Returns list of input objects given Manta job identifier
+#' Returns list of input Manta objects given Manta job identifier.
 #'
 #' @param jobid character optional. Manta job identifier such as
 #' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
@@ -11,6 +11,10 @@
 #' @export
 mantaJob.inputs <-
 function(jobid) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
   if (missing(jobid)) {
     jobid <- mantaJobs.tail()
   }

@@ -1,6 +1,6 @@
 # Roxygen Comments mantaJob.launch
-#' Submits list of input files and R format Manta Job specification, runs job
-#' optionally polls job status. Returns job identifier.
+#' Submits list of input Manta objects and R format Manta Job specification, runs job
+#' optionally polls job status. Returns job status.
 #'
 #' Job is created by mantaJob.setup() and tasks as defined therein by
 #' mantaMap(), and/or mantaReduce() functions. Note that Manta tasks

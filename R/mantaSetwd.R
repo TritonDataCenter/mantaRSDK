@@ -1,5 +1,5 @@
 # Roxygen Comments mantaSetwd
-#' Sets Manta working directory 
+#' Sets Manta working directory.
 #'
 #' This sets the current working directory in Manta
 #' Supports ~~ expansion to $MANTA_USER setting

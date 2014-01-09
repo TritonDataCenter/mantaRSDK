@@ -78,7 +78,6 @@ Collate:
     'mantaJob.cancel.R'
     'mantaJobs.running.R'
     'mantaSave.image.R'
-    'mantaJob.errmsg.R'
     'mantaJob.errors.R'
     'mantaJob.failures.R'
     'mantaJob.setup.R'

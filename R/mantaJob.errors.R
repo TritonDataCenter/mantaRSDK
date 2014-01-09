@@ -10,7 +10,7 @@
 # stderr	String	(optional) a key that saved the stderr for the given command
 # key		String	(optional) the input key being processed when 
 # 			the task failed (if the service can determine it)
-#' Returns JSON Manta error messages given Manta job identifier
+#' Returns JSON Manta error messages given Manta job identifier.
 #'
 #' @param jobid character optional. Manta job identifier such as
 #' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
@@ -25,6 +25,10 @@
 #' @export
 mantaJob.errors <-
 function(jobid, readable = TRUE) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
   if (missing(jobid)) {
     jobid <- mantaJobs.tail()
   }

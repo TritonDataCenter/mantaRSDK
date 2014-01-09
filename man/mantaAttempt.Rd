@@ -1,7 +1,7 @@
 \name{mantaAttempt}
 \alias{mantaAttempt}
 \title{raw REST API Manta Caller with exception handling for internal
-use. Exported for access HTTP HEAD and metadata retrieval.}
+use.}
 \usage{
   mantaAttempt(action, method, headers, returncode, limit,
     marker, json = TRUE, test = FALSE, silent = FALSE,
@@ -61,11 +61,13 @@ use. Exported for access HTTP HEAD and metadata retrieval.}
   logged, stop() on 400 series errors
 }
 \description{
+  Exported for access HTTP HEAD and metadata retrieval.
+}
+\details{
   If test == TRUE, it returns pass/fail logical If passed a
   Manta subdirectory, it returns the directory JSON
   according to the length limit set with mantaSetLimits()
-}
-\details{
+
   Note getURL verbose = TRUE writes to stderr - invisible
   on Windows R.
 }

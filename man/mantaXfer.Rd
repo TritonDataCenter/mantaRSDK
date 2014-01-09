@@ -1,7 +1,6 @@
 \name{mantaXfer}
 \alias{mantaXfer}
-\title{mantaXfer is the core routine for mantaPut mantaGet and
-related data transfer routines}
+\title{raw REST API Manta Caller for mantaPut mantaGet and related data transfer routines.}
 \usage{
   mantaXfer(action, method, filename, buffer,
     returnmetadata = FALSE, returnbuffer = FALSE,

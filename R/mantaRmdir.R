@@ -1,11 +1,15 @@
 # Roxygen Comments mantaRmdir   
-#' Removes Manta subdirectory specified by full manta path or from current
-#' working manta directory
-#' Returns TURE if object successfully removed 
+#' Removes Manta subdirectory.
+#'
+#' Specifiy the full manta path or the just subdirectory name from current
+#' working Manta directory.
+#' Returns TRUE if object successfully removed 
 #'
 #' @param mantapath string, required.
 #'
 #' @keywords Manta, manta
+#'
+#' @return logical, TRUE if object successfully removed.
 #'
 #' @export
 mantaRmdir <-

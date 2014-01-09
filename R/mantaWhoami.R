@@ -1,8 +1,7 @@
 # Roxygen Comments mantaWhoami
-# TODO: organize roxygen with examples
-#' Returns Manta username currently active
+#' Reports the active Manta account information.
 #'
-#' Report the active Manta account. This is initially obtained from
+#' The active Manta account is initially obtained from
 #' environment variables MANTA_USER, MANTA_KEY, MANTA_URL. 
 #' Save account settings, data center as JSON with this function.
 #' Change/restore account settings with mantaAccount and JSON values.

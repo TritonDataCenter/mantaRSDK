@@ -1,6 +1,6 @@
 \name{mantaSave.image}
 \alias{mantaSave.image}
-\title{Saves R workspace to Manta Storage Service like R save.image()}
+\title{Workspace Upload function that calls R save.image(); used by mantaSave.ws().}
 \usage{
   mantaSave.image(mantapath, md5 = TRUE, headers,
     durability = 2, version = NULL, ascii = FALSE,

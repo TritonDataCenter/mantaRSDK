@@ -1,5 +1,5 @@
 # Roxygen Comments mantaSnapln
-#' Makes Snaplinks - combination snapshots and symbolic links. 
+#' Makes a Snaplink - combination snapshot and symbolic link. 
 #'
 #' If the original object is overwritten/deleted, the SnapLink
 #' still contains the object contents at time of creation.

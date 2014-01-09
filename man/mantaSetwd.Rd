@@ -1,6 +1,6 @@
 \name{mantaSetwd}
 \alias{mantaSetwd}
-\title{Sets Manta working directory}
+\title{Sets Manta working directory.}
 \usage{
   mantaSetwd(mantapath)
 }

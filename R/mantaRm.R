@@ -1,6 +1,5 @@
 # Roxygen Comments mantaRm
-#' Removes Manta object specified by full manta path or from current
-#' working manta directory. 
+#' Removes specified Manta object, optionally recursive.
 #'
 #' Option r = TRUE does recursive delete
 #' of object and subdirectories.

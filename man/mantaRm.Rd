@@ -1,7 +1,6 @@
 \name{mantaRm}
 \alias{mantaRm}
-\title{Removes Manta object specified by full manta path or from current
-working manta directory.}
+\title{Removes specified Manta object, optionally recursive.}
 \usage{
   mantaRm(mantapath, r = FALSE, info = TRUE)
 }

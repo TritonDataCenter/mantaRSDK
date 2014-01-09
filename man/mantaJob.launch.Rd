@@ -1,7 +1,7 @@
 \name{mantaJob.launch}
 \alias{mantaJob.launch}
-\title{Submits list of input files and R format Manta Job specification, runs job
-optionally polls job status. Returns job identifier.}
+\title{Submits list of input Manta objects and R format Manta Job specification, runs job
+optionally polls job status. Returns job status.}
 \usage{
   mantaJob.launch(inputs, job, batchsize = 500,
     watch = TRUE, sleep = 30, watchtimeout = 600,

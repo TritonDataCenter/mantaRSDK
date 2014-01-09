@@ -1,6 +1,6 @@
 \name{mantaCat}
 \alias{mantaCat}
-\title{Retrieves data from Manta and uses cat() to print contents to the console.}
+\title{Retrieves object from Manta and uses cat() to print contents to the R console.}
 \usage{
   mantaCat(mantapath)
 }
@@ -8,8 +8,8 @@
   \item{mantapath}{string, required.}
 }
 \description{
-  Retrieves data from Manta and uses cat() to print
-  contents to the console.
+  Retrieves object from Manta and uses cat() to print
+  contents to the R console.
 }
 \keyword{Manta,}
 \keyword{at}

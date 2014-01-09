@@ -1,6 +1,6 @@
 \name{mantaMkdir}
 \alias{mantaMkdir}
-\title{Makes a Manta subdirectory}
+\title{Makes a Manta subdirectory, optionally with parent directories.}
 \usage{
   mantaMkdir(mantapath, p = FALSE)
 }
@@ -11,7 +11,8 @@
   directories too}
 }
 \description{
-  Makes a Manta subdirectory
+  Makes a Manta subdirectory, optionally with parent
+  directories.
 }
 \keyword{Manta,}
 \keyword{manta}

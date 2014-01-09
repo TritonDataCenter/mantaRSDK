@@ -1,6 +1,6 @@
 # Roxygen Comments mantaJob.errors.stderr
-#' Retrieves list of errors  given Manta job identifier, then
-#' retrieves each stderr message (if any) and uses mantaCat() to print contents 
+#' Retrieves JSON errors given Manta job identifier, then retrieves each stderr message 
+#' archived on Manta (if any) and uses mantaCat() to print contents of stderr 
 #' to the console.
 #'
 #' @param jobid character optional. Manta job identifier such as

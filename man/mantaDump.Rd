@@ -1,6 +1,6 @@
 \name{mantaDump}
 \alias{mantaDump}
-\title{Uses dump() to write text parsable  R data to Manta Storage Service}
+\title{Uses dump() to upload text parsable R data to Manta Storage Service.}
 \usage{
   mantaDump(list, mantapath = "dumpdata.R", md5 = FALSE,
     headers, durability = 2, envir = parent.frame(),

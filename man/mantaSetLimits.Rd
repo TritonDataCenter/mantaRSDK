@@ -1,6 +1,6 @@
 \name{mantaSetLimits}
 \alias{mantaSetLimits}
-\title{Sets Manta connection timeouts and limits currently active}
+\title{Sets Manta durability level, connection timeouts and limits currently active}
 \usage{
   mantaSetLimits(limits, json, verbose = FALSE)
 }

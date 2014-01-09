@@ -1,7 +1,7 @@
 # Roxygen Comments mantaJob.status
-#' Returns JSON Manta job status data given Manta job identifier
+#' Returns JSON Manta job status data given Manta job identifier.
 #'
-#'#' @param jobid character optional. Manta job identifier such as
+#' @param jobid character optional. Manta job identifier such as
 #' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
 #' to fetch the jobid of the last Manta Job run on the service
 #'
@@ -14,6 +14,10 @@
 #' @export
 mantaJob.status <-
 function(jobid, readable = TRUE) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
   if (missing(jobid)) {
     jobid <- mantaJobs.tail()
   }

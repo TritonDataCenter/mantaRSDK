@@ -66,7 +66,11 @@
 #' @export
 mantaMap <- 
 function(exec, init, assets, memory, disk) {
-  
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  } 
+ 
    if ( missing(exec) && missing(init) ) {
      msg <- ("mantaMap - no exec or init shell command to execute")
      bunyanLog.error(msg)

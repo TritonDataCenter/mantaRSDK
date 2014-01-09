@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.cancel
-#' Sends Manta a cancel message to stop running job
+#' Sends Manta a cancel message to stop running job.
 #'
 #' @param jobid character optional. Manta job identifier such as
 #' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
@@ -10,6 +10,11 @@
 #' @export
 mantaJob.cancel <-
 function(jobid) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
+
   if (missing(jobid)) {
     jobid <- mantaJobs.tail()
   }

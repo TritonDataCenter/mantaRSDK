@@ -1,5 +1,5 @@
 # Roxygen Comments mantaPut
-#' Saves a file, or raw R buffer data to Manta Storage Service. 
+#' Uploads file(s) (vectorized), or raw R buffer data to Manta Storage Service. 
 #'
 #' Transfers file, buffer to Manta Storage Object file specified in mantapath.
 #'

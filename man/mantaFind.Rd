@@ -1,6 +1,6 @@
 \name{mantaFind}
 \alias{mantaFind}
-\title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy}
+\title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.}
 \usage{
   mantaFind(mantapath, grepfor, entries, l = "paths",
     items = "o", level = 0, sortby = "none", starttime,

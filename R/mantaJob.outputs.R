@@ -1,5 +1,5 @@
 # Roxygen Comments mantaJob.outputs
-#' Returns list of output objects given Manta job identifier
+#' Returns list of output Manta objects given Manta job identifier.
 #'
 #'
 #' @param jobid character optional. Manta job identifier such as
@@ -17,6 +17,10 @@
 #' @export
 mantaJob.outputs <-
 function(jobid, silent = FALSE) {
+  # If this is the first export function called in the library
+  if (manta_globals$manta_initialized == FALSE) {
+    mantaInitialize(useEnv = TRUE)
+  }
   if (missing(jobid)) {
    jobid <- mantaJobs.tail()
   }

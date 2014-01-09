@@ -1,6 +1,6 @@
 \name{mantaSnapln}
 \alias{mantaSnapln}
-\title{Makes Snaplinks - combination snapshots and symbolic links.}
+\title{Makes a Snaplink - combination snapshot and symbolic link.}
 \usage{
   mantaSnapln(from, to)
 }

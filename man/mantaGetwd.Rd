@@ -1,11 +1,11 @@
 \name{mantaGetwd}
 \alias{mantaGetwd}
-\title{Gets Manta working directory, removes space encoding}
+\title{Gets Manta working directory.}
 \usage{
   mantaGetwd()
 }
 \description{
-  Gets Manta working directory, removes space encoding
+  Gets Manta working directory.
 }
 \keyword{Manta,}
 \keyword{manta}
