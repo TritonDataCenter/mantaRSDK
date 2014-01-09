@@ -125,7 +125,7 @@ The mantaRSDK uses install_github() which requires the Rtools package:
 
 http://cran.r-project.org/bin/windows/Rtools
 
-### From R ###
+### Testing From R ###
 
 
 Install:
@@ -152,6 +152,9 @@ Remove:
 library(mantaRSDK)
 detach(package:mantaRSDK, unload=TRUE)
 ```
+
+mantaRSDK Functions
+===================
 
 
 ###  Manta Account Management
@@ -197,4 +200,277 @@ detach(package:mantaRSDK, unload=TRUE)
 ```
      bunyanSetLog() bunyanBuffer() bunyanTraceback()
 ```
+
+More Function Detail
+====================
+
+
+###     Manta Account Management
+
+```
+     mantaAccount()
+```
+     Changes current Manta account information.
+
+```
+     mantaWhoami()
+```
+     Report the active Manta account settings.
+
+```
+     mantaGetLimits()
+```
+     Returns Manta durability level, connection timeouts and limits
+     currently active.
+
+```
+     mantaSetLimits()
+```
+     Sets Manta durability level, connection timeouts and limits
+     currently active.
+
+###     Manta Hierarchical Directory Operations
+
+```
+     mantaGetwd()
+```
+     Gets Manta working directory.
+
+```
+     mantaSetwd()
+     mantaSetwd.public()
+     mantaSetwd.stor()
+     mantaSetwd.ws()
+     mantaSetwd.jobs()
+     mantaSetwd.reports()
+```
+     Sets Manta working directory. Dotted forms are top-level (public,
+     stor, jobs, reports) or workspace (as set by mantaSave.ws).
+
+```
+     mantaMkdir()
+```
+     Makes a Manta subdirectory, optionally with parent directories.
+
+```
+     mantaRmdir()
+```
+     Removes a Manta subdirectory.
+
+```
+     mantaLs()
+     mantaLs.du()
+     mantaLs.l()
+     mantaLs.n()
+     mantaLs.paths()
+     mantaLs.url()
+```
+     Lists, searches, filters, sorts and formats Manta directory
+     listings. Dotted forms alter the format of the output.  Numerical
+     values are returned by n (number) and du (disk used).
+
+```
+     mantaFind()
+     mantaFind.du()
+     mantaFind.l()
+     mantaFind.n()
+     mantaFind.sizepath()
+     mantaFind.sizes()
+     mantaFind.url()
+```
+     Recursive find tool for retrieving matching objects/subdirs from
+     Manta hierarchy.  Dotted forms alter the format of the output.
+     Numerical values are returned by n (number) and du (disk used).
+
+
+###     Manta Object Store Operations
+
+```
+     mantaExists()
+```
+     Tests to see if a Manta object or subdirectory exists.
+
+```
+     mantaPut()
+```
+     Uploads file(s) (vectorized), or raw R buffer data to Manta
+     Storage Service.
+
+```
+     mantaGet()
+```
+     Downloads Manta object(s) (vectorized) specified to file(s) or
+     buffer.
+
+```
+     mantaCat()
+```
+     Retrieves object from Manta and uses cat() to print contents to
+     the R console.
+
+```
+     mantaRm()
+```
+     Removes specified Manta object, optionally recursive.
+
+```
+     mantaSnapln()
+```
+     Makes a Snaplink - combination snapshot and symbolic link.
+
+```
+     mantaDump()
+```
+     Uses dump() to upload text parsable R data to Manta Storage
+     Service.
+
+```
+     mantaSource()
+```
+     Downloads specified Manta object and applies source() to parse R
+     code file.
+
+```
+     mantaSave()
+```
+     Uploads R data to Manta Storage Service using R function save().
+
+```
+     mantaLoad()
+```
+     Downloads specified Manta object containing R data and uses R
+     function load().
+
+```
+     mantaSave.ws()
+```
+     Saves R workspace to Manta R workspace directory with an audit
+     trail of backups.
+
+```
+     mantaLoad.ws()
+```
+     Loads last current R workspace from Manta R workspace directory.
+
+###   Manta  Compute Job Operations
+
+```
+     mantaJob.setup()
+     mantaMap()
+     mantaReduce()
+```
+     Constructors for R format Manta Job including name, and UNIX
+     command line tasks as defined by mantaMap(), and/or mantaReduce()
+     functions.
+
+```
+     mantaJob.launch()
+```
+     Submits list of input Manta objects and R format Manta Job
+     specification, runs job optionally polls job status. Returns job
+     status.
+
+```
+     mantaJob.cancel()
+```
+     Sends Manta a cancel message to stop running job.
+
+```
+     mantaJob.status()
+```
+     Returns JSON Manta job status data given Manta job identifier.
+
+```
+     mantaJob.done()
+```
+     Checks or polls status of a Manta job.  Returns done or not as
+     logical.
+
+```
+     mantaJob.errors()
+```
+     Returns JSON Manta error messages given Manta job identifier.
+
+```
+     mantaJob.errors.stderr()
+```
+     Retrieves JSON errors given Manta job identifier, then retrieves
+     each stderr message archived on Manta (if any) and uses mantaCat()
+     to print contents of stderr to the console.
+
+```
+     mantaJob.failures()
+```
+     Returns list of failures given Manta job identifier.
+
+```
+     mantaJob.inputs()
+```
+     Returns list of input Manta objects given Manta job identifier.
+
+```
+     mantaJob.outputs()
+```
+     Returns list of output Manta objects given Manta job identifier.
+
+```
+     mantaJob.outputs.cat()
+```
+     Retrieves list of Manta output objects given Manta job identifier,
+     then retrieves each object from Manta and uses cat() to print
+     contents to the R console.
+
+```
+     mantaJobs()
+```
+     Lists all Manta job identifiers, sorted by time.
+
+```
+     mantaJobs.running()
+```
+     Lists identifiers of any running Manta jobs.
+
+```
+     mantaJobs.tail()
+```
+     Returns identifier of last run Manta job identifier, or from
+     offset n up from end of list.
+
+###     Exposed Low Level Calls
+
+```
+     mantaAttempt()
+```
+     raw REST API Manta Caller with exception handling, used by many
+     functions.
+
+```
+     mantaXfer()
+```
+     raw REST API Manta Caller for mantaPut() mantaGet() and related
+     data transfer routines.
+
+```
+     mantaSave.image()
+```
+     Workspace Upload function that calls R save.image(); used by
+     mantaSave.ws().
+
+###     Useful Bunyan Debug/Log Utilities
+
+```
+     bunyanSetLog()
+```
+     Starts bunyan JSON message logging at supplied logging threshold
+     to file or memory buffer.
+
+```
+     bunyanBuffer()
+```
+     Returns memory buffer.
+
+```
+     bunyanTraceback()
+```
+     Get messages from memory after last bunyanSetpoint
 
