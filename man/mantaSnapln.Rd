@@ -6,17 +6,22 @@
 }
 \arguments{
   \item{from}{character, required. Object in current
-  subdirectory or full Manta path to stored object. Not
-  vectorized.}
+  subdirectory or full Manta path to stored object.
+  Vectorized.}
 
   \item{to}{character, required. Snaplink name in current
-  subdirectory or full Manta path to the new SnapLink. Not
-  vectorized.}
+  subdirectory or full Manta object path to the new
+  SnapLink. If from is used as vectorized list of
+  mantapaths, to must specify a single Manta directory
+  ending with / character.}
 }
 \description{
-  If the original object is overwritten/deleted, the
-  SnapLink still contains the object contents at time of
-  creation.
+  Example: mantaSnapln(mantaLs(items = 'o'),
+  "~~/public/share") will make SnapLinks for all objects in
+  the current directory located in the "~~/public/share"
+  directory. If the original object is overwritten/deleted,
+  the SnapLink still contains the object contents at time
+  of creation.
 }
 \keyword{Manta,}
 \keyword{manta}

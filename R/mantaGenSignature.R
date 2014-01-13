@@ -29,19 +29,23 @@ function() {
   # write sig_to_digest to a binary file without any CR
   con <- file("sig_to_digest.bin", 'wb')
   writeBin(charToRaw(sig_to_digest), con)
+  flush(con)
   close(con)
 
   # digest and encrypt
   system2(openssl_cmd, 
           args=digest_args, 
-          stdin="sig_to_digest.bin", 
+          stdin="sig_to_digest.bin",
+          wait = TRUE, 
           stdout=FALSE)
   sig_encrypted <- paste(system2(openssl_cmd, 
-                                 args=encrypt_args, 
+                                 args=encrypt_args,
+                                 wait = TRUE, 
                                  stdout=TRUE), 
                          collapse='')
-  gone <- file.remove("temp_digest.bin")
+  
   gone <- file.remove("sig_to_digest.bin")
+  gone <- file.remove("temp_digest.bin")
 
   signed <- list(time_now=the_time_now, signature=sig_encrypted)
   return(signed)

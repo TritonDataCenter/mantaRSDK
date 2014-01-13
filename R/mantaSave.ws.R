@@ -23,8 +23,8 @@ function() {
 
   ws_dir <- paste("/", manta_globals$manta_user, "/stor/", manta_globals$r_version, "/", manta_globals$hostname,  sep="")
 
-  if (!mantaExists(ws_dir)) {
-   if ( mantaMkdir(ws_dir, p = TRUE) == FALSE) {
+  if (!mantaExists(ws_dir, d = TRUE)) {
+   if ( mantaMkdir(ws_dir, p = TRUE, info = FALSE) == FALSE) {
       msg <- paste("mantaSave.ws: Unable to make user R workspace directory on Manta ", ws_dir, "\n", sep="")
       bunyanLog.error(msg)
       cat(msg)

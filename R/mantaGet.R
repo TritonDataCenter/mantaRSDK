@@ -64,8 +64,11 @@ function(mantapath, filename,  buffer = FALSE, metadata = FALSE, info = TRUE, ve
      if ( missing(mantapath) && (!missing(filename)) ) {
         # filename exists - ignoring any values in buffer, object
         # Extract the trailing filename string as the source name for mantapath
-        #
-        pathsplit <- strsplit(filename,"/")
+        if (.Platform$OS.type == "unix") {
+          pathsplit <- strsplit(filename,"/")
+        } else {
+          pathsplit <- strsplit(filename,"\\")
+        }
         manta_filename <- pathsplit[[1]][length(pathsplit[[1]])]
         mantapath <- paste(mantaGetwd(), "/", manta_filename, sep = "")
         path_enc <- mantaExpandPath(mantapath)
@@ -81,14 +84,12 @@ function(mantapath, filename,  buffer = FALSE, metadata = FALSE, info = TRUE, ve
            path_enc <- mantaExpandPath(mantapath)
         } else {
            if ( (!missing(filename)) && (!missing(mantapath)) ) { 
-##TODO - THIS IS NOT WINDOWS READY - terminating \
-              if ( substr(filename, nchar(filename), nchar(filename)) == "/" ) {
-                # Get assumes the file is remote and if filename ends with / or \ 
-                # - it is a path, reuse the remote filename
-                pathsplit <- strsplit(mantapath,"/")
-                manta_filename <- pathsplit[[1]][length(pathsplit[[1]])]
-                filename <- paste(filename, manta_filename, sep="")
-              } 
+               if (( substr(filename, nchar(filename), nchar(filename)) == "/" ) ||
+                   ( substr(filename, nchar(filename), nchar(filename)) == "\\" )) {
+                  pathsplit <- strsplit(mantapath,"/")
+                  manta_filename <- pathsplit[[1]][length(pathsplit[[1]])]
+                  filename <- paste(filename, manta_filename, sep="")
+               } 
               path_enc <- mantaExpandPath(mantapath)  # first see if the path is ok
               if (path_enc == "") {  # assume working directory
                 mantapath <- paste(mantaGetwd(), "/", mantapath, sep = "")

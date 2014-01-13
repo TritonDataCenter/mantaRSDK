@@ -35,8 +35,7 @@ function(mantapath, r = FALSE, info = TRUE) {
 
   if (path_enc == "") return(FALSE)
 
-  silent <- FALSE
-  if (info == FALSE) silent <- TRUE
+  silent <- !info
 
   if (r == FALSE) {
     # non recursive

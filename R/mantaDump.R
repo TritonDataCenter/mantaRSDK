@@ -58,12 +58,14 @@ function(list, mantapath = "dumpdata.R", md5 = FALSE,
 
   if (missing(list)) stop("mantaDump. No objects specified in list.")
 
-  temp_f <- tempfile()
   ex <- sapply(list, exists, envir = envir)
   if (!any(ex))  stop("mantaDump. No objects specified in list.")
-
-  dump(list = list, file = temp_f,  append = FALSE, control = control, 
+  temp_f <- tempfile()
+  temp_con <- file(temp_f, "w")
+  dump(list = list, file = temp_con,  append = FALSE, control = control, 
     envir = envir, evaluate = evaluate) 
+  flush(temp_con)
+  close(temp_con)
 
   # File extensions conforming to .R type 
   pathsplit <- strsplit(mantapath,"/")
@@ -135,7 +137,6 @@ function(list, mantapath = "dumpdata.R", md5 = FALSE,
       cat("..Failed\n")
     }
   }
-
   file.remove(temp_f)
   return(returnval)
 

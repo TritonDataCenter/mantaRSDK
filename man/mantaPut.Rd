@@ -8,13 +8,13 @@
 \arguments{
   \item{mantapath}{string, optional. Path to where uploaded
   data will go on Manta or Manta Object file name in
-  current working Manta directory. If manapath ends in "/"
-  or "\" it is assumed to be specifying a Manta
-  subdirectory and the filename portion is appended to it.
-  Memory data uploads using buffer parameter require
-  mantapath to have a destination file name at the end of
-  the path with an extension for proper guessing of
-  Content-Type header information.}
+  current working Manta directory. If mantapath ends in "/"
+  it is assumed to be specifying a Manta subdirectory and
+  the filename portion is appended to it. Memory data
+  uploads using buffer parameter require mantapath to have
+  a destination file name at the end of the path with an
+  extension for proper guessing of Content-Type header
+  information.}
 
   \item{filename}{vector of character, optional. Path to
   local file to PUT. If only a filename is given, assumes

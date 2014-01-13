@@ -78,20 +78,20 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     mantaInitialize(useEnv = TRUE)
   }
 
-  # In the case of mantaJob.running, call to mantaAttempt has a query in the action.
-  # so we need to stop pasting additional query info to the end of this as is
-  # the case for mantaLs.
   action_has_query <- FALSE
-  if (grepl("?", action) || grepl("=", action)) {
-   # action has some additional query parameters and is not from mantaLs()
-    action_has_query <- TRUE
-  }
 
   # for now - for Setwd... to be refactored
   if (missing(action)) {
     manta_do <- manta_globals$manta_cwd
   } else {
     manta_do <- action
+    # In the case of mantaJob.running, call to mantaAttempt has a query in the action.
+    # so we need to stop pasting additional query info to the end of this as is
+    # the case for mantaLs.
+    if (grepl("?", action) || grepl("=", action)) {
+      # action has some additional query parameters and is not from mantaLs()
+      action_has_query <- TRUE
+    }
   } 
 
 

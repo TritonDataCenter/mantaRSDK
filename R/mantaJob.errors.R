@@ -1,15 +1,4 @@
 # Roxygen Comments mantaJob.errors
-# JSON error message return values
-# Name		Type	Description
-# ------------------------
-# id		String	job id
-# phase	Number	phase number of the failure
-# what		String	a human readable summary of what failed
-# code		String	programmatic error code
-# message	String	human readable error message
-# stderr	String	(optional) a key that saved the stderr for the given command
-# key		String	(optional) the input key being processed when 
-# 			the task failed (if the service can determine it)
 #' Returns JSON Manta error messages given Manta job identifier.
 #'
 #' @param jobid character optional. Manta job identifier such as
@@ -21,6 +10,19 @@
 #' Default TRUE pretty prints JSON to the console.
 #'
 #' @keywords Manta, manta
+#'
+#'
+#' JSON error message return values:\cr
+#' Name		Type	Description\cr
+#' ------------------------
+#' id:  String. Job id\cr
+#' phase: Number. Phase number of the failure\cr
+#' what: String. A human readable summary of what failed\cr
+#' code: String. Programmatic error code\cr
+#' message: String. Human readable error message\cr
+#' stderr: String (optional). A key that saved the stderr for the given command\cr
+#' key:	String (optional). The input key being processed when
+#' the task failed (if the service can determine it)\cr
 #'
 #' @export
 mantaJob.errors <-
@@ -34,25 +36,34 @@ function(jobid, readable = TRUE) {
   }
   ## Look for live/err
   action <- paste("/",manta_globals$manta_user,"/jobs/",jobid,"/live/err", sep="")
-  result <-  mantaAttempt(action, method = "GET", returncode = 200,  json = TRUE, silent = TRUE, test = TRUE)
+  result <-  mantaAttempt(action, method = "HEAD", returncode = 200,  silent = TRUE, test = TRUE)
+  buffer <- FALSE
   if (result == FALSE) {
     ## Look for archived
     action <- paste("/",manta_globals$manta_user,"/jobs/",jobid,"/err.txt", sep="")
-    json <-  mantaAttempt(action, method = "GET", returncode = 200,  json = TRUE, silent = TRUE)
+    buffer <-  mantaGet(action, buffer = TRUE, info = FALSE)
   } else {
-    json <- mantaAttempt(action, method = "GET", returncode = 200,  json = TRUE, silent = TRUE)
+    buffer <-  mantaGet(action, buffer = TRUE, info = FALSE)
   }
-  if(json$lines[1] != "") { 
-     if (readable == TRUE) {
-       cat(paste(toJSON(fromJSON(json$lines), pretty=TRUE), "\n", sep=""))
-     } else {
-       return(json$lines)
-    }
+  if (length(buffer) != 1) {
+    jsonerrs <- rawToChar(buffer)
   } else {
      if (readable == TRUE) {
-      cat(paste("Job errors for ", jobid, " not found.\n", sep = ""))
-    } else {
-      return(NULL)
-    }
+       cat(paste("Job errors for ", jobid, " not found.\n", sep = ""))
+     } 
+     return(NULL)
   }
-}
+
+  jsonlines <- strsplit(jsonerrs, split = "\n")
+ 
+  prettyoutput <- function(line) {
+     cat(paste(toJSON(fromJSON(line), pretty=TRUE), "\n", sep=""))
+  }
+
+  if (readable == TRUE) {
+    lapply(jsonlines[[1]], prettyoutput) 
+  } else {
+    return(jsonlines[[1]])
+  }
+ cat("\n")
+} 

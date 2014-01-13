@@ -19,7 +19,7 @@ function(envir = parent.frame()) {
 
   ws_dir <- paste("/", manta_globals$manta_user, "/stor/", manta_globals$r_version, "/", manta_globals$hostname,  sep="")
 
-  if (!mantaExists(ws_dir)) {
+  if (!mantaExists(ws_dir, d = TRUE)) {
       msg <- paste("mantaLoad.ws: R workspace directory does not yet exist on Manta: ", ws_dir, " Use mantaSave.ws().\n", sep="")
       bunyanLog.error(msg)
       cat(msg)

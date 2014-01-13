@@ -68,6 +68,11 @@ function(mantapath, envir = parent.frame(), info = TRUE, verbose = FALSE) {
     stop(msg)
   }
 
+  if (mantaExists(curlUnescape(path_enc)) == FALSE) {
+    msg <- paste("mantaLoad - Manta object not found:", mantapath, "\n", sep = "")
+    bunyanLog.error(msg)
+    stop(msg)
+  }
 
   filename <- tempfile()
   retval <- mantaXfer(action  = path_enc, method = "GET", filename = filename, returnmetadata = TRUE, 

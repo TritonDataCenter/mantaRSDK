@@ -134,16 +134,12 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
     if (!missing(buffer)) { # we have a buffer      
         # RCURL stock does not read from a buffer 
         # must write to tempfile
-        # these don't work: 
-        #                 f <-  file(buffer, "rb", raw = TRUE)
-        #                  con <- rawConnection(buffer, open = "rb")
         filetemp <- tempfile()
         f <- file(filetemp, "wb")
         fsize <- length(buffer)
         writeBin(object =  buffer, con = f)
         flush(f)
         close(f)
-        f <- CFILE(filetemp, "rb")
     }
     if (filename != "") { # we have a file to read supplied
        if (file.exists(filename) != TRUE) {
@@ -151,21 +147,23 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
           bunyanLog.error(msg = msg)
           stop(msg)
         }      
-       f <- CFILE(filename,"rb")
        fsize <- file.info(filename)[1, "size"]
     } else { # use the tempfile
       filename <- filetemp
     }
     if (md5 == TRUE) {
+       # Have OpenSSL compute the md5 hash of the file.
        openssl_cmd <- "openssl"
        digest_args <- paste("dgst -md5 -binary",
                            "-out temp_digest.bin",
                            sep=" ")
        encrypt_args <- "enc -base64 -in temp_digest.bin"
-       system2(openssl_cmd, args=digest_args, stdin=filename, stdout = FALSE)
-       md5hash <- paste(system2(openssl_cmd, args=encrypt_args, stdout = TRUE), collapse = '')
+       system2(openssl_cmd, args=digest_args, stdin=filename, wait = TRUE, stdout = FALSE)
+       md5hash <- paste(system2(openssl_cmd, args=encrypt_args, wait = TRUE, stdout = TRUE), collapse = '')
        headers <- c(headers, 'content-md5' = md5hash)
+       file.remove("temp_digest.bin")
     }
+    f <- CFILE(filename, "rb")
     curl_handle <- getCurlHandle()
     httpheader <- c(headers, mantaGenHeaders())
     req <- list(url = manta_call, method = curl_method, headers = httpheader)
@@ -192,7 +190,8 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
                            stop(msg)
                           }
                     )
-  
+    close(f)
+    if (filetemp !="") file.remove(filetemp)
     split_reply <- strsplit(reply, split = "\r\n\r\n")
     header <- split_reply[[1]][1]
     body <- split_reply[[1]][-1] # in R this removes the first element in the array

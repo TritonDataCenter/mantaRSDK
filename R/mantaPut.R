@@ -35,7 +35,7 @@
 #'
 #' @param mantapath string, optional. Path to where uploaded data will go on 
 #' Manta or Manta Object file name in current working Manta directory. 
-#' If manapath ends in "/" or "\" it is assumed to be 
+#' If mantapath ends in "/"  it is assumed to be 
 #' specifying a Manta subdirectory and the filename portion is appended to it.
 #' Memory data uploads using buffer parameter require mantapath to have
 #' a destination file name at the end of the path with an extension for proper
@@ -115,14 +115,22 @@ function(filename, mantapath, buffer, md5 = FALSE, headers, info = TRUE, verbose
   if ( memorydata == FALSE ) {  # filename is not missing
      if ( missing(mantapath) ) {
         # Extract the trailing filename string as the destination name for mantapath
-        pathsplit <- strsplit(filename,"/")
+        if (.Platform$OS.type == "unix") {
+          pathsplit <- strsplit(filename,"/")
+        } else {
+          pathsplit <- strsplit(filename,"\\")
+        }
         manta_filename <- pathsplit[[1]][length(pathsplit[[1]])]
         mantapath <- paste(mantaGetwd(), "/", manta_filename, sep = "")
         path_enc <- mantaExpandPath(mantapath)
      } else { # we have mantapath
        if ( substr(mantapath, nchar(mantapath), nchar(mantapath)) == "/" ) {
          # put assumes the file is local and if mantapath ends with / - reuse the local filename
-         pathsplit <- strsplit(filename,"/")
+         if (.Platform$OS.type == "unix") {
+           pathsplit <- strsplit(filename,"/")
+         } else {
+           pathsplit <- strsplit(filename,"\\")
+         }
          from_filename <- pathsplit[[1]][length(pathsplit[[1]])]
          path_enc <- mantaExpandPath(mantapath) # is mantapath valid?
          if (path_enc == "") {  # nope,  assume path from working directory
@@ -162,9 +170,13 @@ function(filename, mantapath, buffer, md5 = FALSE, headers, info = TRUE, verbose
   ## MIME Content-Type settings from filename.ext 
   test_filename <- ""
   if (memorydata == FALSE) {  
-   # Guess content-type header from filename source 
-    pathsplit <- strsplit(filename, "/")
-    test_filename <- pathsplit[[1]][length(pathsplit[[1]])]
+   # Guess content-type header from filename source  
+   if (.Platform$OS.type == "unix") {
+      pathsplit <- strsplit(filename,"/")
+   } else {
+      pathsplit <- strsplit(filename,"\\")
+   }
+   test_filename <- pathsplit[[1]][length(pathsplit[[1]])]
   } else {   
     # No file, so guess content-header from mantapath destination filename
     pathsplit <- strsplit(mantapath, "/")

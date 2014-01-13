@@ -2,10 +2,12 @@
 \alias{mantaCat}
 \title{Retrieves object from Manta and uses cat() to print contents to the R console.}
 \usage{
-  mantaCat(mantapath)
+  mantaCat(mantapath, sep = "\n")
 }
 \arguments{
-  \item{mantapath}{string, required.}
+  \item{mantapath}{vector of character, required.}
+
+  \item{sep}{character, required, separator.}
 }
 \description{
   Retrieves object from Manta and uses cat() to print

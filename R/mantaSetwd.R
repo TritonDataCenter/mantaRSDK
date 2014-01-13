@@ -41,7 +41,7 @@ function(mantapath) {
   }
 
   # is it really there ?
-  if (mantaAttempt(action=path_enc, method="HEAD", test = TRUE, silent = TRUE) == TRUE) {
+  if (mantaExists(curlUnescape(path_enc), d = TRUE) == TRUE) {
     assign("manta_cwd", path_enc, envir = manta_globals)
     return(TRUE)
   } else {
