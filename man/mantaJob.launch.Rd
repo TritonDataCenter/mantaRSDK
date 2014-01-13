@@ -4,7 +4,7 @@
 optionally polls job status. Returns job status.}
 \usage{
   mantaJob.launch(inputs, job, batchsize = 500,
-    watch = TRUE, sleep = 30, watchtimeout = 600,
+    watch = TRUE, sleep = 15, watchtimeout = 600,
     silent = FALSE, verbose = FALSE)
 }
 \arguments{
@@ -34,7 +34,7 @@ optionally polls job status. Returns job status.}
 
   \item{sleep}{integer. Number of seconds to wait between
   status requests in polling mode when watch is set to
-  TRUE. Default is 30 seconds.}
+  TRUE. Default is 15 seconds.}
 
   \item{watchtimeout}{integer. Number of seconds after
   which polling ends. Passed to mantaJob.done() when watch

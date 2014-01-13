@@ -2,7 +2,7 @@
 \alias{mantaSnapln}
 \title{Makes a Snaplink - combination snapshot and symbolic link.}
 \usage{
-  mantaSnapln(from, to)
+  mantaSnapln(from, to, info = TRUE)
 }
 \arguments{
   \item{from}{character, required. Object in current
@@ -14,6 +14,9 @@
   SnapLink. If from is used as vectorized list of
   mantapaths, to must specify a single Manta directory
   ending with / character.}
+
+  \item{info}{logical. When FALSE suppresses messages on
+  the console.}
 }
 \description{
   Example: mantaSnapln(mantaLs(items = 'o'),

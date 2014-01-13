@@ -14,6 +14,9 @@
 #'
 mantaGenSignature <-
 function() {
+  if (file.exists("sig_to_digest.bin")) file.remove("sig_to_digest.bin")
+  if (file.exists("temp_digest.bin")) file.remove("temp_digest.bin")
+  
 
   openssl_cmd <- "openssl"
   digest_args <- paste("dgst -sha256 -sign", 
@@ -46,6 +49,7 @@ function() {
   
   gone <- file.remove("sig_to_digest.bin")
   gone <- file.remove("temp_digest.bin")
+  
 
   signed <- list(time_now=the_time_now, signature=sig_encrypted)
   return(signed)

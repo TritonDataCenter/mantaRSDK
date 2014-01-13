@@ -16,11 +16,13 @@
 #' list of mantapaths, to must specify a single Manta directory 
 #' ending with / character. 
 #'
+#' @param info logical. When FALSE suppresses messages on the console.
+#'
 #' @keywords Manta, manta
 #'
 #' @export
 mantaSnapln <-
-function(from, to) {
+function(from, to, info = TRUE) {
   # If this is the first export function called in the library
   if (manta_globals$manta_initialized == FALSE) {
     mantaInitialize(useEnv = TRUE)
@@ -54,7 +56,13 @@ function(from, to) {
    topaths <- paste(curlEscape(to), filenames, sep="") # these are escaped.
    retval <- vector("logical", length(frompaths))
    for (i in 1:length(frompaths)) {
-    retval[i] <-  mantaSnapln(curlUnescape(frompaths[i]), curlUnescape(topaths[i]))
+     retval[i] <-  mantaSnapln(curlUnescape(frompaths[i]), curlUnescape(topaths[i]))
+     Sys.sleep(0.5)  # Windows gets way ahead of itself here... 
+     msg <- paste(frompaths[i], " -SnapLinked to- ", curlUnescape(topaths[i]), "\n", sep="")
+     bunyanLog.info(msg)
+     if (info == TRUE) {
+       cat(msg)
+     }
    }
    return(retval)
  }

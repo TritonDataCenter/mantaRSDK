@@ -43,7 +43,7 @@
 #' does not imply job success or failure.
 #'
 #' @param sleep integer. Number of seconds to wait between status requests in polling mode
-#' when watch is set to TRUE. Default is 30 seconds.
+#' when watch is set to TRUE. Default is 15 seconds.
 #'
 #' @param watchtimeout integer. Number of seconds after which polling ends. Passed
 #' to mantaJob.done() when watch is set to TRUE. Default is 10 minutes (600 seconds)..
@@ -64,7 +64,7 @@
 #'
 #' @export
 mantaJob.launch <-
-function(inputs, job, batchsize = 500,  watch = TRUE, sleep = 30, watchtimeout = 600, silent = FALSE, verbose = FALSE) {
+function(inputs, job, batchsize = 500,  watch = TRUE, sleep = 15, watchtimeout = 600, silent = FALSE, verbose = FALSE) {
 
   if (missing(job)) 
     stop("mantaJob.launch - no job specified")
