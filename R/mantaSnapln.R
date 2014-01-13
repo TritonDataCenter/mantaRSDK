@@ -58,7 +58,7 @@ function(from, to, info = TRUE) {
    for (i in 1:length(frompaths)) {
      retval[i] <-  mantaSnapln(curlUnescape(frompaths[i]), curlUnescape(topaths[i]))
      Sys.sleep(0.5)  # Windows gets way ahead of itself here... 
-     msg <- paste(frompaths[i], " -SnapLinked to- ", curlUnescape(topaths[i]), "\n", sep="")
+     msg <- paste(curlUnescape(frompaths[i]), " -SnapLinked to- ", curlUnescape(topaths[i]), "\n", sep="")
      bunyanLog.info(msg)
      if (info == TRUE) {
        cat(msg)
