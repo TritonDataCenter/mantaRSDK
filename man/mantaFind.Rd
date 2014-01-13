@@ -9,68 +9,71 @@
     findroot = 1)
 }
 \arguments{
-  \item{mantapath}{string, required. Object/subdir in
+  \item{mantapath}{character, required. Object/subdir in
   current subdirectory or full Manta path to stored object
-  or subdirectory}
+  or subdirectory.}
 
-  \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search. Ignored for reprocessed trees.
-  Uses R regexps, e.g. USE "[.]txt", NOT ".txt" to match
-  filename extensions.}
+  \item{grepfor}{character optional. Regular expression for
+  \code{grep} name search. Ignored for reprocessed trees.
+  Uses R regexps, N.B. use \code{"[.]txt"}, not
+  \code{"*.txt"} to match filename extensions.}
 
-  \item{entries}{saved mantaFind R data, optional. For
+  \item{entries}{optional. Saved mantaFind R data. For
   reprocessing/reformatting retrieved R tree information
-  saved with mantaFind(l='R')->tree}
+  saved with \code{mantaFind(l='R')->tree}.}
 
-  \item{l}{string optional. Specifies listing output format
-  by 'paths', 'n', 'du', 'R' 'paths' is a listing of full
-  Manta object pathnames needed for mantaJobs 'l' is a
-  Unix-y listing style with full pathnames 'sizes' is a
-  listing of sizes in bytes, no pathnames 'size_path' is a
-  listing of size [space] path 'URL' is a listing of the
-  URLs (access applies to objects in ~~/public/ only) 'n'
-  is the number of entries found 'du' is the number of
-  bytes used by objects (not counting redundancy levels!).
-  'R' is the R object collected by find with mtime parsed,
-  full path names mantaFind(l='R') -> tree saves the
-  directory tree for rerocessing with mantaFind(mantapath,
-  entries = tree, ...)}
+  \item{l}{character optional.\cr Specifies listing output
+  format by \code{'paths', 'n', 'du', 'R'}.\cr
+  \code{'paths'} is a listing of full Manta object
+  pathnames needed for \code{mantaJobs}.\cr \code{'l'} is a
+  Unix-y listing style with full pathnames.\cr
+  \code{'sizes'} is a listing of sizes in bytes, no
+  pathnames.\cr \code{'size_path'} is a listing of size
+  [space] path.\cr \code{'URL'} is a listing of the URLs
+  (only for objects in \code{~~/public/}).\cr \code{'n'} is
+  the number of entries found.\cr \code{'du'} is the number
+  of bytes used by objects (not counting redundancy
+  levels!).\cr \code{'R'} is the R object collected by
+  \code{mantaFind} with \code{mtime} parsed, full path
+  names. \code{mantaFind(l='R') -> tree} saves the
+  directory tree for reprocessing with
+  \code{mantaFind(mantapath, entries = tree, ...)}.}
 
-  \item{items}{string optional. 'a' for all, 'd' for
-  directory, 'o' for object.}
+  \item{items}{character optional. \code{'a'} for all,
+  \code{'d'} for directory, \code{'o'} for object.}
 
   \item{level}{integer optional. Maximum number of
   subdirectory child levels to visit, in other words, the
-  depth of the hierarchical directory search. If level <=
-  0, search depth is unrestricted. Level parameter is
-  ignored on reprocessed search trees.}
+  depth of the hierarchical directory search. If
+  \code{level <= 0}, search depth is unrestricted. Level
+  parameter is ignored on reprocessed search trees.}
 
-  \item{sortby}{string, optional. Specify 'none', 'name',
-  'time', or 'size'. Sorting selection is independent of
-  time-bounded find.}
+  \item{sortby}{character, optional. Specify \code{'none',
+  'name', 'time',} or \code{'size'.} Sorting selection is
+  independent of time-bounded find.}
 
   \item{starttime}{POSIXlt time, optional. Start time for
-  time-bounded find. When used without endtime, endtime is
-  set to current UTC time.}
+  time-bounded find. When used without \code{endtime},
+  \code{endtime} is set to current UTC time.}
 
   \item{endtime}{POSIXlt time, optional. End time for
-  time-bounded find. When used without starttime, starttime
-  is set to start of Manta service}
+  time-bounded find. When used without \code{starttime},
+  \code{starttime} is set to start of Manta service}
 
   \item{decreasing}{logical, optional. Argument passed to R
-  order for sorting.}
+  \code{order} for sorting.}
 
   \item{ignore.case}{logical, optional. Argument passed to
-  R grep for searching.}
+  R \code{grep} for searching.}
 
-  \item{perl}{logical, optional. Argument passed to R grep
-  for searching.}
+  \item{perl}{logical, optional. Argument passed to R
+  \code{grep} for searching.}
 
-  \item{verbose}{logical, optional. Verbose HTTP data
+  \item{verbose}{logical, optional. Verbose RCurl HTTP data
   output on Unix.}
 
-  \item{info}{logical, optional. Print status message about
-  child path progress.}
+  \item{info}{logical, optional. Console status messages
+  about child path progress.}
 
   \item{findroot}{integer, internal. Indicates nested
   calls, not to be used.}
@@ -81,5 +84,36 @@
   time, or size. Can report entries within a time window.
   Can report disk size, number of objects, number of
   subdirectories.
+}
+\examples{
+\dontrun{
+## Find all objects stored in the directory tree starting
+## at subdirectory specified by mantaSetwd(),
+## return full Manta path to each object:
+mantaFind()
+
+## Find all objects ending in .jpg or .JPG
+## in your Manta ~~/public directory and any child sub directories,
+## (but not grandchildren), show a UNIX-like result sorted by file size:
+mantaFind("~~/public", l = 'l', items = 'o', grepfor = "[.]jpg",
+level = 2, ignore.case = TRUE, sortby = 'size')
+
+## Download all files in current Manta directory, non recursive find:
+mantaGet(mantaFind(level = 1))
+
+## Plot a histogram of all file sizes in your Manta  ~~/stor directory tree.
+hist(mantaFind("~~/stor", l = 'sizes'))
+}
+}
+\seealso{
+  \code{\link{mantaLs}}, \code{\link{mantaLs.paths}},
+  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
+  \code{\link{mantaLs.du}}, \code{\link{mantaLs.url}}
+
+  Other mantaFind: \code{\link{mantaFind.du}},
+  \code{\link{mantaFind.l}}, \code{\link{mantaFind.n}},
+  \code{\link{mantaFind.sizepath}},
+  \code{\link{mantaFind.sizes}},
+  \code{\link{mantaFind.url}}
 }
 
