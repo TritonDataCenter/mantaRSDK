@@ -35,9 +35,7 @@ function(from, to) {
    # Vectorize 
    # Check to has last character "/" 
    if (substr(to, nchar(to), nchar(to)) != "/") {
-    msg <- paste("mantaSnapln Destination Error ", to , "\n must be a subdirectory ending in / for vector operations.\n", sep="")
-    bunyanLog.error(msg)
-    stop(msg)
+      to <- paste(to, "/", sep="")
    } 
    to_path_enc <- mantaPath(to)
    if (mantaExists(curlUnescape(to_path_enc), d = TRUE) == FALSE) {
@@ -45,7 +43,6 @@ function(from, to) {
     bunyanLog.error(msg)
     stop(msg)
    } 
-
    # Expand from
    frompaths <- unlist(lapply(from, mantaPath)) # this expands and escapes !
    fromfiles <- unlist(lapply(frompaths, strsplit, split="/"), recursive = FALSE)
