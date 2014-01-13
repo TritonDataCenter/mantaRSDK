@@ -118,7 +118,7 @@ function(filename, mantapath, buffer, md5 = FALSE, headers, info = TRUE, verbose
         if (.Platform$OS.type == "unix") {
           pathsplit <- strsplit(filename,"/")
         } else {
-          pathsplit <- strsplit(filename,"\\")
+          pathsplit <- strsplit(filename,"[\\]")
         }
         manta_filename <- pathsplit[[1]][length(pathsplit[[1]])]
         mantapath <- paste(mantaGetwd(), "/", manta_filename, sep = "")
@@ -129,7 +129,7 @@ function(filename, mantapath, buffer, md5 = FALSE, headers, info = TRUE, verbose
          if (.Platform$OS.type == "unix") {
            pathsplit <- strsplit(filename,"/")
          } else {
-           pathsplit <- strsplit(filename,"\\")
+           pathsplit <- strsplit(filename,"[\\]")
          }
          from_filename <- pathsplit[[1]][length(pathsplit[[1]])]
          path_enc <- mantaExpandPath(mantapath) # is mantapath valid?
@@ -174,7 +174,7 @@ function(filename, mantapath, buffer, md5 = FALSE, headers, info = TRUE, verbose
    if (.Platform$OS.type == "unix") {
       pathsplit <- strsplit(filename,"/")
    } else {
-      pathsplit <- strsplit(filename,"\\")
+      pathsplit <- strsplit(filename,"[\\]")
    }
    test_filename <- pathsplit[[1]][length(pathsplit[[1]])]
   } else {   

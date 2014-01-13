@@ -67,7 +67,7 @@ function(mantapath, filename,  buffer = FALSE, metadata = FALSE, info = TRUE, ve
         if (.Platform$OS.type == "unix") {
           pathsplit <- strsplit(filename,"/")
         } else {
-          pathsplit <- strsplit(filename,"\\")
+          pathsplit <- strsplit(filename,"[\\]")
         }
         manta_filename <- pathsplit[[1]][length(pathsplit[[1]])]
         mantapath <- paste(mantaGetwd(), "/", manta_filename, sep = "")
@@ -85,7 +85,7 @@ function(mantapath, filename,  buffer = FALSE, metadata = FALSE, info = TRUE, ve
         } else {
            if ( (!missing(filename)) && (!missing(mantapath)) ) { 
                if (( substr(filename, nchar(filename), nchar(filename)) == "/" ) ||
-                   ( substr(filename, nchar(filename), nchar(filename)) == "\\" )) {
+                   ( substr(filename, nchar(filename), nchar(filename)) == "[\\]" )) {
                   pathsplit <- strsplit(mantapath,"/")
                   manta_filename <- pathsplit[[1]][length(pathsplit[[1]])]
                   filename <- paste(filename, manta_filename, sep="")
