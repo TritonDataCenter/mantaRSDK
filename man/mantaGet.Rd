@@ -67,7 +67,8 @@ mantaGet(mantaLs.paths(items = 'o'), metadata = TRUE)
 \seealso{
   \code{\link{mantaPut}}
 
-  Other mantaGet: \code{\link{mantaCat}}
+  Other mantaGet: \code{\link{mantaCat}},
+  \code{\link{mantaLoad}}, \code{\link{mantaLoad.ws}}
 }
 \keyword{Manta,}
 \keyword{manta}

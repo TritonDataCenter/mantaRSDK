@@ -92,7 +92,9 @@
   Note that you do not have to specify the input for a
   Reduce task for \code{mantaJob.launch}, the service pipes
   the output of the previous Map task phase as input to the
-  Reduce task.
+  Reduce task. Note also tha the piped input for a Reduce
+  task may arrive in any order, no sorting is done by the
+  service to the pipe between Map and Reduce tasks.
 }
 \examples{
 \dontrun{

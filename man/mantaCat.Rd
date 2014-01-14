@@ -1,6 +1,7 @@
 \name{mantaCat}
 \alias{mantaCat}
-\title{Retrieves object from Manta and uses \code{cat} to print contents to the R console.}
+\title{Retrieves object from Manta and uses \code{cat} to print contents to the R console.
+\code{mantaCat} is intended for text files, use at your own risk on binary data.}
 \usage{
   mantaCat(mantapath, sep = "\n")
 }
@@ -11,7 +12,8 @@
 }
 \description{
   Retrieves object from Manta and uses \code{cat} to print
-  contents to the R console.
+  contents to the R console. \code{mantaCat} is intended
+  for text files, use at your own risk on binary data.
 }
 \examples{
 \dontrun{
@@ -25,22 +27,9 @@ mantaRm("dumpdata.R")
   \code{\link{mantaJob.outputs.cat}},
   \code{\link{mantaJob.errors.stderr}}
 
-  Other mantaGet: \code{\link{mantaGet}}
+  Other mantaGet: \code{\link{mantaGet}},
+  \code{\link{mantaLoad}}, \code{\link{mantaLoad.ws}}
 }
-\keyword{Manta,}
-\keyword{\code{mantaCat}}
-\keyword{at}
-\keyword{binary}
-\keyword{data.}
-\keyword{files,}
-\keyword{for}
-\keyword{intended}
-\keyword{is}
+\keyword{Manta}
 \keyword{manta}
-\keyword{on}
-\keyword{own}
-\keyword{risk}
-\keyword{text}
-\keyword{use}
-\keyword{your}
 

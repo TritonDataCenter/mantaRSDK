@@ -1,13 +1,12 @@
 # Roxygen Comments mantaCat
 #' Retrieves object from Manta and uses \code{cat} to print contents to the R console.
+#' \code{mantaCat} is intended for text files, use at your own risk on binary data.
 #'
 #' @param mantapath vector of character, required. 
 #' 
 #' @param sep character, required, separator.
 #'
-#' @keywords Manta, manta
-#'
-#' \code{mantaCat} is intended for text files, use at your own risk on binary data.
+#' @keywords Manta manta
 #'
 #' @family mantaGet
 #'

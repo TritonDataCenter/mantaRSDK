@@ -1,21 +1,41 @@
 # Roxygen Comments mantaLoad
 #'
-#' Downloads specified Manta object containing R data and uses R function load().
+#' Downloads specified Manta object containing R data and uses R function \code{load}.
 #'
-#' @param mantapath string, optional. Path to a manta R data file or file name in current
-#' working Manta directory for retrieval. 
+#' Used to download \code{.rda} \code{.Rdata} files and \code{load} their R data into 
+#' the workspace or specified \code{envir}.
 #'
-#' @param envir optional. Environment in which to load, See load().
+#' Checks for appropriate \code{content-type} HTTP header, which is set
+#' by \code{mantaSave} or \code{mantaSave.ws} to \code{"application/x-r-data"}.
 #'
-#' @param info optional. Print information messages.
+#' @param mantapath character, optional. Path to a manta R data file or file name in current
+#' working Manta directory for retrieval. Not vectorized.
 #'
-#' @param verbose logical, optional. Passed to RCurl GetURL,
-#' Set to TRUE to see background REST communication on stderr
-#' which is invisible on Windows
+#' @param envir optional. Environment in which to load, See \code{load}.
+#'
+#' @param info optional. Print information messages to console.
+#'
+#' @param verbose logical, optional. Passed to \code{RCurl} \code{GetURL},
+#' Set to \code{TRUE} to see background REST communication on \code{stderr}
+#' Note this is invisible on Windows.
 #' 
-#' @return TRUE or FALSE depending on success of GET transfer
+#' @return \code{TRUE} or \code{FALSE} depending on success of download.
+#'
+#' @family mantaGet
 #'
 #' @keywords Manta, manta
+#'
+#' @seealso \code{\link{mantaSave}}
+#'
+#' @examples
+#' \dontrun{
+#' somedata <- runif(100)
+#' ls()
+#' mantaSave("somedata", mantapath = "~~/stor/somedata.rda")
+#' rm(somedata)
+#' mantaLoad("somedata.rda")
+#' ls()
+#' }
 #'
 #' @export
 mantaLoad <-
