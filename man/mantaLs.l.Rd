@@ -51,9 +51,10 @@ Output is long \code{ls -o} unix style of directory listing.}
 \seealso{
   \code{\link{mantaFind.l}}
 
-  Other mantaLs: \code{\link{mantaLs}},
-  \code{\link{mantaLs.du}}, \code{\link{mantaLs.n}},
-  \code{\link{mantaLs.paths}}, \code{\link{mantaLs.url}}
+  Other mantaLs: \code{\link{mantaExists}},
+  \code{\link{mantaLs}}, \code{\link{mantaLs.du}},
+  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}},
+  \code{\link{mantaLs.url}}
 }
 \keyword{Manta,}
 \keyword{manta}

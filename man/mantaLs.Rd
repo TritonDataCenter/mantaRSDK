@@ -88,9 +88,10 @@ mantaGet(mantaLs.paths(items = 'o'))
 \seealso{
   \code{\link{mantaFind}}
 
-  Other mantaLs: \code{\link{mantaLs.du}},
-  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
-  \code{\link{mantaLs.paths}}, \code{\link{mantaLs.url}}
+  Other mantaLs: \code{\link{mantaExists}},
+  \code{\link{mantaLs.du}}, \code{\link{mantaLs.l}},
+  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}},
+  \code{\link{mantaLs.url}}
 }
 \keyword{Manta,}
 \keyword{manta}

@@ -1,7 +1,7 @@
 \name{mantaFind.sizepath}
 \alias{mantaFind.sizepath}
 \title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
-Output is R list of size and full manta pathnames.}
+Output is R list of size and full Manta pathnames.}
 \usage{
   mantaFind.sizepath(mantapath, grepfor, entries,
     items = "o", level = 0, sortby = "none", starttime,
@@ -61,10 +61,9 @@ Output is R list of size and full manta pathnames.}
   about child path progress.}
 }
 \description{
-  Searching for object or directory names with regular
-  expressions (using R grep). Sorting listings by filename,
-  time, or size. Can report disk size, number of objects,
-  number of subdirectories.
+  Search for object or directory names with regular
+  expressions (using R grep). Sort listings by filename,
+  time, or size.
 }
 \seealso{
   Other mantaFind: \code{\link{mantaFind}},

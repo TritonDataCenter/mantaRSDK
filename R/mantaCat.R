@@ -1,5 +1,5 @@
 # Roxygen Comments mantaCat
-#' Retrieves object from Manta and uses cat() to print contents to the R console.
+#' Retrieves object from Manta and uses \code{cat} to print contents to the R console.
 #'
 #' @param mantapath vector of character, required. 
 #' 
@@ -7,8 +7,20 @@
 #'
 #' @keywords Manta, manta
 #'
-#' mantaCat is intended for text files, use at your own risk on binary data.
+#' \code{mantaCat} is intended for text files, use at your own risk on binary data.
 #'
+#' @family mantaGet
+#'
+#' @seealso \code{\link{mantaJob.outputs.cat}}, \code{\link{mantaJob.errors.stderr}}
+#'
+#' @examples
+#' \dontrun{
+#' data <- runif(100) 
+#' mantaDump("data")
+#' mantaCat("dumpdata.R")
+#' mantaRm("dumpdata.R")
+#' }
+
 #' @export
 mantaCat <-
 function(mantapath, sep ="\n") {

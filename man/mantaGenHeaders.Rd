@@ -1,16 +1,17 @@
 \name{mantaGenHeaders}
 \alias{mantaGenHeaders}
-\title{Create all Headers for Manta REST requests}
+\title{Create Headers for Manta HTTPS REST requests}
 \usage{
   mantaGenHeaders()
 }
 \value{
-  manta_headers HTTP headers as specified for RCurl
+  manta_headers HTTP headers as specified for \code{RCurl}
 }
 \description{
-  Creates User Agent, Authorization, Date headers. Calls
-  \code{\link{mantaGenSignature}} to generate timestamp and
-  authorization signature.
+  Not exported. Creates \code{User-Agent, Authorization,
+  date} headers. Calls \code{\link{mantaGenSignature}} to
+  generate \code{date} and \code{Authorization} signature
+  using \code{openSSL}.
 }
 \keyword{Manta,}
 \keyword{manta}

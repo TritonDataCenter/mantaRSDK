@@ -62,7 +62,9 @@ Output is vector of file sizes in bytes, no file or path names.}
 }
 \description{
   Searching for object or directory names with regular
-  expressions (using R grep).
+  expressions (using R grep). File size information does
+  not use durability calculation (i.e. file size for one
+  copy only)
 }
 \seealso{
   Other mantaFind: \code{\link{mantaFind}},

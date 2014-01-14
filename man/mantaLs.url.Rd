@@ -52,9 +52,10 @@ specified subdirectory}
 \seealso{
   \code{\link{mantaFind.url}}
 
-  Other mantaLs: \code{\link{mantaLs}},
-  \code{\link{mantaLs.du}}, \code{\link{mantaLs.l}},
-  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}}
+  Other mantaLs: \code{\link{mantaExists}},
+  \code{\link{mantaLs}}, \code{\link{mantaLs.du}},
+  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
+  \code{\link{mantaLs.paths}}
 }
 \keyword{Manta,}
 \keyword{manta}

@@ -1,12 +1,11 @@
 # Roxygen Comments mantaExpandPath
-#' Checks, expands ~~ and adds blank encoding to subdirectories
+#' Checks, expands \code{~~} to value of \code{$MANTA_USER}, and applies \code{curlEscape}.
 #'
-#' Spaces in the directory path are substituted with %20
-#' for HTTP i/o. Supports ~~ expansion to $MANTA_USER setting
-#' Returns "" if directory specified incorrectory or
-#' if the directory does not exist.
+#' Not exported. 
+#' Returns \code{""} if subdirectory specified incorrectory or
+#' if the directory cannot exist on the system as specified.
 #'
-#' @param m_path string, required.
+#' @param m_path character, required.
 #'
 #' @param verbose logical, optional.
 #'

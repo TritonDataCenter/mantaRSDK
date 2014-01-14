@@ -1,6 +1,6 @@
 \name{mantaCat}
 \alias{mantaCat}
-\title{Retrieves object from Manta and uses cat() to print contents to the R console.}
+\title{Retrieves object from Manta and uses \code{cat} to print contents to the R console.}
 \usage{
   mantaCat(mantapath, sep = "\n")
 }
@@ -10,10 +10,25 @@
   \item{sep}{character, required, separator.}
 }
 \description{
-  Retrieves object from Manta and uses cat() to print
+  Retrieves object from Manta and uses \code{cat} to print
   contents to the R console.
 }
+\examples{
+\dontrun{
+data <- runif(100)
+mantaDump("data")
+mantaCat("dumpdata.R")
+mantaRm("dumpdata.R")
+}
+}
+\seealso{
+  \code{\link{mantaJob.outputs.cat}},
+  \code{\link{mantaJob.errors.stderr}}
+
+  Other mantaGet: \code{\link{mantaGet}}
+}
 \keyword{Manta,}
+\keyword{\code{mantaCat}}
 \keyword{at}
 \keyword{binary}
 \keyword{data.}
@@ -22,7 +37,6 @@
 \keyword{intended}
 \keyword{is}
 \keyword{manta}
-\keyword{mantaCat}
 \keyword{on}
 \keyword{own}
 \keyword{risk}

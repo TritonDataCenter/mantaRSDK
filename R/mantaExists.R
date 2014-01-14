@@ -1,15 +1,35 @@
 # Roxygen Comments mantaExists
-#' Tests to see if a Manta object or subdirectory exists.
+#' Tests to see if a Manta object or subdirectory exists. 
 #'
-#' @param mantapath character, required.
+#' Like a Unix \code{stat} command. Does not download object contents. 
 #'
-#' @param d logical. Set TRUE to confirm that entity specified in mantapath 
+#' @param mantapath character, required. A full path specifying a Manta object
+#' or directory, or the name of an object/subdir in the current Manta working
+#' directory.
+#'
+#' @param d logical. Set \code{TRUE} to confirm that entity specified in mantapath 
 #' exists and is a directory.
 #'
 #' @return logical.
 #'
 #' @keywords Manta, manta
 #'
+#' @family mantaLs
+#'
+#' @examples
+#' \dontrun{
+#' data <- runif(100)
+#' mantaDump("data")
+#' mantaExists("dumpdata.R")
+#' mantaRm("dumpdata.R")
+#' mantaExists("dumpdata.R")
+#' mantaMkdir("testsubidrectory")
+#' mantaExists("testsubdirectory", d = TRUE)
+#' mantaRmdir("testsubdirectory")
+#' mantaExists("testsubdirectory", d = TRUE)
+#' files <- c("file1", "file2", "file3")
+#' sapply(files, mantaExists)
+#' }
 #' @export
 mantaExists <-
 function(mantapath, d = FALSE) {

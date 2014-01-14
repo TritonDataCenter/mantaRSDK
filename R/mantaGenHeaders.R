@@ -1,11 +1,12 @@
 # Roxygen Comments mantaGenHeaders
-#' Create all Headers for Manta REST requests
+#' Create Headers for Manta HTTPS REST requests
 #'
-#' Creates User Agent, Authorization, Date headers.
-#' Calls \code{\link{mantaGenSignature}} to generate timestamp
-#' and authorization signature.
+#' Not exported.
+#' Creates \code{User-Agent, Authorization, date} headers.
+#' Calls \code{\link{mantaGenSignature}} to generate \code{date}
+#' and \code{Authorization} signature using \code{openSSL}.
 #'
-#' @return manta_headers HTTP headers as specified for RCurl
+#' @return manta_headers HTTP headers as specified for \code{RCurl}
 #'
 #' @keywords Manta, manta
 #'

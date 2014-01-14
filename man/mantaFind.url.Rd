@@ -63,10 +63,9 @@ Output is URL format listing with full pathnames.}
 \description{
   Public HTTPS access is to objects in ~~/public
   subdirectory only.  ~~/stor objects are not accessible.
-  Provides searching for object or directory names with
-  regular expressions (using R grep). Sorting listings by
-  filename, time, or size. Can report disk size, number of
-  objects, number of subdirectories.
+  Search for object or directory names with regular
+  expressions (using R grep). Sort listings by filename,
+  time, or size.
 }
 \seealso{
   \code{\link{mantaLs.url}}

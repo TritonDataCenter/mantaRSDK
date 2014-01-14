@@ -81,10 +81,10 @@
   calls, not to be used.}
 }
 \description{
-  Searching for object or directory names with regular
-  expressions (using R grep). Sorting listings by filename,
-  time, or size. Can report entries within a time window.
-  Can report disk size, number of objects, number of
+  Search for object or directory names with regular
+  expressions (using R grep). Sort listings by filename,
+  time, or size. Report entries within a time window.
+  Report disk size, number of objects, number of
   subdirectories.
 }
 \examples{

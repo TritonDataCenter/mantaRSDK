@@ -1,7 +1,9 @@
 \name{mantaFind.l}
 \alias{mantaFind.l}
 \title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
-Output is long ls -o unix-y style listing with full pathnames.}
+Output is long \code{ls -o} unix-y style listing with full pathnames.
+Search for object or directory names with regular expressions (using R grep).
+Sort listings by filename, time, or size.}
 \usage{
   mantaFind.l(mantapath, grepfor, entries, items = "o",
     level = 0, sortby = "none", starttime, endtime,
@@ -61,8 +63,11 @@ Output is long ls -o unix-y style listing with full pathnames.}
   about child path progress.}
 }
 \description{
-  Searching for object or directory names with regular
-  expressions (using R grep). Sorting listings by filename,
+  Recursive find tool for retrieving matching
+  objects/subdirs from Manta hierarchy. Output is long
+  \code{ls -o} unix-y style listing with full pathnames.
+  Search for object or directory names with regular
+  expressions (using R grep). Sort listings by filename,
   time, or size.
 }
 \seealso{

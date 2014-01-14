@@ -53,10 +53,8 @@ Output is number of found entries.}
   about child path progress.}
 }
 \description{
-  Searching for object or directory names with regular
-  expressions (using R grep). Sorting listings by filename,
-  time, or size. Can report disk size, number of objects,
-  number of subdirectories.
+  Search for object or directory names with regular
+  expressions (using R grep). Reports number of objects.
 }
 \seealso{
   \code{\link{mantaLs.n}}

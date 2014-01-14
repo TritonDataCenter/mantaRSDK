@@ -1,42 +1,18 @@
-# TODO.  bunyan-ify errors
 #
 # Roxygen Comments mantaAccount
 #' Changes current Manta account information 
 #'
 #' The Manta account is initially obtained from
-#' environment variables $MANTA_USER, $MANTA_KEY, $MANTA_URL. 
+#' environment variables \code{$MANTA_USER, $MANTA_KEY, $MANTA_URL}. 
 #' The ssl key location is obtained by default on Unix/Linux
-#' from /$HOME/.ssh/id_rsa  or on Windows from 
-#' C:\\Users\\username\\.ssh\\ir_rsa
-#' The Manta datacentre enviroment variable is $MANTA_URL
-#'
-#' To see/save current account settings:
-#'
-#' account <- mantaWhoami(all = TRUE)
-#'
-#' then use:  
-#'
-#' mantaAccount(account) to set that account
-#'
-#' Account information may contain 1-4 key-value pairs.
-#'
-#' To see/save current account settings as JSON:
-#'
-#' account <- mantaWhoami(all = TRUE, json = TRUE)
-#'
-#' then use:  
-#'
-#' mantaAccount(json = account) to set that account
-#'
-#' To set a non default SSH private key location on Windows
-#'
-#' mysslkey <- list(SSL_KEY_PATH = "C:\\Users\\myacct\\.ssh\\my_priv_rsa")
-#' mantaAccount(mysslkey) 
+#' from \code{/$HOME/.ssh/id_rsa}  or on Windows from 
+#' \code{C:\\Users\\username\\.ssh\\ir_rsa}
+#' The Manta datacentre enviroment variable is \code{$MANTA_URL}
 #'
 #'
-#' @param account list,  optional. R values
+#' @param account list,  optional. Input R account values.
 #'
-#' @param json character, optional. JSON account values
+#' @param json character, optional. Input JSON account values.
 #'
 #' @param verbose logical, optional. TRUE by default
 #'
@@ -44,6 +20,35 @@
 #' previous working account if it cannot connect wit the new information
 #' returns FALSE for both cases - account reverted or account is left in
 #' a state where it cannot communicate to the server.
+#'
+#' @family mantaAccount
+#'
+#' @seealso \code{\link{mantaWhoami}}
+#'
+#' @examples
+#' \dontrun{
+#' ## To see/save current account settings:
+#' account <- mantaWhoami(all = TRUE)
+#'
+#' ## then use:  
+#'
+#' mantaAccount(account) ## to set the modified account
+#'
+#' ## Account information may contain 1-4 key-value pairs.
+#'
+#' ## To see/save current account settings as JSON:
+#'
+#' account <- mantaWhoami(all = TRUE, json = TRUE)
+#'
+#' ## then use:  
+#'
+#' mantaAccount(json = account) to set that account
+#'
+#' ## To set a non default SSH private key location on Windows
+#'
+#' mysslkey <- list(SSL_KEY_PATH = "C:\\Users\\myacct\\.ssh\\my_priv_rsa")
+#' mantaAccount(mysslkey) 
+#' }
 #'
 #' @keywords Manta, manta
 #'

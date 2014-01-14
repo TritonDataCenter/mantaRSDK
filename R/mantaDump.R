@@ -1,43 +1,58 @@
 # Roxygen Comments mantaDump
-#' Uses dump() to upload text parsable R data to Manta Storage Service.
+#' Uses \code{dump} to upload text parsable R data to Manta Storage Service.
 #'
-#' mantaDump is a wrapper for dump and mantaXfer, which implements the RCURL transfer
+#' \code{mantaDump} is a wrapper for \code{dump} and \code{mantaXfer}, 
+#' which implements the RCURL transfer
 #'
-#' @param list required.  See dump()  List of R objects to dump. Name of R object in 
+#' @param list required.  See \code{dump}. List of R objects to dump. Name of R object in 
 #' quotes works as well.
 #'
-#' @param mantapath required. Path/filename to where uploaded R source will go on 
-#' Manta or Manta object/file name in current working Manta directory. If no 
+#' @param mantapath optional. Default is \code{dumpdata.R}. 
+#' Specify full Manta path to where uploaded R source will be saved 
+#' or Manta object name in current working Manta directory. If no 
 #' extension is provided on the filename, or a non R data style extension, 
-#' ".R" is appended to the end of the filename.  
+#' \code{.R} is appended to the end of the filename.  
 #' 
-#' @param md5 logical. Test md5 hash of R dump tempfile before/after PUT transfer.
+#' @param md5 logical. Test \code{md5} hash of R dump tempfile before/after upload.
 #'
-#' @param headers  Headers for HTTP transfer, in RCurl style. See mantaPut()
-#' User metadata headers may be provided, E.g.:
-#  headers = c('m-Title' = "Model Fitting Test", 'm-Iteration' = "42")
-#' Avoid supplying the content-type header, which is set to the R source code 
-#' "text/R-code" and the durability-level header which is handled 
-#' via the durability parameter. 
+#' @param headers  Headers for HTTP transfer, in \code{RCurl} style. 
+#' See \code{\link{mantaPut}}. \cr
+#' User metadata headers may be provided, E.g.:\cr
+#  \code{headers = c('m-Title' = "Model Fitting Test", 'm-Iteration' = "42")}\cr
+#' Avoid supplying the \code{content-type} header, which is set to the R source code 
+#' \code{text/R-code} and the \code{durability-level} header which is handled 
+#' via the \code{durability} parameter. 
 #'
 #' @param durability optional. Number of copies to store on Manta (2-6). If not
-#' provided, uses saved value from mantaSetLimits(), system default is 2.
+#' provided, uses saved value from \code{\link{mantaSetLimits}}, system default is 2.
 #'
-#' @param envir optional. See dump(). Environment of R object being passed.
+#' @param envir optional. See \code{dump}. Environment of R object being passed.
 #'
-#' @param control optional.  See dump().
+#' @param control optional.  See \code{dump}.
 #'
-#' @param evaluate optional.  See dump().
+#' @param evaluate optional.  See \code{dump}.
 #'
-#' @param info logical required. Set to FALSE to silence output messages while downloading.
+#' @param info logical required. Set to \code{FALSE} to silence console output messages.
 #'
-#' @param verbose logical, optional. Passed to RCurl GetURL,
-#' Set to TRUE to see background REST communication on stderr
-#' which is invisible on Windows
+#' @param verbose logical, optional. Passed to \code{RCurl} \code{GetURL},
+#' Set to \code{TRUE} to see background HTTPS REST communication on \code{stderr}
+#' Note this is not visible on Windows.
 #' 
-#' @return TRUE or FALSE depending on success of transfer
+#' @return \code{TRUE} or \code{FALSE} depending on success of upload.
 #'
 #' @keywords Manta, manta
+#'
+#' @family mantaPut
+#'
+#' @seealso \code{\link{mantaSource}}
+#'
+#' @examples
+#' \dontrun{
+#' data <- runif(100)
+#' mantaDump("data")
+#' mantaCat("dumpdata.R")
+#' mantaRm("dumpdata.R")
+#' }
 #'
 #' @export
 mantaDump <-

@@ -2,66 +2,66 @@
 #' raw REST API Manta Caller with exception handling for internal 
 #' use. 
 #' 
-#' Exported for access HTTP HEAD and metadata retrieval.
+#' Exported to access HTTPS Manta API and metadata retrieval.
 #'
-#' If test == TRUE, it returns pass/fail logical
+#' If \code{test == TRUE}, it returns pass/fail logical
 #' If passed a Manta subdirectory, it returns the directory
-#' JSON according to the length limit set with mantaSetLimits()
+#' JSON according to the length limit set with \code{mantaSetLimits}
 #'
-#' Note getURL verbose = TRUE writes to stderr - invisible 
-#' on Windows R. 
+#' Note getURL \code{verbose = TRUE} writes to UNIX \code{stderr} 
+#' which is invisible on Windows R. 
 #'
-#' @param action string, optional. Path to a manta object or
-#' directory. When unspecified, uses current Manta Directory
-#' and returns JSON listing values for the entire directory.
+#' @param action character, optional. Path to a manta object or
+#' directory with optional query terms. When unspecified, 
+#' uses current Manta Directory
+#' and returns JSON listing values for the directory.
 #' 
-#' @param method string, optional. Default is "GET", passed
-#' "GET", "POST", "OPTIONS", "PUT", "DELETE" or "HEAD" 
+#' @param method character, optional. Default is \code{"GET"}, passed
+#' \code{"GET", "POST", "OPTIONS", "PUT", "DELETE"} or \code{"HEAD"} 
 #' from higher level library callers.
 #'
-#' @param headers, array of named strings, optional. The headers
-#' follow the RCurl structure of vector of strings where HTTP 
+#' @param headers, array of named characters, optional. The headers
+#' follow the \code{RCurl} structure of vector of characters where HTTP 
 #' header tags are the names, values as 
-#' named strings, no semicolons or delimiters.
+#' named characters, no semicolons or delimiters.
 #' 
-#' @param returncode, string, optional. Set to expected HTTP
-#' return code, e.g. 200, 204 - used when test is TRUE
+#' @param returncode, character, optional. Set to expected HTTP
+#' return code, e.g. \code{"200", "204"} - used when test is TRUE.
 #'
 #' @param limit, numeric, optional. Set to limit number of
 #' returned listed JSON lines - number of directory entries
-#' Otherwise uses default value in mantaSetLimits
+#' Otherwise uses default value in \code{mantaSetLimits}
 #'
-#' @param marker, string, optional. Name or id string of
-#' directory entry to start next listing of length limit
+#' @param marker, character, optional. Name or id character value of
+#' directory entry to start next listing segment of length \code{limit}.
 #'
-#' @param json logical, optional. FALSE means return R data, TRUE
-#' means return JSON data.
+#' @param json logical, optional. \code{FALSE} means return R data, 
+#' \code{TRUE} means return JSON data.
 #'
-#' @param test logical, optional, Set to TRUE to return logical 
-#' TRUE/FALSE as to whether the request passed or failed.  Also
-#' affects the behavior of the silent parameter. See return for
+#' @param test logical, optional, Set to \code{TRUE} to return logical 
+#' as to whether the request passed or failed.  Also
+#' affects the behavior of the \code{silent} parameter. See Value for
 #' output table.
 #'
-#' @param silent logical, optional. Controls whether 400 service
-#' errors are emitted by cat() or stop() depending on the value
-#' of test. See return for output table.
+#' @param silent logical, optional. Controls whether \code{> "400"} service
+#' errors are emitted by \code{cat} or \code{stop} depending on the value
+#' of test. See Value for output table.
 #' 
-#' @param verbose logical, optional. Passed to RCurl GetURL, 
-#' Set to TRUE to see background REST communication.
+#' @param verbose logical, optional. Passed to \code{RCurl} \code{GetURL}, 
+#' Set to \code{TRUE} to see background HTTPS REST communication.
 #' 
 #' @return The Manta reply data in JSON or R format, OR a logical
-#' value if test = TRUE. Return values and Manta server 
-#' error message display or stop() behavior depends on values of
-#' test, silent:
-#' test = TRUE, silent = TRUE    mantaAttempt logical - success returned
-#'                               Errors are logged 
-#' test = TRUE, silent = FALSE   mantaAttempt logical - success returned 
-#'                               Errors are logged, emitted to console.
-#' test = FALSE, silent = TRUE   mantaAttempt data returned 
-#'                               Errors are logged, empty data on error
-#' test = FALSE, silent = FALSE  mantaAttempt data returned
-#'                               Errors are logged, stop() on 400 series errors
-#'
+#' value if \code{test = TRUE}. Return values and Manta server 
+#' error message display or \code{stop} behavior depends on values of
+#' \code{test, silent}:\cr \cr
+#' \code{test = TRUE, silent = TRUE}\cr
+#' logical - success returned, Errors are logged.\cr 
+#' \code{test = TRUE, silent = FALSE}\cr   
+#' logical - success returned, Errors are logged, emitted to console.\cr
+#' \code{test = FALSE, silent = TRUE}\cr   
+#' data returned, Errors are logged, empty data on error.\cr
+#' \code{test = FALSE, silent = FALSE}
+#' data returned, Errors are logged, stop() on 400 series errors.\cr
 #'
 #' @keywords Manta, manta
 #'
@@ -126,7 +126,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
   manta_call <- paste(manta_globals$manta_url, manta_do, sep="")
 
 #  for mantaLs()
-#  limit and marker go in query string... appended to manta_call
+#  limit and marker go in query character... appended to manta_call
 #  ?limit=1000&marker=00026001.jpg
 
   queries <- 0
@@ -201,7 +201,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     }
     if (test == TRUE) {
       return( FALSE )  
-    } else {  # return empty string
+    } else {  # return empty character
       return(list(count = 0, lines = ""))
     }
   }
@@ -220,8 +220,8 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
    no_body <- TRUE
   }
   returned_code = ""
-  returned_string <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ] 
-  returned_code <- strsplit(returned_string, split=" ")[[1]][2]
+  returned_character <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ] 
+  returned_code <- strsplit(returned_character, split=" ")[[1]][2]
 
 
   # Something was returned from server
@@ -244,7 +244,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     # Check body of response for Manta Service error JSON
     if (isValidJSON(body_lines[[1]], asText = TRUE)) {
       values <- fromJSON(body_lines[[1]])
-      # this checks the error strings against list of Manta error classes...
+      # this checks the error characters against list of Manta error classes...
       if (sum(charmatch(values, manta_globals$manta_error_classes, nomatch = 0)) > 0) {
         msg <- "Manta Service Error: "
       } else {
@@ -255,7 +255,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
       msg <- paste(msg, values,"\n",sep="")
     } else {  
       # not valid JSON returned, use the error code line and any text contents ...
-      msg <- paste("Manta Server Error: ", returned_string, "\n", sep=" ")         
+      msg <- paste("Manta Server Error: ", returned_character, "\n", sep=" ")         
     } 
     if (silent == TRUE) {
       msg <- paste("Silent call - ", msg, sep = "")

@@ -5,9 +5,10 @@
   mantaAccount(account, json, verbose = FALSE)
 }
 \arguments{
-  \item{account}{list, optional. R values}
+  \item{account}{list, optional. Input R account values.}
 
-  \item{json}{character, optional. JSON account values}
+  \item{json}{character, optional. Input JSON account
+  values.}
 
   \item{verbose}{logical, optional. TRUE by default}
 }
@@ -20,36 +21,39 @@
 }
 \description{
   The Manta account is initially obtained from environment
-  variables $MANTA_USER, $MANTA_KEY, $MANTA_URL. The ssl
-  key location is obtained by default on Unix/Linux from
-  /$HOME/.ssh/id_rsa or on Windows from
-  C:\\Users\\username\\.ssh\\ir_rsa The Manta datacentre
-  enviroment variable is $MANTA_URL
+  variables \code{$MANTA_USER, $MANTA_KEY, $MANTA_URL}. The
+  ssl key location is obtained by default on Unix/Linux
+  from \code{/$HOME/.ssh/id_rsa} or on Windows from
+  \code{C:\\Users\\username\\.ssh\\ir_rsa} The Manta
+  datacentre enviroment variable is \code{$MANTA_URL}
 }
-\details{
-  To see/save current account settings:
+\examples{
+\dontrun{
+## To see/save current account settings:
+account <- mantaWhoami(all = TRUE)
 
-  account <- mantaWhoami(all = TRUE)
+## then use:
 
-  then use:
+mantaAccount(account) ## to set the modified account
 
-  mantaAccount(account) to set that account
+## Account information may contain 1-4 key-value pairs.
 
-  Account information may contain 1-4 key-value pairs.
+## To see/save current account settings as JSON:
 
-  To see/save current account settings as JSON:
+account <- mantaWhoami(all = TRUE, json = TRUE)
 
-  account <- mantaWhoami(all = TRUE, json = TRUE)
+## then use:
 
-  then use:
+mantaAccount(json = account) to set that account
 
-  mantaAccount(json = account) to set that account
+## To set a non default SSH private key location on Windows
 
-  To set a non default SSH private key location on Windows
-
-  mysslkey <- list(SSL_KEY_PATH =
-  "C:\\Users\\myacct\\.ssh\\my_priv_rsa")
-  mantaAccount(mysslkey)
+mysslkey <- list(SSL_KEY_PATH = "C:\\\\Users\\\\myacct\\\\.ssh\\\\my_priv_rsa")
+mantaAccount(mysslkey)
+}
+}
+\seealso{
+  \code{\link{mantaWhoami}}
 }
 \keyword{Manta,}
 \keyword{manta}

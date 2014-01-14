@@ -1,6 +1,6 @@
 \name{mantaGet}
 \alias{mantaGet}
-\title{Downloads Manta object(s) (vectorized) specified to file(s) or buffer.}
+\title{Downloads specified Manta object(s), to file(s) or buffer.}
 \usage{
   mantaGet(mantapath, filename, buffer = FALSE,
     metadata = FALSE, info = TRUE, verbose = FALSE)
@@ -8,46 +8,66 @@
 \arguments{
   \item{mantapath}{vector of character, optional. Path to a
   manta object or object name in current working Manta
-  directory for retrieval. Vectorized, e.g.
-  mantaGet(mantaLs.paths(items = 'o')) will download the
-  contents of the Manta working directory to your local
-  working R directory, and mantaGet(mantaLs.paths(items =
-  'o'), metadata = TRUE) will download and return just the
-  metadata in R format for the Manta working directory
-  contents.}
+  directory for retrieval. Vectorized,}
 
-  \item{filename}{optional. Assumes this is the filename in
-  the current path. Downloads file to the local path
-  specified by getwd() if no path specified. If not
-  provided downloads to a file with same name as Manta
-  object.}
+  \item{filename}{optional. Assumes this is the target
+  filename in the current path. Downloads file to the local
+  path specified by \code{getwd} if full path not
+  specified. If \code{filename} is absent, downloads to a
+  file with same name as Manta object.}
 
-  \item{buffer}{logical required. When TRUE return a buffer
-  with data. Not supported for vectorized mantapath input.}
+  \item{buffer}{logical required. When \code{TRUE} return a
+  buffer with data. Not supported for vectorized
+  \code{mantapath} input.}
 
-  \item{metadata}{logical optional. Set TRUE to Retrieve R
-  metadata in return value.}
+  \item{metadata}{logical optional. Set \code{TRUE} to
+  retrieve R metadata.}
 
-  \item{info}{logical. Set to FALSE to suppress Downloading
-  message.}
+  \item{info}{logical. Set \code{FALSE} to suppress
+  Downloading console messages.}
 
-  \item{verbose}{logical, optional. Passed to RCurl GetURL,
-  Set to TRUE to see background REST communication on
-  stderr which is invisible on Windows}
+  \item{verbose}{logical, optional. Passed to \code{RCurl}
+  \code{GetURL}, Set to \code{TRUE} to see background HTTPS
+  REST communication on \code{stderr}. Note this is not
+  visible on Windows.}
 }
 \value{
-  TRUE or FALSE depending on success of GET transfer
+  \code{TRUE} or \code{FALSE} depending on success of GET
+  transfer
 }
 \description{
-  One limitation of the mantaRSDK is that it is not
+  One limitation of the \code{mantaRSDK} is that it is not
   designed to handle large (multi-Gigabyte or larger)
-  objects. Uploads - mantaPut() - work from files, but
-  Downloads - mantaGet() - fill the R memory space to their
-  completion before being written to a file. To download
-  files larger than your R memory, use the Manta Node.js
-  command line tool mget. The Node.js based Manta command
-  line tools employ streams, so object size is not a
-  limitation.
+  objects. Uploads - \code{mantaPut} - work from files, but
+  Downloads - \code{mantaGet} - fill the R memory space to
+  their completion before being written to a file. To
+  download files larger than your R memory, use the Manta
+  Node.js command line tool \code{mget}. The Node.js based
+  Manta command line tools employ streams, so object size
+  is not a limitation.
+}
+\examples{
+\dontrun{
+data <- runif(100)
+mantaDump("data")
+rm(data)
+mantaGet("dumpdata.R")
+mantaRm("dumpdata.R")
+source("dumpdata.R")
+ls()
+
+mantaGet(mantaLs.paths(items = 'o'))
+## Downloads the objects in your Manta working directory to your local working R directory with
+## the same filenames.
+
+mantaGet(mantaLs.paths(items = 'o'), metadata = TRUE)
+## Downloads and return just the metadata in R format for the Manta working directory contents.
+}
+}
+\seealso{
+  \code{\link{mantaPut}}
+
+  Other mantaGet: \code{\link{mantaCat}}
 }
 \keyword{Manta,}
 \keyword{manta}

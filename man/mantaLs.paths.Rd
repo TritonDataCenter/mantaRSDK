@@ -53,9 +53,10 @@ Output is full Manta pathnames of directory listing.}
 \seealso{
   \code{\link{mantaFind}}
 
-  Other mantaLs: \code{\link{mantaLs}},
-  \code{\link{mantaLs.du}}, \code{\link{mantaLs.l}},
-  \code{\link{mantaLs.n}}, \code{\link{mantaLs.url}}
+  Other mantaLs: \code{\link{mantaExists}},
+  \code{\link{mantaLs}}, \code{\link{mantaLs.du}},
+  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
+  \code{\link{mantaLs.url}}
 }
 \keyword{Manta,}
 \keyword{manta}

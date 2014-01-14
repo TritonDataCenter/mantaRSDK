@@ -53,10 +53,8 @@ Output is disk utilized in bytes NOT counting redundancy levels.}
   about child path progress.}
 }
 \description{
-  Searching for object or directory names with regular
-  expressions (using R grep). Sorting listings by filename,
-  time, or size. Can report disk size, number of objects,
-  number of subdirectories.
+  Search for object or directory names with regular
+  expressions (using R grep). Reports disk size.
 }
 \seealso{
   \code{\link{mantaLs.du}}

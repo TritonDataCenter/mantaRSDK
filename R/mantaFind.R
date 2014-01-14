@@ -1,9 +1,9 @@
 # Roxygen Comments mantaFind
 #' Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
 #'
-#' Searching for object or directory names with regular expressions (using R grep).
-#' Sorting listings by filename, time, or size. Can report entries within a time
-#' window. Can report disk size, number of objects, number of subdirectories.
+#' Search for object or directory names with regular expressions (using R grep).
+#' Sort listings by filename, time, or size. Report entries within a time
+#' window. Report disk size, number of objects, number of subdirectories.
 #'
 #' @param mantapath character, optional. Current subdirectory set by \code{mantaSetwd}
 #' is used, otherwise specify full Manta path to subdirectory. Supports \code{~~} 

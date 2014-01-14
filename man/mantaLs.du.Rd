@@ -42,9 +42,10 @@ redundancy levels}
 \seealso{
   \code{\link{mantaFind.du}}
 
-  Other mantaLs: \code{\link{mantaLs}},
-  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
-  \code{\link{mantaLs.paths}}, \code{\link{mantaLs.url}}
+  Other mantaLs: \code{\link{mantaExists}},
+  \code{\link{mantaLs}}, \code{\link{mantaLs.l}},
+  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}},
+  \code{\link{mantaLs.url}}
 }
 \keyword{Manta,}
 \keyword{manta}
