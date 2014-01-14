@@ -1,47 +1,61 @@
 \name{mantaLs.paths}
 \alias{mantaLs.paths}
 \title{Lists, searches, filters, sorts and formats Manta directory listings
-Output is full Manta pathnames of directory listing}
+Output is full Manta pathnames of directory listing.}
 \usage{
   mantaLs.paths(mantapath, grepfor, json, items = "a",
     sortby = "none", decreasing = FALSE,
     ignore.case = FALSE, perl = FALSE, verbose = FALSE)
 }
 \arguments{
-  \item{mantapath}{string, required. Object/subdir in
-  current subdirectory or full Manta path to stored object
-  or subdirectory}
+  \item{mantapath}{character, optional. Current
+  subdirectory set by \code{mantaSetwd} is used, otherwise
+  specify full Manta path to subdirectory. Supports
+  \code{~~} expansion to your Manta username, e.g.
+  \code{"~~/public"} and UTF-8 encoded characters.}
 
-  \item{grepfor}{string optional. Regular expression passed
-  to R grep for name search USE "[.]txt" to match
-  extensions, not ".txt"}
+  \item{grepfor}{character optional. Regular expression for
+  \code{grep} name search. Uses R regexps, N.B. use
+  \code{"[.]txt"}, not \code{"*.txt"} to match filename
+  extensions.}
 
-  \item{items}{string optional. 'a' for all, 'd' for
-  directory, 'o' for object.}
+  \item{json}{optional. Input saved JSON data from
+  \code{mantaLs(format='json')} used for reprocessing
+  previously retrieved listings. Include previously
+  specified mantapath if you wish to recover true paths.}
 
-  \item{sortby}{string, optional. Specify 'none', 'name',
-  'time', or 'size'.}
+  \item{items}{character optional. \code{'a'} for all,
+  \code{'d'} for directory, \code{'o'} for object.}
+
+  \item{sortby}{character, optional. Specify \code{'none'},
+  \code{'name'}, \code{'time'}, or \code{'size'}.}
 
   \item{decreasing}{logical, optional. Argument passed to R
-  order for sorting.}
+  \code{order} for sorting.}
 
   \item{ignore.case}{logical, optional. Argument passed to
-  R grep for searching.}
+  R \code{grep} for searching.}
 
-  \item{perl}{logical, optional. Argument passed to R grep
-  for searching.}
+  \item{perl}{logical, optional. Argument passed to R
+  \code{grep} for searching.}
 
-  \item{verbose}{logical, optional. Verbose HTTP data
-  output on Unix.}
-
-  \item{json,}{optional. Input saved JSON data from
-  mantaLs(format='json') used for reprocessing previously
-  retrieved listings with specified mantapath if you wish
-  to recover true 'paths'.}
+  \item{verbose}{logical, optional. Verbose HTTPS
+  \code{RCurl} data output on Unix.}
 }
 \description{
-  Searching for filenames with regular expressions (using R
-  grep). Sorting listings by filename, time, or size
+  Searches for filenames with regular expressions (using R
+  \code{grep}). Sorts listings by filename, time, or size.
+  Use this dotted form of \code{mantaLs} for passing
+  \code{mantapath} parameters into vectorized functions
+  like \code{mantaJob.launch}, \code{mantaGet},
+  \code{mantaSnapln}, etc.
+}
+\seealso{
+  \code{\link{mantaFind}}
+
+  Other mantaLs: \code{\link{mantaLs}},
+  \code{\link{mantaLs.du}}, \code{\link{mantaLs.l}},
+  \code{\link{mantaLs.n}}, \code{\link{mantaLs.url}}
 }
 \keyword{Manta,}
 \keyword{manta}

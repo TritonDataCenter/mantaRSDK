@@ -9,9 +9,11 @@ Output is long ls -o unix-y style listing with full pathnames.}
     verbose = FALSE, info = TRUE)
 }
 \arguments{
-  \item{mantapath}{character, required. Object/subdir in
-  current subdirectory or full Manta path to stored object
-  or subdirectory.}
+  \item{mantapath}{character, optional. Current
+  subdirectory set by \code{mantaSetwd} is used, otherwise
+  specify full Manta path to subdirectory. Supports
+  \code{~~} expansion to your Manta username, e.g.
+  \code{"~~/public"} and UTF-8 encoded characters.}
 
   \item{grepfor}{character optional. Regular expression for
   \code{grep} name search. Ignored for reprocessed trees.

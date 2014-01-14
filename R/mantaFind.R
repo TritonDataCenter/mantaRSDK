@@ -1,4 +1,3 @@
-# TODO fix wrong initial directory error - unwrap first call to mantaLs()
 # Roxygen Comments mantaFind
 #' Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
 #'
@@ -6,8 +5,9 @@
 #' Sorting listings by filename, time, or size. Can report entries within a time
 #' window. Can report disk size, number of objects, number of subdirectories.
 #'
-#' @param mantapath character, required. Object/subdir in current subdirectory
-#' or full Manta path to stored object or subdirectory.
+#' @param mantapath character, optional. Current subdirectory set by \code{mantaSetwd}
+#' is used, otherwise specify full Manta path to subdirectory. Supports \code{~~} 
+#' expansion to your Manta username, e.g. \code{"~~/public"} and UTF-8 encoded characters. 
 #'
 #' @param grepfor character optional. Regular expression for \code{grep} name search.
 #' Ignored for reprocessed trees. Uses R regexps, N.B. use  \code{"[.]txt"}, not 
@@ -77,7 +77,7 @@
 #' mantaFind("~~/public", l = 'l', items = 'o', grepfor = "[.]jpg", 
 #' level = 2, ignore.case = TRUE, sortby = 'size')
 #'
-#' ## Download all files in current Manta directory, non recursive find:
+#' ## Download all objects in current Manta directory, non recursive find:
 #' mantaGet(mantaFind(level = 1))
 #'
 #' ## Plot a histogram of all file sizes in your Manta  ~~/stor directory tree.
@@ -185,9 +185,11 @@ function(mantapath, grepfor, entries, l = 'paths', items = 'o', level = 0, sortb
       assign("find_list",list(),envir=manta_globals)
       assign("find_dir_count", 0, envir=manta_globals)
       countdown <- manta_globals$manta_defaults$connect_timeout # default is 5s
-#  here try mantaLs and stop on wrong starting directory errors
-#
-#
+      if (mantaExists(curlUnescape(path_enc), d = TRUE) == FALSE) {
+        msg <- paste("mantaFind starting directory does not exist: ", curlUnescape(path_enc), "\n")
+        bunyanLog.error(msg)
+        stop(msg)
+      }
 
     } else {
       countdown <- manta_globals$manta_defaults$receive_timeout # default is 60s

@@ -1,31 +1,18 @@
 # Roxygen Comments mantaLs.paths
 #' Lists, searches, filters, sorts and formats Manta directory listings  
-#' Output is full Manta pathnames of directory listing
+#' Output is full Manta pathnames of directory listing.
 #'
-#' Searching for filenames with regular expressions (using R grep). 
-#' Sorting listings by filename, time, or size
+#' Searches for filenames with regular expressions (using R \code{grep}). 
+#' Sorts listings by filename, time, or size. Use this dotted form of 
+#' \code{mantaLs} 
+#' for passing \code{mantapath} parameters into vectorized functions like
+#' \code{mantaJob.launch}, \code{mantaGet}, \code{mantaSnapln}, etc.
 #'
-#' @param mantapath string, required. Object/subdir in current subdirectory
-#' or full Manta path to stored object or subdirectory
+#' @inheritParams mantaLs  
 #'
-#' @param grepfor string optional. Regular expression passed to R grep for name search 
-#' USE "[.]txt" to match extensions, not ".txt"
-#' 
-#' @param items string optional. 'a' for all, 'd' for directory, 'o' for object. 
-#' 
-#' @param sortby string, optional. Specify 'none', 'name', 'time', or 'size'.
-#' 
-#' @param decreasing logical, optional. Argument passed to R order for sorting. 
-#' 
-#' @param ignore.case logical, optional. Argument passed to R grep for searching.
-#' 
-#' @param perl logical, optional. Argument passed to R grep for searching. 
-#' 
-#' @param verbose logical, optional. Verbose HTTP data output on Unix.
+#' @seealso \code{\link{mantaFind}}
 #'
-#' @param json, optional. Input saved JSON data from mantaLs(format='json') 
-#' used for reprocessing previously retrieved listings with specified
-#' mantapath if you wish to recover true 'paths'.
+#' @family mantaLs  
 #'
 #' @keywords Manta, manta
 #'
