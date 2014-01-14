@@ -1,13 +1,20 @@
 # Roxygen Comments mantaJob.outputs.cat
-#' Retrieves list of Manta output objects given Manta job identifier, then
-#' retrieves each object from Manta and uses cat() to print contents 
-#' to the R console.
+#' Prints contents of all job output objects to the R console.
+#' 
+#' Avoid using this on binary output data.
 #'
-#' @param jobid character optional. Manta job identifier such as
-#' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
-#' to fetch the jobid of the last Manta Job run on the service
-#'    
+#' @inheritParams mantaJob.outputs
+#'
 #' @keywords Manta, manta
+#'
+#' @family mantaJobs
+#'
+#' @examples
+#' \dontrun{
+#' ## Print all the output files to the console.
+#' mantaJob.outputs.cat()
+#' }
+#'
 #'
 #' @export
 mantaJob.outputs.cat <-

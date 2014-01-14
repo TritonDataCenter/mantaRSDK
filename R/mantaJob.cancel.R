@@ -2,10 +2,20 @@
 #' Sends Manta a cancel message to stop running job.
 #'
 #' @param jobid character optional. Manta job identifier such as
-#' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
-#' to fetch the jobid of the last Manta Job run on the service
+#' \code{"70c30bab-873b-66da-ebc8-ced12bd35ac4"}. Default uses \code{mantaJobs.tail}
+#' to fetch the jobid of the last Manta Job run on the service.
 #'
 #' @keywords Manta, manta
+#'
+#'
+#' @family mantaJobs
+#'
+#' @examples
+#' \dontrun{
+#' # Send cancel signal for last run Manta job.
+#' mantaJob.cancel()
+#' }
+
 #'
 #' @export
 mantaJob.cancel <-

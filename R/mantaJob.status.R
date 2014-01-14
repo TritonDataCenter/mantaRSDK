@@ -1,15 +1,23 @@
 # Roxygen Comments mantaJob.status
 #' Returns JSON Manta job status data given Manta job identifier.
-#'
-#' @param jobid character optional. Manta job identifier such as
-#' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
-#' to fetch the jobid of the last Manta Job run on the service
-#'
-#' @param readable logical. Set to FALSE to return the JSON Job as character(), or
-#' NULL if no Job status found..
-#' Default TRUE pretty prints JSON Job status to the console.
 #'    
+#' @inheritParams mantaJob.outputs
+#'
+#' @param readable logical. Set to \code{FALSE} to return the JSON Job as character(), or
+#' \code{NULL} if no Job status found.
+#' Default \code{TRUE} pretty prints JSON Job status to the console.
+#'
 #' @keywords Manta, manta
+#'
+#' @family mantaJobs
+#'
+#' @examples
+#' \dontrun{
+#' ## Retrieve JSON status of the last run Manta job:
+#' mantaJob.status(readable = FALSE) -> status
+#' ## Show JSON status of last run Manta job:
+#' mantaJob.status()
+#' }
 #'
 #' @export
 mantaJob.status <-

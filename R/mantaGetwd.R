@@ -3,6 +3,14 @@
 #'
 #' @keywords Manta, manta
 #'
+#' @family Directory
+#'
+#' @examples
+#' \dontrun{
+#' ## Manta working directory
+#' mantaGetwd()
+#' }
+#'
 #' @export
 mantaGetwd <-
 function() {

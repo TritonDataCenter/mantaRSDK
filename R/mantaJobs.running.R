@@ -3,6 +3,15 @@
 #'
 #' @keywords Manta, manta
 #'
+#' @family mantaJobs
+#'
+#' @examples
+#' \dontrun{
+#' ## List any running Manta jobs:
+#' mantaJobs.running()
+#' }
+#'
+#'
 #' @export
 mantaJobs.running <-
 function() {

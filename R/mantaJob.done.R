@@ -1,29 +1,39 @@
 # Roxygen Comments mantaJob.done
 #' Checks or polls status of a Manta job. Returns done or not as logical.
 #'
-#'
-#' TRUE when job is no longer running.  FALSE when job running. 
-#' NULL if job status not found. N.B. TRUE return does not imply
-#' job success/failure/errors, only running/done state.
-#'
 #' @param jobid character optional. Manta job identifier such as
-#' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
+#' \code{"70c30bab-873b-66da-ebc8-ced12bd35ac4"}. Default uses \code{mantaJobs.tail}
 #' to fetch the jobid of the last Manta Job run on the service
 #'    
-#' @param poll logical. Set to TRUE to poll. Returns FALSE
+#' @param poll logical. Set to \code{TRUE} to poll. Returns \code{FALSE}
 #' when poll timeout exceeded and job still running, 
-#' TRUE when job finished.
+#' \code{TRUE} when job finished.
 #'    
 #' @param sleep integer. Sleep interval used when polling. Default
-#' is 30 seconds
+#' is 30 seconds.
 #' 
 #' @param timeout integer. Seconds after which function stops polling.
 #' Default is 600 seconds. 
 #'    
-#' @param silent logical required. Set to TRUE for non-interactive
-#' use of the function.  N.B. Errors are logged and in the bunyan
+#' @param silent logical required. Set to \code{TRUE} for non-interactive
+#' use of the function.  N.B. Errors are logged to the bunyan
 #' buffer. 
 #'
+#' @return \code{TRUE} when job is no longer running.\cr 
+#' \code{FALSE} when job running.\cr 
+#' \code{NULL} if job status not found.\cr 
+#' N.B. \code{TRUE} return does not imply
+#' job success/failure/errors, only running/done state.
+#'
+#' @family mantaJobs
+#'
+#' @examples
+#' \dontrun{
+#' ## Test if last run job is done
+#' mantaJob.done()
+#' ## Poll a running job till done or timed out.
+#' mantaJob.done(poll = TRUE, sleep = 10, timeout = 60)
+#' }
 #'
 #' @keywords Manta, manta
 #'

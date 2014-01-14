@@ -1,12 +1,14 @@
 # Roxygen Comments mantaInititalize
-#' Initialize Manta user variables, check SSH key file exists
+#' Initialize Manta user variables, check SSH key file exists.
 #'
-#' Initialization of manta_globals with environment variables
-#' checks SSH private key file, sets manta cwd to ~~/stor
+#' Not Exported. Initialization of \code{manta_globals} with environment variables
+#' checks SSH private key file, sets manta cwd to \code{~~/stor}.
 #'
-#' @param useEnv logical: TRUE unless called from mantaAccount - skips getting env/system settings
+#' @param useEnv logical: \code{TRUE} unless called from \code{\link{mantaAccount}} 
+#' - skips getting env/system settings.
 #'
-#' @return TRUE or FALSE on warn, stop() on errors: missing env variables, SSH key
+#' @return \code{TRUE} or \code{FALSE} on warn, \code{stop} on errors: missing env 
+#' variables, SSH key.
 #'
 #' @keywords Manta, manta
 #'
@@ -144,10 +146,6 @@ function(useEnv = TRUE) {
                        "UnsupportedKey") 
 
   assign("manta_error_classes", manta_error_classes, envir=manta_globals)
-
-  # we are at 10^6 directory entries per folder, so max_limit is set as per
-  # ruby api to 1000.
-
 
   # some functions to get / set these are in order when they are 
   # actually in use.

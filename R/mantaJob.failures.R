@@ -1,12 +1,17 @@
 # Roxygen Comments mantaJob.failures
 #' Returns list of failures given Manta job identifier.
 #'
-#'
-#' @param jobid character optional. Manta job identifier such as
-#' "70c30bab-873b-66da-ebc8-ced12bd35ac4". Default uses mantaJobs.tail()
-#' to fetch the jobid of the last Manta Job run on the service
+#' @inheritParams mantaJob.outputs
 #'
 #' @keywords Manta, manta
+#'
+#' @family mantaJobs
+#'
+#' @examples
+#' \dontrun{
+#' ## Check if the last run Manta job had failures:
+#' mantaJob.failures()
+#' }
 #'
 #' @export
 mantaJob.failures <-

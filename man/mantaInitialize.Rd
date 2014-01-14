@@ -1,21 +1,22 @@
 \name{mantaInitialize}
 \alias{mantaInitialize}
-\title{Initialize Manta user variables, check SSH key file exists}
+\title{Initialize Manta user variables, check SSH key file exists.}
 \usage{
   mantaInitialize(useEnv = TRUE)
 }
 \arguments{
-  \item{useEnv}{logical: TRUE unless called from
-  mantaAccount - skips getting env/system settings}
+  \item{useEnv}{logical: \code{TRUE} unless called from
+  \code{\link{mantaAccount}} - skips getting env/system
+  settings.}
 }
 \value{
-  TRUE or FALSE on warn, stop() on errors: missing env
-  variables, SSH key
+  \code{TRUE} or \code{FALSE} on warn, \code{stop} on
+  errors: missing env variables, SSH key.
 }
 \description{
-  Initialization of manta_globals with environment
-  variables checks SSH private key file, sets manta cwd to
-  ~~/stor
+  Not Exported. Initialization of \code{manta_globals} with
+  environment variables checks SSH private key file, sets
+  manta cwd to \code{~~/stor}.
 }
 \keyword{Manta,}
 \keyword{manta}

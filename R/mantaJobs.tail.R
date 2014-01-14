@@ -1,10 +1,22 @@
 # Roxygen Comments mantaJobs.tail
-#' Returns identifier of last run Manta job identifier, or from offset n up from end of list.
+#' Returns identifier of last run Manta job identifier,
+#' or from offset \code{n} up from end of list.
 #'
 #' @param n integer. Index into most recently run Jobs list.
-#' n = 1 default is last Manta Job run. 2 is second last, and so on.
+#' \code{n = 1} default is last Manta Job run. \code{n = 2} 
+#' is second last, and so on.
 #'
 #' @keywords Manta, manta
+#'
+#' @family mantaJobs
+#'
+#' @examples
+#' \dontrun{
+#' ## Get the Job Id of the last run Manta job:
+#' mantaJobs.tail()
+#' ## Fifth last Manta job id:
+#' mantaJobs.tail(n = 5) 
+#' }
 #'
 #' @export
 mantaJobs.tail <-

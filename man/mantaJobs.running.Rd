@@ -7,6 +7,25 @@
 \description{
   Lists identifiers of any running Manta jobs.
 }
+\examples{
+\dontrun{
+## List any running Manta jobs:
+mantaJobs.running()
+}
+}
+\seealso{
+  Other mantaJobs: \code{\link{mantaJob.cancel}},
+  \code{\link{mantaJob.done}},
+  \code{\link{mantaJob.errors}},
+  \code{\link{mantaJob.errors.stderr}},
+  \code{\link{mantaJob.failures}},
+  \code{\link{mantaJob.inputs}},
+  \code{\link{mantaJob.outputs}},
+  \code{\link{mantaJob.outputs.cat}},
+  \code{\link{mantaJob.setup}},
+  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
+  \code{\link{mantaJobs.tail}}
+}
 \keyword{Manta,}
 \keyword{manta}
 

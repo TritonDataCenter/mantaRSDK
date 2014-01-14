@@ -54,6 +54,8 @@ mantaAccount(mysslkey)
 }
 \seealso{
   \code{\link{mantaWhoami}}
+
+  Other mantaAccount: \code{\link{mantaGetLimits}}
 }
 \keyword{Manta,}
 \keyword{manta}
