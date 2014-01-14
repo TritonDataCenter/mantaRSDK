@@ -50,12 +50,14 @@ mantaJob.done(poll = TRUE, sleep = 10, timeout = 60)
   \code{\link{mantaJob.errors.stderr}},
   \code{\link{mantaJob.failures}},
   \code{\link{mantaJob.inputs}},
+  \code{\link{mantaJob.launch}},
   \code{\link{mantaJob.outputs}},
   \code{\link{mantaJob.outputs.cat}},
   \code{\link{mantaJob.setup}},
   \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
   \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}
+  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}},
+  \code{\link{mantaReduce}}
 }
 \keyword{Manta,}
 \keyword{manta}
