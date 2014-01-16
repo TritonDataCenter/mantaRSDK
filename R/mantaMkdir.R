@@ -1,13 +1,59 @@
 # Roxygen Comments mantaMkdir
 #' Makes a Manta subdirectory, optionally with parent directories.
 #'
-#' @param mantapath string, required.
+#' Makes subdirectory on Manta. Specify absolute (e.g. \code{~~/stor} )
+#' or relative path from the current Manta directory. Supports 
+#' creation of parent directories with \code{p = TRUE}. New
+#' directories can be created in \code{~~/stor} your private space or
+#' \code{~~/public} a publically accessible HTTPS directory.
 #'
-#' @param p logical, optional. Make all the parent directories too
+#' @param mantapath character, required. Path or name of new 
+#' subdirectory to create. Not vectorized. 
+#'
+#' @param p logical, optional. Make all the parent directories too.
 #'
 #' @param info logical. Set FALSE to suppress console messages. 
 #'
 #' @keywords Manta, manta
+#'
+#' @return \code{TRUE} or \code{FALSE} depending on success of upload.
+#'
+#' @family Directory
+#'
+#' @seealso \code{\link{mantaRmdir}}
+#'
+#' @examples
+#' \dontrun{
+#' ## Make absolute path subdirectory
+#' mantaMkdir("~~/stor/testdirectory")
+#' mantaLs.l("~~/stor")
+#' mantaRmdir("~~/stor/testdirectory")
+#'
+#' ## Make with parent directories, 
+#' mantaGetwd() -> tempdir
+#' mantaMkdir("~~/stor/a_test/b_test/c_test", p = TRUE) 
+#' mantaSetwd("~~/stor/a_test/b_test/c_test")
+#' mantaMkdir("d_test")   # Relative path
+#' data <- runif(100)
+#' mantaDump("data_c")
+#' mantaSetwd("..")
+#' mantaDump("data_b")
+#' mantaSetwd("..")
+#' mantaDump("data_a")
+#' mantaLs.l()
+#' mantaFind()
+
+#' ## Recursive Rm Subdirectory Contents
+#' mantaSetwd.stor()
+#' mantaRm("~~/stor/a_test", r = TRUE)
+#' mantaSetwd("~~/stor/a_test")
+#' mantaLs.l()
+#' mantaFind()
+#' mantaSetwd.stor()
+#' mantaRmdir("~~/stor/a_test")
+#' mantaLs.l("~~/stor")
+#' mantaSetwd(tempdir)
+#' }
 #'
 #' @export
 mantaMkdir <-

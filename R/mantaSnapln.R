@@ -1,24 +1,70 @@
 # Roxygen Comments mantaSnapln
-#' Makes a Snaplink - combination snapshot and symbolic link. 
+#' Makes a Snaplink - combination ZFS snapshot and Symbolic link. 
 #'
-#'
-#' Example: mantaSnapln(mantaLs(items = 'o'), "~~/public/share") will
-#' make SnapLinks for all objects in the current directory located
-#' in the "~~/public/share" directory. 
-#' If the original object is overwritten/deleted, the SnapLink
-#' still contains the object contents at time of creation.
-#'
+#' As a persistent object store, there are no copy or move commands on Manta. 
+#' Instead the \code{mantaSnapln} command 
+#' is used to add an object's name into another subdirectory without
+#' physically moving data on the service. Internally the system
+#' takes a ZFS snapshot of the data and the new object entry is 
+#' the snapshot. If the original data is overwritten, the SnapLink
+#' still points to the original snapshot. The R workspace audit trail 
+#' used by
+#' \code{\link{mantaSave.ws}} and \code{\link{mantaLoad.ws}} is
+#' implemented using \code{mantaSnapln}.
+#' 
 #' @param from character, required. Object in current subdirectory
 #' or full Manta path to stored object. Vectorized.
 #'
-#' @param to character, required. Snaplink name in current subdirectory
-#' or full Manta object path to the new SnapLink. If from is used as vectorized
-#' list of mantapaths, to must specify a single Manta directory 
-#' ending with / character. 
+#' @param to character, required. Snaplink name in current subdirectory,
+#' existing Manta subdirectory
+#' or full Manta object path to the new SnapLink. If \code{from} is a 
+#' vector of Manta paths, 
+#' then \code{to} must specify a single valid Manta 
+#' subdirectory. 
 #'
 #' @param info logical. When FALSE suppresses messages on the console.
 #'
+#' @family Directory
+#'
+#' @seealso \code{\link{mantaSave.ws}} \code{\link{mantaLoad.ws}}
+#'
 #' @keywords Manta, manta
+#'
+#' @examples
+#' \dontrun{
+#' ## Save a static hello world HTML page
+#' htmlpage <- paste("<!DOCTYPE html>\n<html>\n<body>\n\n",
+#'                   "<h1>Hello from Joyent Manta.</h1>\n\n",
+#'                   "<p>Hello world! from ",
+#'                   mantaWhoami(), 
+#'                   ".</p>\n\n",
+#'                   "</body>\n</html>", sep="")
+#' file <- file("test_index.html", "wb")
+#' write(htmlpage,file)
+#' close(file)
+#' rm(file)
+#'
+#' ## Upload the HTML file to Manta in your private area
+#' mantaSetwd.stor()
+#' mantaPut("test_index.html")
+#' mantaCat("test_index.html")
+#'
+#' ## Make it public
+#' mantaMkdir("~~/public/test")
+#' mantaSnapln("test_index.html", "~~/public/test")
+#' mantaSnapln("test_index.html", "~~/public/test/index.html")
+#'
+#' ## copy and paste URL into browser.
+#' mantaLs.url("~~/public/test", grepfor = "[.]html")
+#'
+#' ## Delete the original in private area
+#' mantaRm("~~/stor/test_index.html")
+#' mantaExists("~~/stor/test_index.html")
+#'
+#' ## Snaplink copy is still there public
+#' mantaExists("~~/public/test/test_index.html")
+#' mantaCat("~~/public/test/index.html")
+#' }
 #'
 #' @export
 mantaSnapln <-
@@ -29,7 +75,9 @@ function(from, to, info = TRUE) {
   }
 
  if (missing(from) || missing(to)) {
-   cat("mantaSnapln Error - Missing argument - from or to")
+   msg <- ("mantaSnapln Error - Missing argument - from and to must be specified\n")
+   bunyanLog.error(msg)
+   stop(msg)
    return(FALSE)
  }
 
@@ -71,6 +119,19 @@ function(from, to, info = TRUE) {
  from_path_enc <- mantaPath(from)
 
  to_path_enc <- mantaPath(to)
+
+ # is to a directory?
+ if (mantaExists(curlUnescape(to_path_enc), d = TRUE) == TRUE) {
+    # Check to has last character "/" 
+    if (substr(to, nchar(to), nchar(to)) != "/") {
+      to <- paste(to, "/", sep = "")
+    }  
+    # grab filename at end of from.
+    fromsplit <- unlist(strsplit(from_path_enc, split = "/"))
+    fromfilename <- fromsplit[length(fromsplit)]
+    to_path <- paste(to, fromfilename, sep="")
+    to_path_enc <- mantaPath(to_path)
+  } # else it is assumed to specifies a file ...
 
  if ((from_path_enc != "") && (to_path_enc != "")) {
    headers <- c('content-type' = "application/json; type=link",

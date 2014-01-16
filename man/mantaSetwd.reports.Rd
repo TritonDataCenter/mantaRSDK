@@ -1,11 +1,18 @@
 \name{mantaSetwd.reports}
 \alias{mantaSetwd.reports}
-\title{Sets Manta working directory to ~~/reports}
+\title{Sets current Manta working directory to \code{~~/reports}}
 \usage{
   mantaSetwd.reports()
 }
 \description{
-  Sets Manta working directory to ~~/reports
+  See \code{mantaSetwd}.
+}
+\seealso{
+  Other Directory: \code{\link{mantaGetwd}},
+  \code{\link{mantaMkdir}}, \code{\link{mantaRm}},
+  \code{\link{mantaRmdir}}, \code{\link{mantaSetwd}},
+  \code{\link{mantaSetwd.public}},
+  \code{\link{mantaSetwd.stor}}, \code{\link{mantaSnapln}}
 }
 \keyword{Manta,}
 \keyword{manta}

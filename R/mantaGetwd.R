@@ -1,5 +1,10 @@
 # Roxygen Comments mantaGetwd
-#' Gets Manta working directory.
+#' Gets current working directory on Manta.
+#' 
+#' The current working directory is stored internally in
+#' \code{mantaRSDK} on your local system and is not saved.
+#' between sessions. It initializes to the root directory
+#' of private Manta storage: \code{~~/stor}.
 #'
 #' @keywords Manta, manta
 #'
@@ -8,7 +13,11 @@
 #' @examples
 #' \dontrun{
 #' ## Manta working directory
-#' mantaGetwd()
+#' mantaGetwd() 
+#' mantaGetwd() -> tempdir
+#' mantaSetwd.public()
+#' mantaLs.l()
+#' mantaSetwd(tempdir)
 #' }
 #'
 #' @export

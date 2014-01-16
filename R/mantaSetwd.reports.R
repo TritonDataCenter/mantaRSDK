@@ -1,7 +1,11 @@
 # Roxygen Comments mantaSetwd.reports
-#' Sets Manta working directory to ~~/reports
+#' Sets current Manta working directory to \code{~~/reports}
+#'
+#' See \code{mantaSetwd}.
 #'
 #' @keywords Manta, manta
+#'
+#' @family Directory
 #'
 #' @export
 mantaSetwd.reports <-

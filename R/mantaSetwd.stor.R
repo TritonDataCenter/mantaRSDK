@@ -1,7 +1,11 @@
 # Roxygen Comments mantaSetwd.stor
-#' Sets Manta working directory to ~~/stor
+#' Sets current Manta working directory to \code{~~/stor}
+#'
+#' See \code{mantaSetwd}.
 #'
 #' @keywords Manta, manta
+#'
+#' @family Directory
 #'
 #' @export
 mantaSetwd.stor <-

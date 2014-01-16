@@ -1,7 +1,12 @@
 # Roxygen Comments mantaSetwd.public
-#' Sets Manta working directory to ~~/public
+#' Sets current Manta working directory to \code{~~/public}
+#'
+#' See \code{mantaSetwd}.
 #'
 #' @keywords Manta, manta
+#'
+#' @family Directory
+#'
 #'
 #' @export
 mantaSetwd.public <-
