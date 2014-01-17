@@ -23,7 +23,7 @@
 #'  and your SSH keys as registered with Joyent. 
 #'
 #' FOR COMPLETE INSTALLATION INSTRUCTIONS - SEE:\cr
-#' \code{https://github.com/cwvhogue/mantaRSDK/blob/master/README.md}
+#' \code{https://github.com/joyent/mantaRSDK/blob/master/README.md}
 #'
 #' @section RSDK Functions:
 #' Manta Account Management 

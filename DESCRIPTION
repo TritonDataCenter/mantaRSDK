@@ -11,17 +11,17 @@ Depends:
     digest,
     RCurl,
     RJSONIO,
-    bunyan
+    Rbunyan
 Description: Manta R SDK. Upload, Download and manage files,
     native R data and R workspaces on the Manta Storage Service
     Compute on your data in the cloud with UNIX Map/Reduce from R.
     Core functions communicate via the Manta REST API using RCurl.
-    GitHub - www.github.com/cwvhogue/mantaRSDK
+    GitHub - github.com/joyent/mantaRSDK
 SystemRequirements: Node.js, manta-node
 Copyright: Joyent Inc. 2014
 License: MIT
 URL: www.joyent.com
-BugReports: www.github.com/cwvhogue/mantaRSDK/issues
+BugReports: https://github.com/joyent/mantaRSDK/issues
 VignetteBuilder: knitr
 LazyData: true
 Collate:

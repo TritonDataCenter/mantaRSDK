@@ -1,5 +1,6 @@
 # Roxygen Comments mantaSetwd.ws
-#' Sets the current Manta working directory to the R workspace e.g.  ~~/stor/R-3.0.1/ 
+#' Sets the current Manta working directory to the R workspace.\cr
+#' E.g.  \code{~~/stor/R-3.0.1/myworkstation} 
 #'
 #' @return logical.
 #'

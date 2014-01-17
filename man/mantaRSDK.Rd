@@ -22,7 +22,7 @@
   Joyent.
 
   FOR COMPLETE INSTALLATION INSTRUCTIONS - SEE:\cr
-  \code{https://github.com/cwvhogue/mantaRSDK/blob/master/README.md}
+  \code{https://github.com/joyent/mantaRSDK/blob/master/README.md}
 }
 \details{
   Joyent Manta Storage Service R Software Development Kit
