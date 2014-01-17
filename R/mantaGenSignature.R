@@ -20,31 +20,36 @@
 #'
 mantaGenSignature <-
 function() {
-  if (file.exists("sig_to_digest.bin")) file.remove("sig_to_digest.bin")
-  if (file.exists("temp_digest.bin")) file.remove("temp_digest.bin")
+  pid <- as.character(Sys.getpid())
+  sigfile <- paste("sig_to_digest_", pid, ".bin", sep="")
+  digfile <- paste("temp_digest_", pid, ".bin", sep="")
+
+  if (file.exists(sigfile)) file.remove(sigfile)
+  if (file.exists(digfile)) file.remove(digfile)
   
 
   openssl_cmd <- "openssl"
   digest_args <- paste("dgst -sha256 -sign", 
                        manta_globals$ssl_key_path, 
-                       "-out temp_digest.bin", 
+                       "-out ",
+                       digfile, 
                        sep=" ")
-  encrypt_args <- "enc -in temp_digest.bin -e -a"
+  encrypt_args <- paste("enc -in ", digfile , " -e -a", sep="")
 
   the_time_now <- format(as.POSIXlt(Sys.time(), "UTC"), 
                          "%a, %d %b %Y %H:%M:%S GMT")
   sig_to_digest <- paste("date:",the_time_now, sep=" ")
 
   # write sig_to_digest to a binary file without any CR
-  con <- file("sig_to_digest.bin", 'wb')
+  con <- file(sigfile, 'wb')
   writeBin(charToRaw(sig_to_digest), con)
   flush(con)
   close(con)
 
   # digest and encrypt
   system2(openssl_cmd, 
-          args=digest_args, 
-          stdin="sig_to_digest.bin",
+          args = digest_args, 
+          stdin = sigfile,
           wait = TRUE, 
           stdout=FALSE)
   sig_encrypted <- paste(system2(openssl_cmd, 
@@ -53,8 +58,8 @@ function() {
                                  stdout=TRUE), 
                          collapse='')
   
-  gone <- file.remove("sig_to_digest.bin")
-  gone <- file.remove("temp_digest.bin")
+  gone <- file.remove(sigfile)
+  gone <- file.remove(digfile)
   
 
   signed <- list(time_now=the_time_now, signature=sig_encrypted)

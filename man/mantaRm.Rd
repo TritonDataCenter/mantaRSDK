@@ -40,11 +40,11 @@ mantaGetwd() -> tempdir
 mantaMkdir("~~/stor/a_test/b_test/c_test", p = TRUE)
 mantaSetwd("~~/stor/a_test/b_test/c_test")
 mantaMkdir("d_test")   # Relative path
-mantaDump("data_c")
+mantaDump("data")
 mantaSetwd("..")
-mantaDump("data_b")
+mantaDump("data")
 mantaSetwd("..")
-mantaDump("data_a")
+mantaDump("data")
 mantaLs.l()
 mantaFind()
 

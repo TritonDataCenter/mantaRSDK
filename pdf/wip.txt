@@ -1,0 +1,3 @@
+Non-hyperlinked Roxygen2 generated PDF file. 
+Work is in progress to repair it.
+

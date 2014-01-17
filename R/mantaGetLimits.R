@@ -9,19 +9,20 @@
 #' \code{recieve_timeout, sent_timeout} and \code{connect_timeout} are for
 #' HTTPS transfer sessions and are set with values in seconds. 
 #'
-#' @param all logical, optional, TRUE by default all limit settings
+#' @param all logical, optional, Get all limits values
 #'
-#' @param durability_level logical, optional. Set TRUE to retrive
+#' @param durability_level logical, optional. Get durability level.
 #'
-#' @param connect_timeout logical, optional. Set TRUE to retrive
+#' @param connect_timeout logical, optional. Get connect timeout.
 #'
-#' @param send_timeout, logical, optional. Set TRUE to retrieve
+#' @param send_timeout, logical, optional. Get send timeout.
 #'
-#' @param receive_timeout, logical, optional. Set TRUE to retrive
+#' @param receive_timeout, logical, optional. Get recieve timeout.
 #'
-#' @param max_limit logical, optional. Set TRUE to get the max dir limit
+#' @param max_limit logical, optional. Get the maximum number of directory 
+#' entries transferred in one HTTPS call (upper limit 1000 is the default)
 #'
-#' @param json logical, optional. Set TRUE to get JSON output
+#' @param json logical, optional. Set \code{TRUE} to return values in JSON
 #'
 #' @return JSON or R values as specified.
 #'
@@ -33,6 +34,7 @@
 #' \dontrun{
 #' ## Save all current settings with:
 #' limits <- mantaGetLimits(all = TRUE)
+#' limits
 #' ## Change one or all settings, set with:
 #' mantaSetLimits(limits)
 #' }

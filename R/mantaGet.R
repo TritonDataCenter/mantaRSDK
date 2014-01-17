@@ -45,11 +45,11 @@
 #' source("dumpdata.R")
 #' ls()
 #'
-#' mantaGet(mantaLs.paths(items = 'o'))
+#' #mantaGet(mantaLs.paths(items = 'o'))
 #' ## Downloads the objects in your Manta working directory to your local working R directory with
 #' ## the same filenames.
 #' 
-#' mantaGet(mantaLs.paths(items = 'o'), metadata = TRUE) 
+#' #mantaGet(mantaLs.paths(items = 'o'), metadata = TRUE) 
 #' ## Downloads and return just the metadata in R format for the Manta working directory contents.
 #' }
 #'

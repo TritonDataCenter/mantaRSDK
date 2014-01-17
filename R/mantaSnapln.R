@@ -43,6 +43,7 @@
 #' write(htmlpage,file)
 #' close(file)
 #' rm(file)
+#' rm(htmlpage)
 #'
 #' ## Upload the HTML file to Manta in your private area
 #' mantaSetwd.stor()
@@ -61,9 +62,16 @@
 #' mantaRm("~~/stor/test_index.html")
 #' mantaExists("~~/stor/test_index.html")
 #'
-#' ## Snaplink copy is still there public
+#' ## Snaplink copies is still there in ~~/public
 #' mantaExists("~~/public/test/test_index.html")
+#' mantaExists("~~/public/test/index.html")
 #' mantaCat("~~/public/test/index.html")
+#'
+#' ## Cleanup this demo 
+#' # mantaRm("~~/public/test/index.html")
+#' # mantaRm("~~/public/test/test_index.html")
+#' # mantaRmdir("~~/public/test")
+#' # file.remove("test_index.html")
 #' }
 #'
 #' @export

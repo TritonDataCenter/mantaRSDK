@@ -10,8 +10,8 @@
 }
 \description{
   This sets the current working directory in Manta.
-  Supports ~~ expansion to \code{$MANTA_USER} setting, i.e.
-  for my account \code{~~/stor} expands to
+  Supports \code{~~} expansion to \code{$MANTA_USER}
+  setting, i.e. for my account \code{~~/stor} expands to
   \code{/cwvhogue/stor}. There are 4 top level Manta
   subdirectories:\cr \code{~~/stor} Your private
   storage.\cr \code{~~/public} Your public storage.\cr

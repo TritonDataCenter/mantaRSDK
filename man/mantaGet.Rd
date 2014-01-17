@@ -56,11 +56,11 @@ mantaRm("dumpdata.R")
 source("dumpdata.R")
 ls()
 
-mantaGet(mantaLs.paths(items = 'o'))
+#mantaGet(mantaLs.paths(items = 'o'))
 ## Downloads the objects in your Manta working directory to your local working R directory with
 ## the same filenames.
 
-mantaGet(mantaLs.paths(items = 'o'), metadata = TRUE)
+#mantaGet(mantaLs.paths(items = 'o'), metadata = TRUE)
 ## Downloads and return just the metadata in R format for the Manta working directory contents.
 }
 }
@@ -68,7 +68,8 @@ mantaGet(mantaLs.paths(items = 'o'), metadata = TRUE)
   \code{\link{mantaPut}}
 
   Other mantaGet: \code{\link{mantaCat}},
-  \code{\link{mantaLoad}}, \code{\link{mantaLoad.ws}}
+  \code{\link{mantaLoad}}, \code{\link{mantaLoad.ws}},
+  \code{\link{mantaSave}}, \code{\link{mantaSource}}
 }
 \keyword{Manta,}
 \keyword{manta}

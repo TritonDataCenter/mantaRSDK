@@ -37,12 +37,13 @@ htmlpage <- paste("<!DOCTYPE html>\\n<html>\\n<body>\\n\\n",
                   "<h1>Hello from Joyent Manta.</h1>\\n\\n",
                   "<p>Hello world! from ",
                   mantaWhoami(),
-                  " .</p>\\n\\n",
+                  ".</p>\\n\\n",
                   "</body>\\n</html>", sep="")
-file <- file("index.html", "wb")
+file <- file("test_index.html", "wb")
 write(htmlpage,file)
 close(file)
 rm(file)
+rm(htmlpage)
 
 ## Upload the HTML file to Manta in your private area
 mantaSetwd.stor()
@@ -51,18 +52,26 @@ mantaCat("test_index.html")
 
 ## Make it public
 mantaMkdir("~~/public/test")
+mantaSnapln("test_index.html", "~~/public/test")
 mantaSnapln("test_index.html", "~~/public/test/index.html")
 
 ## copy and paste URL into browser.
-mantaLs.url("~~/public/test", grepfor = "index.html")
+mantaLs.url("~~/public/test", grepfor = "[.]html")
 
 ## Delete the original in private area
 mantaRm("~~/stor/test_index.html")
 mantaExists("~~/stor/test_index.html")
 
-## Snaplink copy is still there public
+## Snaplink copies is still there in ~~/public
+mantaExists("~~/public/test/test_index.html")
 mantaExists("~~/public/test/index.html")
 mantaCat("~~/public/test/index.html")
+
+## Cleanup this demo
+# mantaRm("~~/public/test/index.html")
+# mantaRm("~~/public/test/test_index.html")
+# mantaRmdir("~~/public/test")
+# file.remove("test_index.html")
 }
 }
 \seealso{

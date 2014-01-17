@@ -58,23 +58,85 @@
 #' @examples
 #' \dontrun{
 #' ## Example - Map/Reduce Unix Word Count
-#' status <- mantaJob.launch( 
-#'   inputs = mantaLs.paths("~~/public/shakespeare", grepfor = "[.]txt"), 
-#'   job = mantaJob.setup( 
-#'           name = "Word Count",
-#'           mantaMap("wc"),
-#'           mantaReduce("awk '{ l += $1; w += $2; c += $3 } END { print l, w, c }'")
-#'          )
-#' )
+#'
+#' ## Part 1. 
+#' ## Job to download all of Shakespeare's plays to your account
+#' plays <-
+#' c("1kinghenryiv.txt", "1kinghenryvi.txt", "2kinghenryiv.txt",
+#' "2kinghenryvi.txt", "3kinghenryvi.txt", "allswellthatendswell.txt",
+#' "antonyandcleopatra.txt", "asyoulikeit.txt", "comedyoferrors.txt",
+#' "coriolanus.txt", "cymbeline.txt", "hamlet.txt", "juliuscaesar.txt",
+#' "kinghenryv.txt", "kinghenryviii.txt", "kingjohn.txt", "kinglear.txt",
+#' "kingrichardii.txt", "kingrichardiii.txt", "loverscomplaint.txt",
+#' "loveslabourslost.txt", "macbeth.txt", "measureforemeasure.txt",
+#' "merchantofvenice.txt", "merrywivesofwindsor.txt", 
+#' "midsummersnightsdream.txt",
+#' "muchadoaboutnothing.txt", "othello.txt", "periclesprinceoftyre.txt",
+#' "rapeoflucrece.txt", "romeoandjuliet.txt", "sonnets.txt", 
+#' "tamingoftheshrew.txt",
+#' "tempest.txt", "timonofathens.txt", "titusandronicus.txt", 
+#' "troilusandcressida.txt",
+#' "twelfthnight.txt", "twogentlemenofverona.txt", "various.txt",
+#' "venusandadonis.txt", "winterstale.txt")
+#'
+#' file <- file("plays_list.txt", "wb") 
+#' # Important: This forces Windows to use /n instead of /r/n on write()
+#' write(plays, file)
+#' close(file)
+#' rm(file)
+#' 
+#' mantaSetwd.stor()
+#' mantaPut("plays_list.txt")
+#'     
+#' inputlist <- mantaLs.paths(grepfor = "plays_list.txt")
+#'
+#' mantaMkdir("shakespeare")
+#' mantaSetwd("shakespeare")
+#' fileslocation <- 
+#' "https://us-east.manta.joyent.com/cwvhogue/public/shakespeare/"
+#' destination <- mantaGetwd()
+#' mantaJob.setup("Get Plays", 
+#'  mantaMap(paste("xargs -I {} sh -c 'curl -ksL ", 
+#'                  fileslocation, 
+#'                 "{} | mput ", 
+#'                 destination, 
+#'                 "/{}'", 
+#'                 sep=""))) -> moveplays
+#'
+#' ## Launch the first job to download the plays:
+#' mantaJob.launch(inputlist, moveplays)
+#'
+#' ## See if they arrived.
+#' mantaLs()
+#' mantaLs.n()
+#' mantaLs.du()
+#'
+#' ## Copy all the plays to your local drive?
+#' # mantaGet(mantaFind())
+#'
+#' ## Speedread all of Shakespeare?
+#' # mantaCat(mantaFind())
+#'
+#' ## Part 2.
+#' ## Map/Reduce Count all the words with wc and awk
+#' 
+#' inputs <- mantaFind()
+#' job <- mantaJob.setup(
+#'             name = "Word Count",
+#'             mantaMap("wc"),
+#'             mantaReduce("awk '{ l += $1; w += $2; c += $3 } END { print l, w, c }'")
+#'         )
+#'
+#' mantaJob.launch(inputs, job) -> status
 #' ## Getting Job Results:
 #' ## These functions find the last Job run if no jobid provided.
-#' mantaJob.status()  ## check to see if job is complete, as JSON information
-#' mantaJob.done()    ## returns logical job done (TRUE/FALSE)
-#' mantaJob.inputs()  ## returns list of inputs
+#' # mantaJob.status()  ## check to see if job is complete, as JSON information
+#' # mantaJob.done()    ## returns logical job done (TRUE/FALSE)
+#' # mantaJob.inputs()  ## returns list of inputs
 #' mantaJob.outputs() ## retrieve list of paths to Manta output objects
-#' mantaJob.errors()  ## retrieve JSON formatted job error information
+#' # mantaJob.errors()  ## retrieve JSON formatted job error information
 #' mantaJob.outputs.cat()   ## Print job output (text files) to console
-#' mantaJob.errors.stderr() ## Print any stderr messages to console
+#' # mantaJob.errors.stderr() ## Print any stderr messages to console
 #'}
 #'
 #'
@@ -267,11 +329,16 @@ function(inputs, job, batchsize = 500,  watch = TRUE, sleep = 15, watchtimeout =
   ## 204 return code.  OR #202
   returned_code <- replysplit(reply, returncode = "204", code = TRUE)
   if ((returned_code == "204") || (returned_code == "202")) {
-      msg <- paste("Total of ", input_sent, " inputs added to job ", jobid, "\n\n",sep="")
-      bunyanLog.info(msg)
-      if (info == TRUE) { 
-        cat(msg)
+      if (batches > 1) {
+        msg <- paste("Total of ", input_sent, " inputs added to job ", jobid, "\n\n",sep="")
+        bunyanLog.info(msg)
+        if (info == TRUE) { 
+          cat(msg)
+        }
       }
+  } else { # If we ever get to this code path.
+        msg <- paste("Unexpected Service Error on Sending inputs. Returned:\n", returned_code, sep="")
+        stop(msg)
   }
   
   ## Poll till done or timeout..

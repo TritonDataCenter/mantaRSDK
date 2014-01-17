@@ -62,7 +62,8 @@ mantaSetwd(tempdir)
   \code{\link{mantaSetwd.ws}}
 
   Other mantaGet: \code{\link{mantaCat}},
-  \code{\link{mantaGet}}, \code{\link{mantaLoad}}
+  \code{\link{mantaGet}}, \code{\link{mantaLoad}},
+  \code{\link{mantaSave}}, \code{\link{mantaSource}}
 }
 \keyword{Manta}
 \keyword{manta}

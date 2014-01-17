@@ -1,6 +1,6 @@
 \name{mantaSource}
 \alias{mantaSource}
-\title{Downloads specified Manta object and applies source() to parse R code file.}
+\title{Downloads specified Manta R source code file and applies \code{source} to parse/load it.}
 \usage{
   mantaSource(mantapath, local = FALSE, verbose = FALSE,
     max.deparse.length = 150,
@@ -8,28 +8,51 @@
     keep.source = getOption("keep.source"))
 }
 \arguments{
-  \item{mantapath}{string, optional. Path to a manta R code
-  file or file name in current working Manta directory for
-  retrieval.}
+  \item{mantapath}{character, optional. Path to a manta R
+  code file or file name in current working Manta directory
+  for retrieval. Not vectorized.}
 
-  \item{local}{logical optional. See source().}
+  \item{local}{logical optional. See \code{source}.}
 
-  \item{verbose}{logical, optional. Passed to RCurl GetURL,
-  Set to TRUE to see background REST communication on
-  stderr which is invisible on Windows}
+  \item{verbose}{logical, optional. Passed to \code{RCurl}
+  \code{GetUR}L, Set to \code{TRUE} to see background REST
+  communication on \code{stderr}. Note this is not visible
+  on Windows.}
 
-  \item{max.deparse.length}{optional. See source().}
+  \item{max.deparse.length}{optional. See \code{source}.}
 
-  \item{encoding}{optional. See source().}
+  \item{encoding}{optional. See \code{source}.}
 
-  \item{keep.source}{optional. See source().}
+  \item{keep.source}{optional. See \code{source}.}
 }
 \value{
-  TRUE or FALSE depending on success of GET transfer
+  \code{TRUE} or \code{FALSE} depending on success of
+  download.
 }
 \description{
-  Downloads specified Manta object and applies source() to
-  parse R code file.
+  Downloads specified Manta R source code file and applies
+  \code{source} to parse/load it.
+}
+\examples{
+\dontrun{
+data <- runif(100)
+ls()
+mantaDump("data")
+rm(data)
+mantaCat("dumpdata.R")
+ls()
+mantaSource("dumpdata.R")
+ls()
+mantaRm("dumpdata.R")
+rm(data)
+}
+}
+\seealso{
+  \code{\link{mantaDump}}
+
+  Other mantaGet: \code{\link{mantaCat}},
+  \code{\link{mantaGet}}, \code{\link{mantaLoad}},
+  \code{\link{mantaLoad.ws}}, \code{\link{mantaSave}}
 }
 \keyword{Manta,}
 \keyword{manta}

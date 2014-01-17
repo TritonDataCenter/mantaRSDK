@@ -2,7 +2,7 @@
 #' Sets current working directory on Manta.
 #'            
 #' This sets the current working directory in Manta.
-#' Supports ~~ expansion to \code{$MANTA_USER} setting,
+#' Supports \code{~~} expansion to \code{$MANTA_USER} setting,
 #' i.e. for my account \code{~~/stor} expands to 
 #' \code{/cwvhogue/stor}.
 #' There are 4 top level Manta subdirectories:\cr

@@ -76,12 +76,12 @@ mantaLs()
 
 ## List all objects ending in .jpg or .JPG
 ## in your Manta ~~/public/images directory,
-Show a UNIX-like result sorted by file size:
+## Show a UNIX-like result sorted by file size:
 mantaLs("~~/public/images", l = 'l', items = 'o', grepfor = "[.]jpg",
 ignore.case = TRUE, sortby = 'size')
 
 ## Download all objects in current Manta directory, non recursive find:
-mantaGet(mantaLs.paths(items = 'o'))
+#mantaGet(mantaLs.paths(items = 'o'))
 
 }
 }

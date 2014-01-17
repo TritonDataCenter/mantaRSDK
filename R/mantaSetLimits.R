@@ -1,34 +1,38 @@
 # Roxygen Comments mantaSetLimits
 #' Sets Manta durability level, connection timeouts and limits currently active
 #'
-#' Use mantaGetLimits to see the settings structure and default values.
-#' Pass a structure in R or JSON to this function to change values.
+#' Use \code{\link{mantaGetLimits}} to see the settings structure and default values.
+#' Pass a structure in R or JSON to \code{mantaSetLimits} to change values.
 #' This is where the Manta  default connection parameters are changed, 
 #' including the number of copies of an object stored on the 
 #' Manta service "durability_level" which can be from 2 to 6,
-#' the number of directory entries retrieved in one http call "max_limit"
+#' the number of directory entries retrieved in one 
+#' HTTPS call \code{max_limit}
 #' which is set to the maximum of 1000 by default. The other settings
-#' recieve_timeout, sent_timeout and connect_timeout are for
-#' http transfer sessions and are set with values in seconds. 
+#' \code{recieve_timeout}, \code{sent_timeout} and \code{connect_timeout} are for
+#' HTTPS transfer sessions and are set with values in seconds. 
 #'
-#' Save all current settings with:
+#' @param limits list,  optional. New R limits values.
 #'
-#' limits <- mantaGetLimits(all = TRUE)
+#' @param json character, optional. New JSON limits values.
 #'
-#' Change one or all settings, set with:
+#' @param verbose logical, optional. Show HTTPS traffic in RCURL and
+#' console output.
 #'
-#' mantaSetLimits(limits)
-#'
-#' @param limits list,  optional. R values
-#'
-#' @param json character, optional. JSON limits values
-#'
-#' @param verbose logical, optional. TRUE by default
-#'
-#' @return logical TRUE if values changed
-#' FALSE if values unchanged
+#' @return logical \code{TRUE} if values changed
+#' \code{FALSE} if values unchanged
 #'
 #' @keywords Manta, manta
+#'
+#' @family mantaAccount
+#'
+#' @examples
+#' \dontrun{
+#' ## Save all current settings with:
+#' limits <- mantaGetLimits(all = TRUE)
+#' ## Change one or all settings, set with:
+#' mantaSetLimits(limits)
+#' }
 #'
 #' @export
 mantaSetLimits <-

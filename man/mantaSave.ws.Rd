@@ -59,7 +59,8 @@ mantaSetwd(tempdir)
   \code{\link{mantaSave.image}} \code{\link{mantaLoad}}
   \code{\link{mantaSetwd.ws}} \code{\link{mantaLoad.ws}}
 
-  Other mantaPut: \code{\link{mantaDump}}
+  Other mantaPut: \code{\link{mantaDump}},
+  \code{\link{mantaPut}}, \code{\link{mantaSave.image}}
 }
 \keyword{Manta}
 \keyword{manta}

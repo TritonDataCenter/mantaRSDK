@@ -10,7 +10,8 @@
   \item{json}{character, optional. Input JSON account
   values.}
 
-  \item{verbose}{logical, optional. TRUE by default}
+  \item{verbose}{logical, optional. Show HTTP
+  communication. \code{FALSE} by default.}
 }
 \value{
   logical TRUE if account changed and working. Reverts to
@@ -20,12 +21,13 @@
   communicate to the server.
 }
 \description{
-  The Manta account is initially obtained from environment
-  variables \code{$MANTA_USER, $MANTA_KEY, $MANTA_URL}. The
-  ssl key location is obtained by default on Unix/Linux
-  from \code{/$HOME/.ssh/id_rsa} or on Windows from
-  \code{C:\\Users\\username\\.ssh\\ir_rsa} The Manta
-  datacentre enviroment variable is \code{$MANTA_URL}
+  The Manta account is initially obtained from three
+  environment variables:\cr \code{$MANTA_USER, $MANTA_KEY,
+  $MANTA_URL}.\cr The ssl key location is obtained by
+  default on Unix/Linux from\cr
+  \code{/$HOME/.ssh/id_rsa}\cr or on Windows from:\cr
+  \code{C:\\Users\\username\\.ssh\\ir_rsa}\cr The Manta
+  datacentre enviroment variable is:\cr \code{$MANTA_URL}
 }
 \examples{
 \dontrun{
@@ -55,7 +57,8 @@ mantaAccount(mysslkey)
 \seealso{
   \code{\link{mantaWhoami}}
 
-  Other mantaAccount: \code{\link{mantaGetLimits}}
+  Other mantaAccount: \code{\link{mantaGetLimits}},
+  \code{\link{mantaSetLimits}}, \code{\link{mantaWhoami}}
 }
 \keyword{Manta,}
 \keyword{manta}

@@ -1,10 +1,11 @@
 # Roxygen Comments mantaPath
 #' Given a user typed path or object name, returns full path, 
-#' does not validate object is there, assumes it is in current subdir
+#' does not validate object is there, assumes it is in current subdir.
+#' Not exported.
 #'
-#' @param m_path string, required. Manta object 
+#' @param m_path character, required. Manta object 
 #'
-#' @return String with full Manta path to object or empty string ""
+#' @return character with full Manta path to object or empty string ""
 #' as processed by curlEscape with / left in 
 #' 
 #' @keywords Manta, manta

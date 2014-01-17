@@ -1,40 +1,36 @@
 # Roxygen Comments mantaSave.image
-#' Workspace Upload function that calls R save.image(); used by mantaSave.ws().
+#' Workspace Upload function that uses R \code{save.image}.
 #'
-#' mantaSave.image uses mantaSave,  mantaXfer, which implements the RCURL transfer
+#' \code{mantaSave.image} uses \code{mantaSave},  \code{mantaXfer}, 
+#' which implements the RCURL transfer
+#' This function is wrapped by \code{\link{mantaSave.ws}} for audit trail 
+#' management of current and timestamped older R workspaces.  
 #'
-#' @param mantapath optional. Path/filename to where uploaded data will go on 
-#' Manta or Manta object/file name in current working Manta directory. If no 
-#' extension is provided on the filename, or a non R data style extension 
-#' ".rda" is appended to the end of the filename.  
+#' @inheritParams mantaSave  
 #' 
-#' @param md5 logical. Test md5 hash of R data tempfile before/after PUT transfer.
-#'
-#' @param headers optional. Headers for HTTP transfer, in RCurl style. See mantaPut()
-#' User metadata headers may be provided, E.g.:
-#  headers = c('m-Title' = "Model Fitting Test", 'm-Iteration' = "42")
-#' Avoid supplying the content-type header, which is set to the R data type 
-#' "application/x-r-data", and the durability-level header which is handled 
-#' via the durability parameter. 
-#'
-#' @param durability optional. Number of copies to store on Manta (2-6). If not
-#' provided, uses saved value from mantaSetLimits(), system default is 2.
-#'
-#' @param ascii optional. See save().
-#'
-#' @param version optional. See save().
-#'
-#' @param compress optional. See save().
-#'
-#' @param info logical required. Set to FALSE to silence output messages while downloading.
-#'
-#' @param verbose logical, optional. Passed to RCurl GetURL,
-#' Set to TRUE to see background REST communication on stderr
-#' which is invisible on Windows
-#' 
-#' @return TRUE or FALSE depending on success of transfer
+#' @return \code{TRUE} or \code{FALSE} depending on success of upload.
 #'
 #' @keywords Manta, manta
+#'
+#' @family mantaPut
+#'
+#' @seealso \code{\link{mantaLoad}} \code{\link{mantaSave.ws}} \code{\link{mantaLoad.ws}}
+#'
+#' @examples
+#' \dontrun{
+#' data <- runif(100)
+#' myusername <- mantaWhoami()
+#' ls()
+#' mantaSave.image(mantapath = "~~/stor/myworkspace")
+#' rm(data)
+#' rm(myusername)
+#' mantaExists("~~/stor/myworkspace.RData")
+#' mantaLoad("~~/stor/myworkspace.RData")
+#' ls()
+#' rm(data)
+#' rm(myusername)
+#' mantaRm("~~/stor/myworkspace.RData")
+#' }
 #'
 #' @export
 mantaSave.image <-

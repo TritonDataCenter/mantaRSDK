@@ -1,54 +1,73 @@
 # Roxygen Comments mantaSave
-#' Uploads R data to Manta Storage Service using R function save().
+#' Uploads R data to Manta Storage Service using R function \code{save}.
 #'
-#' To save an R object, 
-#' 
-#' mantaSave is a wrapper for save and  mantaXfer, which implements the RCURL transfer
+#' Uploads to R data files \code{.rda .Rdata .RData} files. If no
+#' file extension is provided, \code{.rda} is appended. 
+#' \code{mantaSave} is a wrapper for \code{save} and  \code{mantaXfer}, 
+#' which implements the RCURL upload.
 #'
-#' @param ... See save() R objects to be saved
+#' @param ... See \code{save} R objects to be saved
 #'
-#' @param list required. See save()  List of R objects to be saved.
+#' @param list required. See \code{save}  List of R objects to be saved.
 #'
 #' @param mantapath required. Path/filename to where uploaded data will go on 
 #' Manta or Manta object/file name in current working Manta directory. If no 
 #' extension is provided on the filename, or a non R data style extension 
-#' ".rda" is appended to the end of the filename.  
+#' \code{.rda} is appended to the end of the filename.  
 #' 
-#' @param md5 logical. Test md5 hash of R data tempfile before/after PUT transfer.
+#' @param md5 logical. Test md5 hash of R data tempfile with OpenSSL 
+#' before/after PUT transfer. Default is \code{TRUE}. Setting \code{FALSE} will
+#' speed up transfers a bit by skipping this step. 
 #'
-#' @param headers optional. Headers for HTTP transfer, in RCurl style. See mantaPut()
-#' User metadata headers may be provided, E.g.:
-#  headers = c('m-Title' = "Model Fitting Test", 'm-Iteration' = "42")
-#' Avoid supplying the content-type header, which is set to the R data type 
-#' "application/x-r-data", and the durability-level header which is handled 
-#' via the durability parameter. 
+#' @param headers optional. Headers for HTTPS transfer, in \code{RCurl} style. 
+#' See \code{\link{mantaPut}}. 
+#' User metadata headers may be provided, E.g.:\cr
+#  \code{headers = c('m-Title' = "Model Test", 'm-Iteration' = "42")}
+#' Avoid supplying the \code{content-type} header, which is set to the R data type 
+#' \code{"application/x-r-data"}, and the \code{durability-level} header 
+#' which is handled via the \code{durability} parameter. 
 #'
 #' @param durability optional. Number of copies to store on Manta (2-6). If not
-#' provided, uses saved value from mantaSetLimits(), system default is 2.
+#' provided, uses saved value from \code{mantaSetLimits}, system default is 2.
 #'
-#' @param ascii optional. See save().
+#' @param ascii optional. See \code{save}.
 #'
-#' @param version optional. See save().
+#' @param version optional. See \code{save}.
 #'
-#' @param envir optional. See save(). Environment of R object being passed.
+#' @param envir optional. See \code{save}. Environment of R object being passed.
 #'
-#' @param compress optional. See save().
+#' @param compress optional. See \code{save}.
 #'
-#' @param compression_level optional. See save().
+#' @param compression_level optional. See \code{save}.
 #'
-#' @param eval.promises optional. See save().
+#' @param eval.promises optional. See \code{save}.
 #'
-#' @param precheck optional. See save().
+#' @param precheck optional. See \code{save}.
 #'
 #' @param info logical required. Set to FALSE to silence output messages while downloading.
 #'
-#' @param verbose logical, optional. Passed to RCurl GetURL,
-#' Set to TRUE to see background REST communication on stderr
-#' which is invisible on Windows
+#' @param verbose logical, optional. Passed to \code{RCurl} \code{GetURL},
+#' Set to \code{TRUE} to see background REST communication on \code{stderr}.
+#' Note this is not visible on Windows.
 #' 
-#' @return TRUE or FALSE depending on success of transfer
+#' @return \code{TRUE} or \code{FALSE} depending on success of transfer.
 #'
 #' @keywords Manta, manta
+#'
+#' @family mantaGet
+#'
+#' @seealso \code{\link{mantaLoad}}
+#'
+#' @examples
+#' \dontrun{
+#' data <- runif(100)
+#' mantaSave("data", mantapath = "~~/stor/data")
+#' rm(data)
+#' mantaExists("~~/stor/data.rda")
+#' mantaLoad("~~/stor/data.rda")
+#' ls()
+#' rm(data)
+#' }
 #'
 #' @export
 mantaSave <-

@@ -2,13 +2,14 @@
 
 # Roxygen Comments mantaXfer
 #' raw REST API Manta Caller for mantaPut mantaGet and related data transfer routines.
+#' Not exported.
 #'
 #' Note getURL verbose = TRUE writes to stderr - invisible 
 #' on Windows R. 
 #'
-#' @param action string, optional. Path to a manta object.
+#' @param action character, optional. curlEscaped path to a manta object.
 #' 
-#' @param method string, required. "GET", or "PUT" or "HEAD"
+#' @param method character, required. "GET", or "PUT" or "HEAD"
 #'
 #' @param filename optional. Path to local file for PUT or GET
 #'
@@ -20,10 +21,10 @@
 #'
 #' @param md5 logical optional. Test md5 hash of data before/after transfer
 #'
-#' @param headers, array of named strings, optional. The headers
-#' follow the RCurl structure of vector of strings where HTTP 
+#' @param headers, array of named characters, optional. The headers
+#' follow the RCurl structure of vector of characters where HTTP 
 #' header tags are the names, values as 
-#' named strings, no semicolons or delimiters.
+#' named characters, no semicolons or delimiters.
 #' 
 #' @param verbose logical, optional. Passed to RCurl GetURL, 
 #' Set to TRUE to see background REST communication on stderr
@@ -34,7 +35,6 @@
 #'
 #' @keywords Manta, manta
 #'
-#' @export
 mantaXfer <-
 function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer = FALSE, 
          md5 = FALSE, headers, verbose = FALSE) {
@@ -125,7 +125,7 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
     header_end <- candidate[1] + 3
     b <- b[-(1:header_end)]  # this removes the header bytes from the buffer
     header_lines <- strsplit(header_all, split= "\r\n")
-    returned_string <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ]
+    returned_character <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ]
   } else {  
     # it is a PUT
     returncode <- 204
@@ -201,7 +201,7 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
     } else {
       body_lines <- c("")
     }
-    returned_string <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ]
+    returned_character <- header_lines[[1]][ charmatch("HTTP", header_lines[[1]]) ]
     #PUT 
   }
 
@@ -223,18 +223,18 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
     msg <- ""
     if (isValidJSON(body_lines[[1]], asText = TRUE)) {
       values <- fromJSON(body_lines[[1]])
-      # this checks the error strings to see if it is on the list...
+      # this checks the error characters to see if it is on the list...
       if (sum(charmatch(values, manta_globals$manta_error_classes, nomatch = 0)) > 0) {
         msg <- paste("Manta Service Error: ", returned_code, "\n", sep="")
       } else {
         msg <- paste("mantaXfer Unknown Error: ", returned_code, "\n", sep="")
       }
       # It was valid JSON, so show it as the return error message
-      values <- paste(values, collapse = "\n") # make one string
+      values <- paste(values, collapse = "\n") # make one character
       msg <- paste(msg, values, "\n", sep="")
     } else {
       # not valid JSON returned, just return the error code...
-      msg <- paste("mantaXfer Unrecognized - Server Error Code: ", returned_code, returned_string, "\n", sep=" ")
+      msg <- paste("mantaXfer Unrecognized - Server Error Code: ", returned_code, returned_character, "\n", sep=" ")
     }
     bunyanLog.error(msg = msg, version = manta_globals$version)
     cat(msg)
@@ -263,7 +263,7 @@ function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer 
     } 
   } else { 
    # some other 0 - 300 numbered message that isn't a matching return code 
-    msg <- paste("mantaXfer - Unrecognized Server Code:", returned_string, "\n", sep=" ")
+    msg <- paste("mantaXfer - Unrecognized Server Code:", returned_character, "\n", sep=" ")
     bunyanLog.error(msg = msg, version = manta_globals$version)
     cat(msg)
     return(FALSE)

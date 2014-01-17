@@ -28,7 +28,8 @@ mantaRm("dumpdata.R")
   \code{\link{mantaJob.errors.stderr}}
 
   Other mantaGet: \code{\link{mantaGet}},
-  \code{\link{mantaLoad}}, \code{\link{mantaLoad.ws}}
+  \code{\link{mantaLoad}}, \code{\link{mantaLoad.ws}},
+  \code{\link{mantaSave}}, \code{\link{mantaSource}}
 }
 \keyword{Manta}
 \keyword{manta}

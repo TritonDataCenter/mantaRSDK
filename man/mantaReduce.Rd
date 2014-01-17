@@ -18,8 +18,8 @@
   You can also execute your own programs stored as Manta
   objects by including them with the \code{assets}
   parameter and referencing them from the exec command from
-  the \code{/assets} folder. See
-  \code{http://apidocs.joyent.com/manta/jobs-reference.html}
+  the \code{/assets} folder.\cr See:\cr
+  \code{http://apidocs.joyent.com/manta/jobs-reference.html}\cr
   for more details.}
 
   \item{init}{character optional. A Unix shell command

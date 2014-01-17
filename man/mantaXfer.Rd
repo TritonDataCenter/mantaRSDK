@@ -1,15 +1,17 @@
 \name{mantaXfer}
 \alias{mantaXfer}
-\title{raw REST API Manta Caller for mantaPut mantaGet and related data transfer routines.}
+\title{raw REST API Manta Caller for mantaPut mantaGet and related data transfer routines.
+Not exported.}
 \usage{
   mantaXfer(action, method, filename, buffer,
     returnmetadata = FALSE, returnbuffer = FALSE,
     md5 = FALSE, headers, verbose = FALSE)
 }
 \arguments{
-  \item{action}{string, optional. Path to a manta object.}
+  \item{action}{character, optional. curlEscaped path to a
+  manta object.}
 
-  \item{method}{string, required. "GET", or "PUT" or
+  \item{method}{character, required. "GET", or "PUT" or
   "HEAD"}
 
   \item{filename}{optional. Path to local file for PUT or
@@ -26,10 +28,10 @@
   \item{md5}{logical optional. Test md5 hash of data
   before/after transfer}
 
-  \item{headers,}{array of named strings, optional. The
-  headers follow the RCurl structure of vector of strings
-  where HTTP header tags are the names, values as named
-  strings, no semicolons or delimiters.}
+  \item{headers,}{array of named characters, optional. The
+  headers follow the RCurl structure of vector of
+  characters where HTTP header tags are the names, values
+  as named characters, no semicolons or delimiters.}
 
   \item{verbose}{logical, optional. Passed to RCurl GetURL,
   Set to TRUE to see background REST communication on

@@ -49,7 +49,8 @@ ls()
   \code{\link{mantaSave}}
 
   Other mantaGet: \code{\link{mantaCat}},
-  \code{\link{mantaGet}}, \code{\link{mantaLoad.ws}}
+  \code{\link{mantaGet}}, \code{\link{mantaLoad.ws}},
+  \code{\link{mantaSave}}, \code{\link{mantaSource}}
 }
 \keyword{Manta,}
 \keyword{manta}

@@ -3,18 +3,23 @@
 #' Changes current Manta account information 
 #'
 #' The Manta account is initially obtained from
-#' environment variables \code{$MANTA_USER, $MANTA_KEY, $MANTA_URL}. 
+#' three environment variables:\cr
+#'  \code{$MANTA_USER, $MANTA_KEY, $MANTA_URL}.\cr 
 #' The ssl key location is obtained by default on Unix/Linux
-#' from \code{/$HOME/.ssh/id_rsa}  or on Windows from 
-#' \code{C:\\Users\\username\\.ssh\\ir_rsa}
-#' The Manta datacentre enviroment variable is \code{$MANTA_URL}
+#' from\cr
+#' \code{/$HOME/.ssh/id_rsa}\cr  
+#' or on Windows from:\cr 
+#' \code{C:\\Users\\username\\.ssh\\ir_rsa}\cr
+#' The Manta datacentre enviroment variable is:\cr
+#'  \code{$MANTA_URL}
 #'
 #'
 #' @param account list,  optional. Input R account values.
 #'
 #' @param json character, optional. Input JSON account values.
 #'
-#' @param verbose logical, optional. TRUE by default
+#' @param verbose logical, optional. Show HTTP communication. 
+#' \code{FALSE} by default.
 #'
 #' @return logical TRUE if account changed and working. Reverts to
 #' previous working account if it cannot connect wit the new information

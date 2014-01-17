@@ -8,26 +8,26 @@
     json = FALSE)
 }
 \arguments{
-  \item{all}{logical, optional, TRUE by default all limit
-  settings}
+  \item{all}{logical, optional, Get all limits values}
 
-  \item{durability_level}{logical, optional. Set TRUE to
-  retrive}
+  \item{durability_level}{logical, optional. Get durability
+  level.}
 
-  \item{connect_timeout}{logical, optional. Set TRUE to
-  retrive}
+  \item{connect_timeout}{logical, optional. Get connect
+  timeout.}
 
-  \item{send_timeout,}{logical, optional. Set TRUE to
-  retrieve}
+  \item{send_timeout,}{logical, optional. Get send
+  timeout.}
 
-  \item{receive_timeout,}{logical, optional. Set TRUE to
-  retrive}
+  \item{receive_timeout,}{logical, optional. Get recieve
+  timeout.}
 
-  \item{max_limit}{logical, optional. Set TRUE to get the
-  max dir limit}
+  \item{max_limit}{logical, optional. Get the maximum
+  number of directory entries transferred in one HTTPS call
+  (upper limit 1000 is the default)}
 
-  \item{json}{logical, optional. Set TRUE to get JSON
-  output}
+  \item{json}{logical, optional. Set \code{TRUE} to return
+  values in JSON}
 }
 \value{
   JSON or R values as specified.
@@ -47,6 +47,7 @@
 \dontrun{
 ## Save all current settings with:
 limits <- mantaGetLimits(all = TRUE)
+limits
 ## Change one or all settings, set with:
 mantaSetLimits(limits)
 }
@@ -54,7 +55,8 @@ mantaSetLimits(limits)
 \seealso{
   \code{\link{mantaSetLimits}}
 
-  Other mantaAccount: \code{\link{mantaAccount}}
+  Other mantaAccount: \code{\link{mantaAccount}},
+  \code{\link{mantaSetLimits}}, \code{\link{mantaWhoami}}
 }
 \keyword{Manta,}
 \keyword{manta}

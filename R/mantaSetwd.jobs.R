@@ -1,5 +1,5 @@
 # Roxygen Comments mantaSetwd.jobs
-#' Sets Manta working directory to ~~/jobs
+#' Sets Manta working directory to \code{~~/jobs}
 #'
 #' @keywords Manta, manta
 #'

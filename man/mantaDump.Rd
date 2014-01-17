@@ -67,7 +67,8 @@ mantaRm("dumpdata.R")
 \seealso{
   \code{\link{mantaSource}}
 
-  Other mantaPut: \code{\link{mantaSave.ws}}
+  Other mantaPut: \code{\link{mantaPut}},
+  \code{\link{mantaSave.image}}, \code{\link{mantaSave.ws}}
 }
 \keyword{Manta,}
 \keyword{manta}

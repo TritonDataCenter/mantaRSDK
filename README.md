@@ -1,9 +1,8 @@
 mantaRSDK
 =========
 
-Joyent Manta R Software Development Kit
+Joyent Manta R Software Development Kit 0.8.0
 
-STILL - UNDER CONSTRUCTION
 
 System Requirements
 ====================
@@ -12,7 +11,7 @@ Unix/Linux/Windows R v3.0 or up, as well as
 environment variables set for Manta use, 
 and openSSL installed and working. 
 
-If you have the Node.js manta command line tools working on a Unix/Linux
+If you have the Node.js Manta Command Line Tools working on a Unix/Linux
 platform, this should work as is. 
 
 Windows has specific requirements, detailed below.
@@ -38,15 +37,16 @@ mantaRSDK will look for the Unix SSH key pair here:
 ~/.ssh/id_rsa.pub
 ```
 
-3.2) UNIX: ENVIRONMENT VARIABLES add these lines to ~/.bashrc with
-a text editor:
+3.2) UNIX: ENVIRONMENT VARIABLES add these lines to ~/.bashrc or
+~/.bash_profile with a text editor, substituting your username.
 ```
 export MANTA_URL=https://us-east.manta.joyent.com
 export MANTA_USER=yourusername
 export MANTA_KEY_ID=91:b4:d2:34:f1:b8:3c:1b:11:d1:b7:6c:e4:3c:4e:01 
 ```
-then source the file:
+then source the appropriate file:
 ```
+source ~/.bash_profile  
 source ~/.bashrc
 ```
 
@@ -81,7 +81,7 @@ your own values for MANTA_KEY_ID and MANTA_USER:
 Variable        Value
 MANTA_KEY_ID    91:b4:d2:34:f1:b8:3c:1b:11:de:b7:6c:e4:3c:4e:01
 MANTA_URL       https://us-east-manta.joyent.com
-MANTA_USER      username
+MANTA_USER      yourusername
 ```
 
 Edit the User variable 'PATH' by clicking on "Edit", hit the END key on your keyboard
@@ -139,12 +139,18 @@ install_github("mantaRSDK", username="cwvhogue")
 Test:
 ```
 library(mantaRSDK)
-#help(mantaRSDK)
+?mantaRSDK
 mantaWhoami(all=TRUE)
 mantaLs.l()
 mantaSetwd.public()
 mattaGetwd()
-mantaLs.url()
+# Work through Examples in these key Help pages
+?mantaSetwd
+?mantaMkdir
+?mantaPut
+?mantaGet
+?mantaSave.ws
+?mantaJob.launch
 ```
 
 Remove:

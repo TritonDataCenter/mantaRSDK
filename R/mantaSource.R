@@ -1,25 +1,44 @@
 # Roxygen Comments mantaSource
 #' 
-#' Downloads specified Manta object and applies source() to parse R code file.
+#' Downloads specified Manta R source code file and applies \code{source} to parse/load it.
 #'
-#' @param mantapath string, optional. Path to a manta R code file or file  name in current
-#' working Manta directory for retrieval. 
+#' @param mantapath character, optional. Path to a manta R code file or file name in current
+#' working Manta directory for retrieval. Not vectorized.
 #'
-#' @param local logical optional. See source().
+#' @param local logical optional. See \code{source}.
 #'
-#' @param verbose logical, optional. Passed to RCurl GetURL,
-#' Set to TRUE to see background REST communication on stderr
-#' which is invisible on Windows
+#' @param verbose logical, optional. Passed to \code{RCurl} \code{GetUR}L,
+#' Set to \code{TRUE} to see background REST communication on \code{stderr}.
+#' Note this is not visible on Windows.
 #' 
-#' @param max.deparse.length optional. See source().
+#' @param max.deparse.length optional. See \code{source}.
 #'
-#' @param encoding optional. See source().
+#' @param encoding optional. See \code{source}.
 #'
-#' @param keep.source optional. See source().
+#' @param keep.source optional. See \code{source}.
 #'
-#' @return TRUE or FALSE depending on success of GET transfer
+#' @return \code{TRUE} or \code{FALSE} depending on success of download.
 #'
 #' @keywords Manta, manta
+#'
+#' @family mantaGet
+#'
+#' @seealso \code{\link{mantaDump}}
+#'
+#' @examples
+#' \dontrun{
+#' data <- runif(100)
+#' ls()
+#' mantaDump("data")
+#' rm(data)
+#' mantaCat("dumpdata.R")
+#' ls()
+#' mantaSource("dumpdata.R")
+#' ls()
+#' mantaRm("dumpdata.R")
+#' rm(data)
+#' }
+#'
 #'
 #' @export
 mantaSource <-
