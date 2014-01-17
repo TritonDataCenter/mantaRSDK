@@ -62,8 +62,8 @@ C:\Users\youraccount\.ssh\id_rsa
 C:\Users\youraccount\.ssh\id_rsa.pub
 ```
 
-3.4) WINDOWS - Install the free Windows version of OpenSSL from 
-http://slproweb.com/download/Win64OpenSSL-1_0_1e.exe. Make note of
+3.4) WINDOWS - Install the free Windows 64 bit version of OpenSSL from 
+http://slproweb.com/download/Win64OpenSSL-1_0_1f.exe . Make note of
 the folder path for openssl.exe to add to your system PATH in the
 next step.
 
