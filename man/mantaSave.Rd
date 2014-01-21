@@ -2,13 +2,11 @@
 \alias{mantaSave}
 \title{Uploads R data to Manta Storage Service using R function \code{save}.}
 \usage{
-  mantaSave(..., list = character(),
-    mantapath = stop("'mantapath' destination file or full path must be specified"),
-    md5 = FALSE, headers, durability = 2, ascii = FALSE,
-    version = NULL, envir = parent.frame(),
-    compress = !ascii, compression_level,
-    eval.promises = TRUE, precheck = TRUE, info = TRUE,
-    verbose = FALSE)
+mantaSave(..., list = character(),
+  mantapath = stop("'mantapath' destination file or full path must be specified"),
+  md5 = FALSE, headers, durability = 2, ascii = FALSE, version = NULL,
+  envir = parent.frame(), compress = !ascii, compression_level,
+  eval.promises = TRUE, precheck = TRUE, info = TRUE, verbose = FALSE)
 }
 \arguments{
   \item{...}{See \code{save} R objects to be saved}
@@ -63,14 +61,14 @@
   on Windows.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  transfer.
+\code{TRUE} or \code{FALSE} depending on success of
+transfer.
 }
 \description{
-  Uploads to R data files \code{.rda .Rdata .RData} files.
-  If no file extension is provided, \code{.rda} is
-  appended. \code{mantaSave} is a wrapper for \code{save}
-  and \code{mantaXfer}, which implements the RCURL upload.
+Uploads to R data files \code{.rda .Rdata .RData} files. If
+no file extension is provided, \code{.rda} is appended.
+\code{mantaSave} is a wrapper for \code{save} and
+\code{mantaXfer}, which implements the RCURL upload.
 }
 \examples{
 \dontrun{
@@ -84,12 +82,11 @@ rm(data)
 }
 }
 \seealso{
-  \code{\link{mantaLoad}}
+\code{\link{mantaLoad}}
 
-  Other mantaGet: \code{\link{mantaCat}},
-  \code{\link{mantaGet}}, \code{\link{mantaLoad}},
-  \code{\link{mantaLoad.ws}}, \code{\link{mantaSource}}
+Other mantaGet: \code{\link{mantaCat}};
+\code{\link{mantaGet}}; \code{\link{mantaLoad.ws}};
+\code{\link{mantaLoad}}; \code{\link{mantaSource}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

@@ -3,10 +3,9 @@
 \title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
 Output is R list of size and full Manta pathnames.}
 \usage{
-  mantaFind.sizepath(mantapath, grepfor, entries,
-    items = "o", level = 0, sortby = "none", starttime,
-    endtime, decreasing = FALSE, ignore.case = FALSE,
-    perl = FALSE, verbose = FALSE, info = TRUE)
+mantaFind.sizepath(mantapath, grepfor, entries, items = "o", level = 0,
+  sortby = "none", starttime, endtime, decreasing = FALSE,
+  ignore.case = FALSE, perl = FALSE, verbose = FALSE, info = TRUE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -61,14 +60,14 @@ Output is R list of size and full Manta pathnames.}
   about child path progress.}
 }
 \description{
-  Search for object or directory names with regular
-  expressions (using R grep). Sort listings by filename,
-  time, or size.
+Search for object or directory names with regular
+expressions (using R grep). Sort listings by filename,
+time, or size.
 }
 \seealso{
-  Other mantaFind: \code{\link{mantaFind}},
-  \code{\link{mantaFind.du}}, \code{\link{mantaFind.l}},
-  \code{\link{mantaFind.n}}, \code{\link{mantaFind.sizes}},
-  \code{\link{mantaFind.url}}
+Other mantaFind: \code{\link{mantaFind.du}};
+\code{\link{mantaFind.l}}; \code{\link{mantaFind.n}};
+\code{\link{mantaFind.sizes}}; \code{\link{mantaFind.url}};
+\code{\link{mantaFind}}
 }
 

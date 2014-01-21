@@ -35,7 +35,7 @@
 #' mantaJob.done(poll = TRUE, sleep = 10, timeout = 60)
 #' }
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @export
 mantaJob.done <-

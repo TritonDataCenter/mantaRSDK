@@ -3,7 +3,7 @@
 #'
 #' See \code{mantaSetwd}.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family Directory
 #'

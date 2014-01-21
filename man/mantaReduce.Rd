@@ -2,7 +2,7 @@
 \alias{mantaReduce}
 \title{Constructor for R format Manta Job for Reduce Unix task.}
 \usage{
-  mantaReduce(exec, init, assets, reducers, memory, disk)
+mantaReduce(exec, init, assets, reducers, memory, disk)
 }
 \arguments{
   \item{reducers}{integer. Number of reducers to use from 1
@@ -62,39 +62,38 @@
   files from \code{/var/tmp} onto Manta storage.}
 }
 \value{
-  Returns an R list for consumption by
-  \code{mantaJob.setup}
+Returns an R list for consumption by \code{mantaJob.setup}
 }
 \description{
-  Helper function to construct R structure describing a
-  Reduce task. To be used to satisfy the \code{...}
-  argument of \code{mantaJob.setup} and specify the Unix
-  command line task, any initialization tasks, an array of
-  Manta filesystem \code{asset} files, and the memory/disk
-  size to be used for the compute instance on Manta.
+Helper function to construct R structure describing a
+Reduce task. To be used to satisfy the \code{...} argument
+of \code{mantaJob.setup} and specify the Unix command line
+task, any initialization tasks, an array of Manta
+filesystem \code{asset} files, and the memory/disk size to
+be used for the compute instance on Manta.
 }
 \details{
-  On Manta, a Reduce task phase executes a generic UNIX
-  command when specified in \code{mantaJob.launch}, or from
-  the output pipelined from a previous step. Use
-  \code{mantaReduce} to run a job that has no Manta object
-  input data.
+On Manta, a Reduce task phase executes a generic UNIX
+command when specified in \code{mantaJob.launch}, or from
+the output pipelined from a previous step. Use
+\code{mantaReduce} to run a job that has no Manta object
+input data.
 
-  The \code{exec} argument must be a valid generic UNIX
-  command line, not an R function. The \code{exec} argument
-  may call executables or runtime language scripts that are
-  hosted on Manta and specified as \code{assets}.  The
-  \code{init} parameter command is called before the
-  \code{exec} argument and is not passed input. The init
-  argument may be used, for example to extract scripts from
-  an \code{asset} on Manta saved as a \code{tar} object.
+The \code{exec} argument must be a valid generic UNIX
+command line, not an R function. The \code{exec} argument
+may call executables or runtime language scripts that are
+hosted on Manta and specified as \code{assets}.  The
+\code{init} parameter command is called before the
+\code{exec} argument and is not passed input. The init
+argument may be used, for example to extract scripts from
+an \code{asset} on Manta saved as a \code{tar} object.
 
-  Note that you do not have to specify the input for a
-  Reduce task for \code{mantaJob.launch}, the service pipes
-  the output of the previous Map task phase as input to the
-  Reduce task. Note also tha the piped input for a Reduce
-  task may arrive in any order, no sorting is done by the
-  service to the pipe between Map and Reduce tasks.
+Note that you do not have to specify the input for a Reduce
+task for \code{mantaJob.launch}, the service pipes the
+output of the previous Map task phase as input to the
+Reduce task. Note also tha the piped input for a Reduce
+task may arrive in any order, no sorting is done by the
+service to the pipe between Map and Reduce tasks.
 }
 \examples{
 \dontrun{
@@ -105,18 +104,19 @@ job <- mantaJob.setup("word count",
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}},
-  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaJobs}};
+\code{\link{mantaMap}}
 }
 

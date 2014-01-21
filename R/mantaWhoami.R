@@ -21,7 +21,7 @@
 #'
 #' @return JSON or R values as specified.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaAccount
 #'

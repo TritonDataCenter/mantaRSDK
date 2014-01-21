@@ -2,7 +2,7 @@
 \alias{mantaMkdir}
 \title{Makes a Manta subdirectory, optionally with parent directories.}
 \usage{
-  mantaMkdir(mantapath, p = FALSE, info = TRUE)
+mantaMkdir(mantapath, p = FALSE, info = TRUE)
 }
 \arguments{
   \item{mantapath}{character, required. Path or name of new
@@ -15,16 +15,15 @@
   messages.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  upload.
+\code{TRUE} or \code{FALSE} depending on success of upload.
 }
 \description{
-  Makes subdirectory on Manta. Specify absolute (e.g.
-  \code{~~/stor} ) or relative path from the current Manta
-  directory. Supports creation of parent directories with
-  \code{p = TRUE}. New directories can be created in
-  \code{~~/stor} your private space or \code{~~/public} a
-  publically accessible HTTPS directory.
+Makes subdirectory on Manta. Specify absolute (e.g.
+\code{~~/stor} ) or relative path from the current Manta
+directory. Supports creation of parent directories with
+\code{p = TRUE}. New directories can be created in
+\code{~~/stor} your private space or \code{~~/public} a
+publically accessible HTTPS directory.
 }
 \examples{
 \dontrun{
@@ -59,15 +58,14 @@ mantaSetwd(tempdir)
 }
 }
 \seealso{
-  \code{\link{mantaRmdir}}
+\code{\link{mantaRmdir}}
 
-  Other Directory: \code{\link{mantaGetwd}},
-  \code{\link{mantaRm}}, \code{\link{mantaRmdir}},
-  \code{\link{mantaSetwd}},
-  \code{\link{mantaSetwd.public}},
-  \code{\link{mantaSetwd.reports}},
-  \code{\link{mantaSetwd.stor}}, \code{\link{mantaSnapln}}
+Other Directory: \code{\link{mantaGetwd}};
+\code{\link{mantaRmdir}}; \code{\link{mantaRm}};
+\code{\link{mantaSetwd.public}};
+\code{\link{mantaSetwd.reports}};
+\code{\link{mantaSetwd.stor}}; \code{\link{mantaSetwd}};
+\code{\link{mantaSnapln}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

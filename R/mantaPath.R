@@ -8,7 +8,7 @@
 #' @return character with full Manta path to object or empty string ""
 #' as processed by curlEscape with / left in 
 #' 
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #'
 mantaPath <-

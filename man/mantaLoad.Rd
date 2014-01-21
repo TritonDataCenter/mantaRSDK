@@ -2,8 +2,7 @@
 \alias{mantaLoad}
 \title{Downloads specified Manta object containing R data and uses R function \code{load}.}
 \usage{
-  mantaLoad(mantapath, envir = parent.frame(), info = TRUE,
-    verbose = FALSE)
+mantaLoad(mantapath, envir = parent.frame(), info = TRUE, verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Path to a manta R
@@ -22,18 +21,18 @@
   Windows.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  download.
+\code{TRUE} or \code{FALSE} depending on success of
+download.
 }
 \description{
-  Used to download \code{.rda} \code{.Rdata} files and
-  \code{load} their R data into the workspace or specified
-  \code{envir}.
+Used to download \code{.rda} \code{.Rdata} files and
+\code{load} their R data into the workspace or specified
+\code{envir}.
 }
 \details{
-  Checks for appropriate \code{content-type} HTTP header,
-  which is set by \code{mantaSave} or \code{mantaSave.ws}
-  to \code{"application/x-r-data"}.
+Checks for appropriate \code{content-type} HTTP header,
+which is set by \code{mantaSave} or \code{mantaSave.ws} to
+\code{"application/x-r-data"}.
 }
 \examples{
 \dontrun{
@@ -46,12 +45,11 @@ ls()
 }
 }
 \seealso{
-  \code{\link{mantaSave}}
+\code{\link{mantaSave}}
 
-  Other mantaGet: \code{\link{mantaCat}},
-  \code{\link{mantaGet}}, \code{\link{mantaLoad.ws}},
-  \code{\link{mantaSave}}, \code{\link{mantaSource}}
+Other mantaGet: \code{\link{mantaCat}};
+\code{\link{mantaGet}}; \code{\link{mantaLoad.ws}};
+\code{\link{mantaSave}}; \code{\link{mantaSource}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

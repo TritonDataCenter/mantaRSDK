@@ -4,28 +4,28 @@
 \alias{mantaRSDK-package}
 \title{mantaRSDK}
 \description{
-  R functions to transmit/receive native R data and files
-  to the Manta Storage Service for object storage.
+R functions to transmit/receive native R data and files to
+the Manta Storage Service for object storage.
 
-  Manta jobs can compute on stored objects with Map/Reduce
-  and UNIX shell commands in the cloud. Core functions
-  communicate via the Manta REST API using RCurl.  OpenSSL
-  is required for authentication support, and must be
-  installed separate from R.
+Manta jobs can compute on stored objects with Map/Reduce
+and UNIX shell commands in the cloud. Core functions
+communicate via the Manta REST API using RCurl.  OpenSSL is
+required for authentication support, and must be installed
+separate from R.
 
-  To use this library you require a Joyent Manta account
-  http://www.joyent.com
+To use this library you require a Joyent Manta account
+http://www.joyent.com
 
-  Configuration requires 3 environment variables
-  \code{$MANTA_USER}, \code{$MANTA_KEY}, and
-  \code{$MANTA_URL} and your SSH keys as registered with
-  Joyent.
+Configuration requires 3 environment variables
+\code{$MANTA_USER}, \code{$MANTA_KEY}, and
+\code{$MANTA_URL} and your SSH keys as registered with
+Joyent.
 
-  FOR COMPLETE INSTALLATION INSTRUCTIONS - SEE:\cr
-  \code{https://github.com/joyent/mantaRSDK/blob/master/README.md}
+FOR COMPLETE INSTALLATION INSTRUCTIONS - SEE:\cr
+\code{https://github.com/joyent/mantaRSDK/blob/master/README.md}
 }
 \details{
-  Joyent Manta Storage Service R Software Development Kit
+Joyent Manta Storage Service R Software Development Kit
 }
 \section{RSDK Functions}{
   Manta Account Management
@@ -252,6 +252,6 @@
   after last bunyanSetpoint
 }
 \references{
-  http://apidocs.joyent.com/manta/
+http://apidocs.joyent.com/manta/
 }
 

@@ -4,9 +4,9 @@
 Output is URL path to \code{~~/public} Manta objects in the
 specified subdirectory}
 \usage{
-  mantaLs.url(mantapath, grepfor, json, items = "o",
-    sortby = "none", decreasing = FALSE,
-    ignore.case = FALSE, perl = FALSE, verbose = FALSE)
+mantaLs.url(mantapath, grepfor, json, items = "o", sortby = "none",
+  decreasing = FALSE, ignore.case = FALSE, perl = FALSE,
+  verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -44,19 +44,18 @@ specified subdirectory}
   \code{RCurl} data output on Unix.}
 }
 \description{
-  Used for getting URLs for links to object in Manta
-  \code{~~/public} area. Searching for filenames with
-  regular expressions (using R \code{grep}). Sorting
-  listings by filename, time, or size.
+Used for getting URLs for links to object in Manta
+\code{~~/public} area. Searching for filenames with regular
+expressions (using R \code{grep}). Sorting listings by
+filename, time, or size.
 }
 \seealso{
-  \code{\link{mantaFind.url}}
+\code{\link{mantaFind.url}}
 
-  Other mantaLs: \code{\link{mantaExists}},
-  \code{\link{mantaLs}}, \code{\link{mantaLs.du}},
-  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
-  \code{\link{mantaLs.paths}}
+Other mantaLs: \code{\link{mantaExists}};
+\code{\link{mantaLs.du}}; \code{\link{mantaLs.l}};
+\code{\link{mantaLs.n}}; \code{\link{mantaLs.paths}};
+\code{\link{mantaLs}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

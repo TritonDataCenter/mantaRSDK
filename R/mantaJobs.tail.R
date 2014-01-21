@@ -6,7 +6,7 @@
 #' \code{n = 1} default is last Manta Job run. \code{n = 2} 
 #' is second last, and so on.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

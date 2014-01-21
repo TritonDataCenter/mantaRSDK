@@ -4,7 +4,7 @@
 tasks as defined by
 \code{mantaMap}, and/or \code{mantaReduce} functions.}
 \usage{
-  mantaJob.setup(name, ...)
+mantaJob.setup(name, ...)
 }
 \arguments{
   \item{name}{character, optional.}
@@ -14,19 +14,18 @@ tasks as defined by
   execution.}
 }
 \description{
-  Function to construct R structure for
-  \code{\link{mantaJob.launch}}. Specify a \code{name} for
-  the Manta job and tasks to execute via one or more calls
-  to \code{\link{mantaMap}} and/or
-  \code{\link{mantaReduce}} which define and parameterize
-  each task.
+Function to construct R structure for
+\code{\link{mantaJob.launch}}. Specify a \code{name} for
+the Manta job and tasks to execute via one or more calls to
+\code{\link{mantaMap}} and/or \code{\link{mantaReduce}}
+which define and parameterize each task.
 }
 \details{
-  mantaJob.setup combines multiple tasks into a job
-  pipeline structure for \code{\link{mantaJob.launch}}. See
-  \code{\link{mantaMap}} and \code{\link{mantaReduce}} for
-  parameter details. Their \code{exec} parameter must be a
-  valid generic UNIX command line, not an R function.
+mantaJob.setup combines multiple tasks into a job pipeline
+structure for \code{\link{mantaJob.launch}}. See
+\code{\link{mantaMap}} and \code{\link{mantaReduce}} for
+parameter details. Their \code{exec} parameter must be a
+valid generic UNIX command line, not an R function.
 }
 \examples{
 \dontrun{
@@ -44,20 +43,19 @@ mantaJob.errors()
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}},
-  \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaJobs}};
+\code{\link{mantaMap}}; \code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

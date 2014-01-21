@@ -16,7 +16,7 @@
 #'
 #' @return signed time and rsa-sha256 signature
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 mantaGenSignature <-
 function() {

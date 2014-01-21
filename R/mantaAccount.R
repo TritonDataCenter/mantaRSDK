@@ -55,7 +55,7 @@
 #' mantaAccount(mysslkey) 
 #' }
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @export
 mantaAccount <-

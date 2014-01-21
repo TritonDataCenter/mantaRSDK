@@ -2,8 +2,8 @@
 \alias{mantaJob.done}
 \title{Checks or polls status of a Manta job. Returns done or not as logical.}
 \usage{
-  mantaJob.done(jobid, poll = FALSE, sleep = 30,
-    timeout = 600, silent = FALSE)
+mantaJob.done(jobid, poll = FALSE, sleep = 30, timeout = 600,
+  silent = FALSE)
 }
 \arguments{
   \item{jobid}{character optional. Manta job identifier
@@ -26,15 +26,14 @@
   logged to the bunyan buffer.}
 }
 \value{
-  \code{TRUE} when job is no longer running.\cr
-  \code{FALSE} when job running.\cr \code{NULL} if job
-  status not found.\cr N.B. \code{TRUE} return does not
-  imply job success/failure/errors, only running/done
-  state.
+\code{TRUE} when job is no longer running.\cr \code{FALSE}
+when job running.\cr \code{NULL} if job status not
+found.\cr N.B. \code{TRUE} return does not imply job
+success/failure/errors, only running/done state.
 }
 \description{
-  Checks or polls status of a Manta job. Returns done or
-  not as logical.
+Checks or polls status of a Manta job. Returns done or not
+as logical.
 }
 \examples{
 \dontrun{
@@ -45,20 +44,19 @@ mantaJob.done(poll = TRUE, sleep = 10, timeout = 60)
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}},
-  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}},
-  \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaJobs}};
+\code{\link{mantaMap}}; \code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

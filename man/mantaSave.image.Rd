@@ -2,9 +2,9 @@
 \alias{mantaSave.image}
 \title{Workspace Upload function that uses R \code{save.image}.}
 \usage{
-  mantaSave.image(mantapath, md5 = TRUE, headers,
-    durability = 2, version = NULL, ascii = FALSE,
-    compress = !ascii, info = TRUE, verbose = FALSE)
+mantaSave.image(mantapath, md5 = TRUE, headers, durability = 2,
+  version = NULL, ascii = FALSE, compress = !ascii, info = TRUE,
+  verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{required. Path/filename to where
@@ -45,15 +45,14 @@
   on Windows.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  upload.
+\code{TRUE} or \code{FALSE} depending on success of upload.
 }
 \description{
-  \code{mantaSave.image} uses \code{mantaSave},
-  \code{mantaXfer}, which implements the RCURL transfer
-  This function is wrapped by \code{\link{mantaSave.ws}}
-  for audit trail management of current and timestamped
-  older R workspaces.
+\code{mantaSave.image} uses \code{mantaSave},
+\code{mantaXfer}, which implements the RCURL transfer This
+function is wrapped by \code{\link{mantaSave.ws}} for audit
+trail management of current and timestamped older R
+workspaces.
 }
 \examples{
 \dontrun{
@@ -72,12 +71,11 @@ mantaRm("~~/stor/myworkspace.RData")
 }
 }
 \seealso{
-  \code{\link{mantaLoad}} \code{\link{mantaSave.ws}}
-  \code{\link{mantaLoad.ws}}
+\code{\link{mantaLoad}} \code{\link{mantaSave.ws}}
+\code{\link{mantaLoad.ws}}
 
-  Other mantaPut: \code{\link{mantaDump}},
-  \code{\link{mantaPut}}, \code{\link{mantaSave.ws}}
+Other mantaPut: \code{\link{mantaDump}};
+\code{\link{mantaPut}}; \code{\link{mantaSave.ws}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

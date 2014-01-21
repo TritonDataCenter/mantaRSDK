@@ -2,7 +2,7 @@
 \alias{mantaExists}
 \title{Tests to see if a Manta object or subdirectory exists.}
 \usage{
-  mantaExists(mantapath, d = FALSE)
+mantaExists(mantapath, d = FALSE)
 }
 \arguments{
   \item{mantapath}{character, required. A full path
@@ -13,11 +13,11 @@
   specified in mantapath exists and is a directory.}
 }
 \value{
-  logical.
+logical.
 }
 \description{
-  Like a Unix \code{stat} command. Does not download object
-  contents.
+Like a Unix \code{stat} command. Does not download object
+contents.
 }
 \examples{
 \dontrun{
@@ -35,11 +35,10 @@ sapply(files, mantaExists)
 }
 }
 \seealso{
-  Other mantaLs: \code{\link{mantaLs}},
-  \code{\link{mantaLs.du}}, \code{\link{mantaLs.l}},
-  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}},
-  \code{\link{mantaLs.url}}
+Other mantaLs: \code{\link{mantaLs.du}};
+\code{\link{mantaLs.l}}; \code{\link{mantaLs.n}};
+\code{\link{mantaLs.paths}}; \code{\link{mantaLs.url}};
+\code{\link{mantaLs}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

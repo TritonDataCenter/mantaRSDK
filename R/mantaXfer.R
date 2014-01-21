@@ -33,7 +33,7 @@
 #' @return TRUE or FALSE depending on success of PUT transfer
 #' on GET buffer=TRUE it returns the downloaded buffer
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 mantaXfer <-
 function(action, method, filename, buffer, returnmetadata = FALSE, returnbuffer = FALSE, 

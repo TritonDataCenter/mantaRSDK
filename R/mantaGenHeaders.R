@@ -8,7 +8,7 @@
 #'
 #' @return manta_headers HTTP headers as specified for \code{RCurl}
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 mantaGenHeaders <-
 function() {

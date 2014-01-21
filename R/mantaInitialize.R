@@ -10,7 +10,7 @@
 #' @return \code{TRUE} or \code{FALSE} on warn, \code{stop} on errors: missing env 
 #' variables, SSH key.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 mantaInitialize <-
 function(useEnv = TRUE) {

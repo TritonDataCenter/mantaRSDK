@@ -1,7 +1,7 @@
 mantaRSDK
 =========
 
-Joyent Manta R Software Development Kit 0.8.0
+Joyent Manta R Software Development Kit 0.8.1
 
 
 System Requirements

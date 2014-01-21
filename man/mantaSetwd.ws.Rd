@@ -3,15 +3,14 @@
 \title{Sets the current Manta working directory to the R workspace.\cr
 E.g.  \code{~~/stor/R-3.0.1/myworkstation}}
 \usage{
-  mantaSetwd.ws()
+mantaSetwd.ws()
 }
 \value{
-  logical.
+logical.
 }
 \description{
-  Sets the current Manta working directory to the R
-  workspace.\cr E.g.  \code{~~/stor/R-3.0.1/myworkstation}
+Sets the current Manta working directory to the R
+workspace.\cr E.g.  \code{~~/stor/R-3.0.1/myworkstation}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

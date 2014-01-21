@@ -28,7 +28,7 @@
 #'
 #' @seealso \code{\link{mantaSave.ws}} \code{\link{mantaLoad.ws}}
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @examples
 #' \dontrun{

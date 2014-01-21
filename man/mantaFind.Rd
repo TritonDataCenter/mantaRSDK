@@ -2,11 +2,10 @@
 \alias{mantaFind}
 \title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.}
 \usage{
-  mantaFind(mantapath, grepfor, entries, l = "paths",
-    items = "o", level = 0, sortby = "none", starttime,
-    endtime, decreasing = FALSE, ignore.case = FALSE,
-    perl = FALSE, verbose = FALSE, info = TRUE,
-    findroot = 1)
+mantaFind(mantapath, grepfor, entries, l = "paths", items = "o",
+  level = 0, sortby = "none", starttime, endtime, decreasing = FALSE,
+  ignore.case = FALSE, perl = FALSE, verbose = FALSE, info = TRUE,
+  findroot = 1)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -81,11 +80,10 @@
   calls, not to be used.}
 }
 \description{
-  Search for object or directory names with regular
-  expressions (using R grep). Sort listings by filename,
-  time, or size. Report entries within a time window.
-  Report disk size, number of objects, number of
-  subdirectories.
+Search for object or directory names with regular
+expressions (using R grep). Sort listings by filename,
+time, or size. Report entries within a time window. Report
+disk size, number of objects, number of subdirectories.
 }
 \examples{
 \dontrun{
@@ -108,14 +106,13 @@ hist(mantaFind("~~/stor", l = 'sizes'))
 }
 }
 \seealso{
-  \code{\link{mantaLs}}, \code{\link{mantaLs.paths}},
-  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
-  \code{\link{mantaLs.du}}, \code{\link{mantaLs.url}}
+\code{\link{mantaLs}}, \code{\link{mantaLs.paths}},
+\code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
+\code{\link{mantaLs.du}}, \code{\link{mantaLs.url}}
 
-  Other mantaFind: \code{\link{mantaFind.du}},
-  \code{\link{mantaFind.l}}, \code{\link{mantaFind.n}},
-  \code{\link{mantaFind.sizepath}},
-  \code{\link{mantaFind.sizes}},
-  \code{\link{mantaFind.url}}
+Other mantaFind: \code{\link{mantaFind.du}};
+\code{\link{mantaFind.l}}; \code{\link{mantaFind.n}};
+\code{\link{mantaFind.sizepath}};
+\code{\link{mantaFind.sizes}}; \code{\link{mantaFind.url}}
 }
 

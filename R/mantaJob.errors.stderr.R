@@ -11,7 +11,7 @@
 #' \code{"70c30bab-873b-66da-ebc8-ced12bd35ac4"}. Default uses \code{mantaJobs.tail}
 #' to fetch the jobid of the last Manta Job run on the service
 #'    
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

@@ -3,9 +3,9 @@
 \title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
 Output is disk utilized in bytes NOT counting redundancy levels.}
 \usage{
-  mantaFind.du(mantapath, grepfor, entries, items = "o",
-    level = 0, starttime, endtime, ignore.case = FALSE,
-    perl = FALSE, verbose = FALSE, info = TRUE)
+mantaFind.du(mantapath, grepfor, entries, items = "o", level = 0, starttime,
+  endtime, ignore.case = FALSE, perl = FALSE, verbose = FALSE,
+  info = TRUE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -53,16 +53,16 @@ Output is disk utilized in bytes NOT counting redundancy levels.}
   about child path progress.}
 }
 \description{
-  Search for object or directory names with regular
-  expressions (using R grep). Reports disk size.
+Search for object or directory names with regular
+expressions (using R grep). Reports disk size.
 }
 \seealso{
-  \code{\link{mantaLs.du}}
+\code{\link{mantaLs.du}}
 
-  Other mantaFind: \code{\link{mantaFind}},
-  \code{\link{mantaFind.l}}, \code{\link{mantaFind.n}},
-  \code{\link{mantaFind.sizepath}},
-  \code{\link{mantaFind.sizes}},
-  \code{\link{mantaFind.url}}
+Other mantaFind: \code{\link{mantaFind.l}};
+\code{\link{mantaFind.n}};
+\code{\link{mantaFind.sizepath}};
+\code{\link{mantaFind.sizes}}; \code{\link{mantaFind.url}};
+\code{\link{mantaFind}}
 }
 

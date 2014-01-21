@@ -18,7 +18,7 @@
 #'
 #' @param info logical. Set FALSE to suppress console messages.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @return \code{TRUE} or \code{FALSE} depending on success of remove.
 #'

@@ -9,7 +9,7 @@
 #'
 #' @param verbose logical, optional.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 mantaExpandPath <-
 function(m_path, verbose = FALSE) {

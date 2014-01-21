@@ -6,7 +6,7 @@
 #' between sessions. It initializes to the root directory
 #' of private Manta storage: \code{~~/stor}.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family Directory
 #'

@@ -29,7 +29,7 @@
 #' 
 #' @return \code{TRUE} or \code{FALSE} depending on success of GET transfer
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaGet
 #'

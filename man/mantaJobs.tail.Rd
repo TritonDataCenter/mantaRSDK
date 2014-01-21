@@ -3,7 +3,7 @@
 \title{Returns identifier of last run Manta job identifier,
 or from offset \code{n} up from end of list.}
 \usage{
-  mantaJobs.tail(n = 1)
+mantaJobs.tail(n = 1)
 }
 \arguments{
   \item{n}{integer. Index into most recently run Jobs list.
@@ -11,8 +11,8 @@ or from offset \code{n} up from end of list.}
   is second last, and so on.}
 }
 \description{
-  Returns identifier of last run Manta job identifier, or
-  from offset \code{n} up from end of list.
+Returns identifier of last run Manta job identifier, or
+from offset \code{n} up from end of list.
 }
 \examples{
 \dontrun{
@@ -23,20 +23,19 @@ mantaJobs.tail(n = 5)
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}},
-  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}}, \code{\link{mantaMap}},
-  \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}}; \code{\link{mantaJobs}};
+\code{\link{mantaMap}}; \code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

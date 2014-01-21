@@ -23,7 +23,7 @@
 #' mantaGet(mantaJob.outputs()) 
 #' }
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @export
 mantaJob.outputs <-

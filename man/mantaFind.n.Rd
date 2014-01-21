@@ -3,9 +3,9 @@
 \title{Recursive find tool for retrieving matching objects/subdirs from Manta hierarchy.
 Output is number of found entries.}
 \usage{
-  mantaFind.n(mantapath, grepfor, entries, items = "o",
-    level = 0, starttime, endtime, ignore.case = FALSE,
-    perl = FALSE, verbose = FALSE, info = TRUE)
+mantaFind.n(mantapath, grepfor, entries, items = "o", level = 0, starttime,
+  endtime, ignore.case = FALSE, perl = FALSE, verbose = FALSE,
+  info = TRUE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -53,16 +53,16 @@ Output is number of found entries.}
   about child path progress.}
 }
 \description{
-  Search for object or directory names with regular
-  expressions (using R grep). Reports number of objects.
+Search for object or directory names with regular
+expressions (using R grep). Reports number of objects.
 }
 \seealso{
-  \code{\link{mantaLs.n}}
+\code{\link{mantaLs.n}}
 
-  Other mantaFind: \code{\link{mantaFind}},
-  \code{\link{mantaFind.du}}, \code{\link{mantaFind.l}},
-  \code{\link{mantaFind.sizepath}},
-  \code{\link{mantaFind.sizes}},
-  \code{\link{mantaFind.url}}
+Other mantaFind: \code{\link{mantaFind.du}};
+\code{\link{mantaFind.l}};
+\code{\link{mantaFind.sizepath}};
+\code{\link{mantaFind.sizes}}; \code{\link{mantaFind.url}};
+\code{\link{mantaFind}}
 }
 

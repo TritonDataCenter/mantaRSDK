@@ -2,7 +2,7 @@
 \alias{mantaMap}
 \title{Constructor for R format Manta Job for Map Unix task.}
 \usage{
-  mantaMap(exec, init, assets, memory, disk)
+mantaMap(exec, init, assets, memory, disk)
 }
 \arguments{
   \item{exec}{character required. The Unix shell command to
@@ -59,30 +59,30 @@
   files from \code{/var/tmp} onto Manta storage.}
 }
 \value{
-  Returns an R list describing a Map task phase for
-  consumption by \code{mantaJob.setup}
+Returns an R list describing a Map task phase for
+consumption by \code{mantaJob.setup}
 }
 \description{
-  Helper function to construct R structure describing a Map
-  task. To be used to satisfy the \code{...} argument of
-  \code{\link{mantaJob.setup}} and specify the Unix command
-  line task, any initialization tasks, an array of Manta
-  \code{asset} objects, and the memory/disk size to be used
-  for the compute instance on Manta.
+Helper function to construct R structure describing a Map
+task. To be used to satisfy the \code{...} argument of
+\code{\link{mantaJob.setup}} and specify the Unix command
+line task, any initialization tasks, an array of Manta
+\code{asset} objects, and the memory/disk size to be used
+for the compute instance on Manta.
 }
 \details{
-  On Manta, a Map task phase executes a generic UNIX
-  command given some input Manta object list which is
-  specified in \code{mantaJob.launch}, which distributes
-  the jobs to compute instances local to the Manta object
-  location. The \code{exec} argument must be a valid
-  generic UNIX command line, not an R function. The
-  \code{exec} argument may call executables or runtime
-  language scripts that are hosted on Manta and specified
-  as \code{assets}.  The \code{init} argument is called
-  before the exec argument and is not passed input. The
-  init argument may be used, for example to extract scripts
-  from an \code{asset} on Manta saved as a \code{tar} file.
+On Manta, a Map task phase executes a generic UNIX command
+given some input Manta object list which is specified in
+\code{mantaJob.launch}, which distributes the jobs to
+compute instances local to the Manta object location. The
+\code{exec} argument must be a valid generic UNIX command
+line, not an R function. The \code{exec} argument may call
+executables or runtime language scripts that are hosted on
+Manta and specified as \code{assets}.  The \code{init}
+argument is called before the exec argument and is not
+passed input. The init argument may be used, for example to
+extract scripts from an \code{asset} on Manta saved as a
+\code{tar} file.
 }
 \examples{
 \dontrun{
@@ -93,20 +93,20 @@ job <- mantaJob.setup("word count",
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}},
-  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaJobs}};
+\code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

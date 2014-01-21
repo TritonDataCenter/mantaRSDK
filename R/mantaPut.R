@@ -74,7 +74,7 @@
 #'
 #' @seealso \code{\link{mantaGet}}
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @examples
 #' \dontrun{

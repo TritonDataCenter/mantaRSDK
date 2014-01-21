@@ -3,7 +3,7 @@
 #'
 #' @inheritParams mantaJob.outputs
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

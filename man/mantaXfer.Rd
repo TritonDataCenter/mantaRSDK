@@ -3,9 +3,8 @@
 \title{raw REST API Manta Caller for mantaPut mantaGet and related data transfer routines.
 Not exported.}
 \usage{
-  mantaXfer(action, method, filename, buffer,
-    returnmetadata = FALSE, returnbuffer = FALSE,
-    md5 = FALSE, headers, verbose = FALSE)
+mantaXfer(action, method, filename, buffer, returnmetadata = FALSE,
+  returnbuffer = FALSE, md5 = FALSE, headers, verbose = FALSE)
 }
 \arguments{
   \item{action}{character, optional. curlEscaped path to a
@@ -38,13 +37,12 @@ Not exported.}
   stderr which is invisible on Windows}
 }
 \value{
-  TRUE or FALSE depending on success of PUT transfer on GET
-  buffer=TRUE it returns the downloaded buffer
+TRUE or FALSE depending on success of PUT transfer on GET
+buffer=TRUE it returns the downloaded buffer
 }
 \description{
-  Note getURL verbose = TRUE writes to stderr - invisible
-  on Windows R.
+Note getURL verbose = TRUE writes to stderr - invisible on
+Windows R.
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

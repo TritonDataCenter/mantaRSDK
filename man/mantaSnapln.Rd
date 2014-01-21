@@ -2,7 +2,7 @@
 \alias{mantaSnapln}
 \title{Makes a Snaplink - combination ZFS snapshot and Symbolic link.}
 \usage{
-  mantaSnapln(from, to, info = TRUE)
+mantaSnapln(from, to, info = TRUE)
 }
 \arguments{
   \item{from}{character, required. Object in current
@@ -19,16 +19,16 @@
   the console.}
 }
 \description{
-  As a persistent object store, there are no copy or move
-  commands on Manta. Instead the \code{mantaSnapln} command
-  is used to add an object's name into another subdirectory
-  without physically moving data on the service. Internally
-  the system takes a ZFS snapshot of the data and the new
-  object entry is the snapshot. If the original data is
-  overwritten, the SnapLink still points to the original
-  snapshot. The R workspace audit trail used by
-  \code{\link{mantaSave.ws}} and \code{\link{mantaLoad.ws}}
-  is implemented using \code{mantaSnapln}.
+As a persistent object store, there are no copy or move
+commands on Manta. Instead the \code{mantaSnapln} command
+is used to add an object's name into another subdirectory
+without physically moving data on the service. Internally
+the system takes a ZFS snapshot of the data and the new
+object entry is the snapshot. If the original data is
+overwritten, the SnapLink still points to the original
+snapshot. The R workspace audit trail used by
+\code{\link{mantaSave.ws}} and \code{\link{mantaLoad.ws}}
+is implemented using \code{mantaSnapln}.
 }
 \examples{
 \dontrun{
@@ -75,15 +75,13 @@ mantaCat("~~/public/test/index.html")
 }
 }
 \seealso{
-  \code{\link{mantaSave.ws}} \code{\link{mantaLoad.ws}}
+\code{\link{mantaSave.ws}} \code{\link{mantaLoad.ws}}
 
-  Other Directory: \code{\link{mantaGetwd}},
-  \code{\link{mantaMkdir}}, \code{\link{mantaRm}},
-  \code{\link{mantaRmdir}}, \code{\link{mantaSetwd}},
-  \code{\link{mantaSetwd.public}},
-  \code{\link{mantaSetwd.reports}},
-  \code{\link{mantaSetwd.stor}}
+Other Directory: \code{\link{mantaGetwd}};
+\code{\link{mantaMkdir}}; \code{\link{mantaRmdir}};
+\code{\link{mantaRm}}; \code{\link{mantaSetwd.public}};
+\code{\link{mantaSetwd.reports}};
+\code{\link{mantaSetwd.stor}}; \code{\link{mantaSetwd}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

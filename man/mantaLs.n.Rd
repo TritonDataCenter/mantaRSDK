@@ -2,8 +2,8 @@
 \alias{mantaLs.n}
 \title{Returns number of files matched in Manta directory listing.}
 \usage{
-  mantaLs.n(mantapath, grepfor, json, items = "a",
-    ignore.case = FALSE, perl = FALSE, verbose = FALSE)
+mantaLs.n(mantapath, grepfor, json, items = "a", ignore.case = FALSE,
+  perl = FALSE, verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -35,17 +35,16 @@
   \code{RCurl} data output on Unix.}
 }
 \description{
-  Used for getting number of objects/subdir in a directory.
-  Default uses current Manta directory.
+Used for getting number of objects/subdir in a directory.
+Default uses current Manta directory.
 }
 \seealso{
-  \code{\link{mantaFind.n}}
+\code{\link{mantaFind.n}}
 
-  Other mantaLs: \code{\link{mantaExists}},
-  \code{\link{mantaLs}}, \code{\link{mantaLs.du}},
-  \code{\link{mantaLs.l}}, \code{\link{mantaLs.paths}},
-  \code{\link{mantaLs.url}}
+Other mantaLs: \code{\link{mantaExists}};
+\code{\link{mantaLs.du}}; \code{\link{mantaLs.l}};
+\code{\link{mantaLs.paths}}; \code{\link{mantaLs.url}};
+\code{\link{mantaLs}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

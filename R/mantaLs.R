@@ -46,7 +46,7 @@
 #'
 #' @param internal logical, Internal use by mantaFind.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaLs
 #'

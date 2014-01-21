@@ -29,7 +29,7 @@
 #'
 #' @family mantaGet
 #'
-#' @keywords Manta manta
+#' @keywords Manta
 #'
 #' @seealso \code{\link{mantaSave.ws}}  \code{\link{mantaLoad}} \code{\link{mantaSetwd.ws}}
 #'

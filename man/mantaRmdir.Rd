@@ -2,7 +2,7 @@
 \alias{mantaRmdir}
 \title{Removes Manta subdirectory.}
 \usage{
-  mantaRmdir(mantapath, info = TRUE)
+mantaRmdir(mantapath, info = TRUE)
 }
 \arguments{
   \item{mantapath}{character, required. Not vectorized.}
@@ -11,17 +11,16 @@
   messages.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  remove.
+\code{TRUE} or \code{FALSE} depending on success of remove.
 }
 \description{
-  Removes specified Manta subdirectory. Non-recursive, not
-  vectorized.
+Removes specified Manta subdirectory. Non-recursive, not
+vectorized.
 }
 \details{
-  Removes directory. Specify absolute (e.g.
-  \code{~~/stor/myobject.txt} ) or relative path from the
-  current working Manta directory.
+Removes directory. Specify absolute (e.g.
+\code{~~/stor/myobject.txt} ) or relative path from the
+current working Manta directory.
 }
 \examples{
 \dontrun{
@@ -43,13 +42,12 @@ mantaSetwd(tempdir)
 }
 }
 \seealso{
-  Other Directory: \code{\link{mantaGetwd}},
-  \code{\link{mantaMkdir}}, \code{\link{mantaRm}},
-  \code{\link{mantaSetwd}},
-  \code{\link{mantaSetwd.public}},
-  \code{\link{mantaSetwd.reports}},
-  \code{\link{mantaSetwd.stor}}, \code{\link{mantaSnapln}}
+Other Directory: \code{\link{mantaGetwd}};
+\code{\link{mantaMkdir}}; \code{\link{mantaRm}};
+\code{\link{mantaSetwd.public}};
+\code{\link{mantaSetwd.reports}};
+\code{\link{mantaSetwd.stor}}; \code{\link{mantaSetwd}};
+\code{\link{mantaSnapln}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

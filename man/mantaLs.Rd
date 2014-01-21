@@ -2,10 +2,9 @@
 \alias{mantaLs}
 \title{Lists, searches, filters, sorts and formats Manta directory listings.}
 \usage{
-  mantaLs(mantapath, grepfor, json, l = "names",
-    items = "a", sortby = "none", decreasing = FALSE,
-    ignore.case = FALSE, perl = FALSE, verbose = FALSE,
-    internal = FALSE)
+mantaLs(mantapath, grepfor, json, l = "names", items = "a",
+  sortby = "none", decreasing = FALSE, ignore.case = FALSE,
+  perl = FALSE, verbose = FALSE, internal = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -63,10 +62,10 @@
   \item{internal}{logical, Internal use by mantaFind.}
 }
 \description{
-  Used for getting disk size, number of objects, number of
-  subdirectories. Searching for filenames with regular
-  expressions (using R grep). Sorting listings by filename,
-  time, or size.
+Used for getting disk size, number of objects, number of
+subdirectories. Searching for filenames with regular
+expressions (using R grep). Sorting listings by filename,
+time, or size.
 }
 \examples{
 \dontrun{
@@ -86,13 +85,12 @@ ignore.case = TRUE, sortby = 'size')
 }
 }
 \seealso{
-  \code{\link{mantaFind}}
+\code{\link{mantaFind}}
 
-  Other mantaLs: \code{\link{mantaExists}},
-  \code{\link{mantaLs.du}}, \code{\link{mantaLs.l}},
-  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}},
-  \code{\link{mantaLs.url}}
+Other mantaLs: \code{\link{mantaExists}};
+\code{\link{mantaLs.du}}; \code{\link{mantaLs.l}};
+\code{\link{mantaLs.n}}; \code{\link{mantaLs.paths}};
+\code{\link{mantaLs.url}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

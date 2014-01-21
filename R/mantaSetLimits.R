@@ -22,7 +22,7 @@
 #' @return logical \code{TRUE} if values changed
 #' \code{FALSE} if values unchanged
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaAccount
 #'

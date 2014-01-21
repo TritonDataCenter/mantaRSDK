@@ -2,8 +2,8 @@
 \alias{mantaGet}
 \title{Downloads specified Manta object(s), to file(s) or buffer.}
 \usage{
-  mantaGet(mantapath, filename, buffer = FALSE,
-    metadata = FALSE, info = TRUE, verbose = FALSE)
+mantaGet(mantapath, filename, buffer = FALSE, metadata = FALSE,
+  info = TRUE, verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{vector of character, optional. Path to a
@@ -32,19 +32,19 @@
   visible on Windows.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of GET
-  transfer
+\code{TRUE} or \code{FALSE} depending on success of GET
+transfer
 }
 \description{
-  One limitation of the \code{mantaRSDK} is that it is not
-  designed to handle large (multi-Gigabyte or larger)
-  objects. Uploads - \code{mantaPut} - work from files, but
-  Downloads - \code{mantaGet} - fill the R memory space to
-  their completion before being written to a file. To
-  download files larger than your R memory, use the Manta
-  Node.js command line tool \code{mget}. The Node.js based
-  Manta command line tools employ streams, so object size
-  is not a limitation.
+One limitation of the \code{mantaRSDK} is that it is not
+designed to handle large (multi-Gigabyte or larger)
+objects. Uploads - \code{mantaPut} - work from files, but
+Downloads - \code{mantaGet} - fill the R memory space to
+their completion before being written to a file. To
+download files larger than your R memory, use the Manta
+Node.js command line tool \code{mget}. The Node.js based
+Manta command line tools employ streams, so object size is
+not a limitation.
 }
 \examples{
 \dontrun{
@@ -65,12 +65,11 @@ ls()
 }
 }
 \seealso{
-  \code{\link{mantaPut}}
+\code{\link{mantaPut}}
 
-  Other mantaGet: \code{\link{mantaCat}},
-  \code{\link{mantaLoad}}, \code{\link{mantaLoad.ws}},
-  \code{\link{mantaSave}}, \code{\link{mantaSource}}
+Other mantaGet: \code{\link{mantaCat}};
+\code{\link{mantaLoad.ws}}; \code{\link{mantaLoad}};
+\code{\link{mantaSave}}; \code{\link{mantaSource}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

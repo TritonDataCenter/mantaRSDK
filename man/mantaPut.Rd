@@ -2,8 +2,8 @@
 \alias{mantaPut}
 \title{Uploads file(s) (vectorized), or raw R buffer data to Manta Storage Service.}
 \usage{
-  mantaPut(filename, mantapath, buffer, md5 = FALSE,
-    headers, info = TRUE, verbose = FALSE)
+mantaPut(filename, mantapath, buffer, md5 = FALSE, headers, info = TRUE,
+  verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Path to where
@@ -47,57 +47,55 @@
   on Windows.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  upload.
+\code{TRUE} or \code{FALSE} depending on success of upload.
 }
 \description{
-  Transfers file, buffer to Manta Storage Object specified
-  in mantapath. To save a file, specify the filename. It
-  will go into the current working Manta directory with the
-  same name unless absolute Manta path or relative object
-  name is specified with the \code{mantapath} argument. To
-  see the current directory on Manta use
-  \code{\link{mantaGetwd}}, and \code{\link{mantaSetwd}} to
-  change it.
+Transfers file, buffer to Manta Storage Object specified in
+mantapath. To save a file, specify the filename. It will go
+into the current working Manta directory with the same name
+unless absolute Manta path or relative object name is
+specified with the \code{mantapath} argument. To see the
+current directory on Manta use \code{\link{mantaGetwd}},
+and \code{\link{mantaSetwd}} to change it.
 }
 \details{
-  To save a raw R buffer, pass the string with its name
-  e.g. buffer = "myRawBuffer"
+To save a raw R buffer, pass the string with its name e.g.
+buffer = "myRawBuffer"
 
-  One limitation of the \code{mantaRSDK} is that it is not
-  designed to handle large (multi-Gigabyte or larger)
-  objects. Uploads - \code{mantaPut} - work from files, but
-  Downloads - \code{\link{mantaGet}} - fill the R memory
-  space to their completion before being written to a file.
-  To download files larger than your R memory, use the
-  Manta Node.js command line tool \code{mget}. The Node.js
-  based Manta command line tools employ streams, so object
-  size is not a limitation.
+One limitation of the \code{mantaRSDK} is that it is not
+designed to handle large (multi-Gigabyte or larger)
+objects. Uploads - \code{mantaPut} - work from files, but
+Downloads - \code{\link{mantaGet}} - fill the R memory
+space to their completion before being written to a file.
+To download files larger than your R memory, use the Manta
+Node.js command line tool \code{mget}. The Node.js based
+Manta command line tools employ streams, so object size is
+not a limitation.
 
-  The Content-Type information metatdata for the file is
-  obtained using the RCurl library function
-  \code{guessMIMEtype} on the filename extension provided,
-  e.g. \code{.jpg} or it can be set by passing a
-  \code{header} parameter, which is an \code{RCurl} style
-  HTTP header - a list of named character values like
-  this:\cr \code{header = c('content-type' = "image/jpg")}.
-  The default \code{Content-Type} header is
-  \code{"application/octet-stream"}.  The number of copies
-  (durability level) saved is by default 2. This can be
-  changed by using headers like this: \cr \code{headers =
-  c('x-durability-level' = 4)} for one-time use.\cr For
-  larger operations use \code{\link{mantaSetLimits}} to
-  change the default durability level for the current
-  mantaRSDK session. The number of copies stored can range
-  from 2 to 6. This function does not support streaming
-  uploads, for that use the Node.js Manta command line
-  interface (CLI). Other Manta operations involving HTTP
-  conditional request semantics and CORS headers are not
-  implemented in this R library, but can be used with the
-  Node.js CLI which can be called from R with the
-  \code{system2} command shell. \code{mantaPut} is a
-  wrapper for \code{mantaXfer}, which implements the actual
-  \code{RCURL} data upload.
+The Content-Type information metatdata for the file is
+obtained using the RCurl library function
+\code{guessMIMEtype} on the filename extension provided,
+e.g. \code{.jpg} or it can be set by passing a
+\code{header} parameter, which is an \code{RCurl} style
+HTTP header - a list of named character values like
+this:\cr \code{header = c('content-type' = "image/jpg")}.
+The default \code{Content-Type} header is
+\code{"application/octet-stream"}.  The number of copies
+(durability level) saved is by default 2. This can be
+changed by using headers like this: \cr \code{headers =
+c('x-durability-level' = 4)} for one-time use.\cr For
+larger operations use \code{\link{mantaSetLimits}} to
+change the default durability level for the current
+mantaRSDK session. The number of copies stored can range
+from 2 to 6. This function does not support streaming
+uploads, for that use the Node.js Manta command line
+interface (CLI). Other Manta operations involving HTTP
+conditional request semantics and CORS headers are not
+implemented in this R library, but can be used with the
+Node.js CLI which can be called from R with the
+\code{system2} command shell. \code{mantaPut} is a wrapper
+for \code{mantaXfer}, which implements the actual
+\code{RCURL} data upload.
 }
 \examples{
 \dontrun{
@@ -144,11 +142,10 @@ mantaLs.url("~~/public", grepfor = "[.]html")
 }
 }
 \seealso{
-  \code{\link{mantaGet}}
+\code{\link{mantaGet}}
 
-  Other mantaPut: \code{\link{mantaDump}},
-  \code{\link{mantaSave.image}}, \code{\link{mantaSave.ws}}
+Other mantaPut: \code{\link{mantaDump}};
+\code{\link{mantaSave.image}}; \code{\link{mantaSave.ws}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

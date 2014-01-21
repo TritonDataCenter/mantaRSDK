@@ -2,12 +2,12 @@
 \alias{mantaJobs}
 \title{Lists all Manta job identifiers, sorted by time.}
 \usage{
-  mantaJobs()
+mantaJobs()
 }
 \description{
-  Clean out your Manta job directory regularly to avoid
-  paying storage costs and having the archive grow to large
-  numbers of files.
+Clean out your Manta job directory regularly to avoid
+paying storage costs and having the archive grow to large
+numbers of files.
 }
 \examples{
 \dontrun{
@@ -16,21 +16,20 @@ mantaJobs()
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}},
-  \code{\link{mantaJob.status}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}},
-  \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaMap}};
+\code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

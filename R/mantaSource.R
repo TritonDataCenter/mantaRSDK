@@ -19,7 +19,7 @@
 #'
 #' @return \code{TRUE} or \code{FALSE} depending on success of download.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaGet
 #'

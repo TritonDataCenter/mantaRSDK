@@ -2,12 +2,12 @@
 \alias{mantagetsize}
 \title{mantaLs and mantaFind callback}
 \usage{
-  mantagetsize(line)
+mantagetsize(line)
 }
 \arguments{
   \item{line}{R structured directory line}
 }
 \description{
-  mantaLs and mantaFind callback
+mantaLs and mantaFind callback
 }
 

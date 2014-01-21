@@ -12,7 +12,7 @@
 #'
 #' @return logical.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaLs
 #'

@@ -1,14 +1,14 @@
 Package: mantaRSDK
 Type: Package
 Title: Joyent Manta Storage Service R Software Development Kit
-Version: 0.8.0
-Date: 2014-01-16
+Version: 0.8.1
+Date: 2014-01-21
 Authors@R: c(person("Christopher","Hogue",role = c("aut","cre"),
     email="christopher.hogue@joyent.com"))
+Author: Christopher Hogue
+Maintainer: Christopher Hogue <christopher.hogue@joyent.com>
 Depends:
     R (>= 3.0.0),
-    PKI,
-    digest,
     RCurl,
     RJSONIO,
     Rbunyan
@@ -19,79 +19,8 @@ Description: Manta R SDK. Upload, Download and manage files,
     GitHub - github.com/joyent/mantaRSDK
 SystemRequirements: Node.js, manta-node
 Copyright: Joyent Inc. 2014
-License: MIT
+License: MIT + file LICENSE
 URL: www.joyent.com
 BugReports: https://github.com/joyent/mantaRSDK/issues
 VignetteBuilder: knitr
 LazyData: true
-Collate:
-    'mantaAttempt.R'
-    'mantaDump.R'
-    'mantaExpandPath.R'
-    'mantaFind.R'
-    'mantaGenHeaders.R'
-    'mantaGenSignature.R'
-    'mantaGet.R'
-    'mantaGetwd.R'
-    'mantaInitialize.R'
-    'mantaLoad.R'
-    'mantaLs.R'
-    'mantaMkdir.R'
-    'mantaPath.R'
-    'mantaPut.R'
-    'mantaRm.R'
-    'mantaRmdir.R'
-    'mantaSave.R'
-    'mantaSetwd.R'
-    'mantaSnapln.R'
-    'mantaSource.R'
-    'mantaWhoami.R'
-    'mantaOnload.R'
-    'mantaAccount.R'
-    'mantaGetLimits.R'
-    'mantaSetLimits.R'
-    'mantadusize.R'
-    'mantagetnames.R'
-    'mantagetsize.R'
-    'mantagettime.R'
-    'mantaliststyle.R'
-    'mantaunixstyle.R'
-    'mantaFind.l.R'
-    'mantaLs.l.R'
-    'mantaFind.du.R'
-    'mantaFind.n.R'
-    'mantaFind.sizepath.R'
-    'mantaFind.sizes.R'
-    'mantaFind.url.R'
-    'mantaLs.du.R'
-    'mantaLs.n.R'
-    'mantaLs.paths.R'
-    'mantaLs.url.R'
-    'mantaSetwd.jobs.R'
-    'mantaSetwd.public.R'
-    'mantaSetwd.reports.R'
-    'mantaSetwd.stor.R'
-    'mantaXfer.R'
-    'mantaJob.cancel.R'
-    'mantaJobs.running.R'
-    'mantaSave.image.R'
-    'mantaJob.errors.R'
-    'mantaJob.failures.R'
-    'mantaJob.setup.R'
-    'mantaJob.status.R'
-    'mantaJobs.R'
-    'mantaMap.R'
-    'mantaReduce.R'
-    'mantaJob.launch.R'
-    'mantaJob.done.R'
-    'mantaJobs.tail.R'
-    'mantaJob.inputs.R'
-    'mantaJob.outputs.R'
-    'mantaExists.R'
-    'mantaLoad.ws.R'
-    'mantaSave.ws.R'
-    'mantaSetwd.ws.R'
-    'mantaCat.R'
-    'mantaJob.outputs.cat.R'
-    'mantaJob.errors.stderr.R'
-    'mantaRSDK-package.r'

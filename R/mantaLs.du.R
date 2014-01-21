@@ -11,7 +11,7 @@
 #' @family mantaLs
 #'
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @export
 mantaLs.du <-

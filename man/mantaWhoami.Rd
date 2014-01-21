@@ -2,8 +2,8 @@
 \alias{mantaWhoami}
 \title{Reports the active Manta account information.}
 \usage{
-  mantaWhoami(all = FALSE, user = TRUE, dc_url = FALSE,
-    key_id = FALSE, ssl_key = FALSE, json = FALSE)
+mantaWhoami(all = FALSE, user = TRUE, dc_url = FALSE, key_id = FALSE,
+  ssl_key = FALSE, json = FALSE)
 }
 \arguments{
   \item{all}{logical, optional, \code{TRUE} returns all
@@ -25,14 +25,14 @@
   JSON output}
 }
 \value{
-  JSON or R values as specified.
+JSON or R values as specified.
 }
 \description{
-  The active Manta account is initially obtained from
-  environment variables \code{$MANTA_USER},
-  \code{$MANTA_KEY}, and \code{$MANTA_URL}. Retrieve
-  account settings, data center as JSON with this function.
-  Change/restore account settings with \code{mantaAccount}.
+The active Manta account is initially obtained from
+environment variables \code{$MANTA_USER},
+\code{$MANTA_KEY}, and \code{$MANTA_URL}. Retrieve account
+settings, data center as JSON with this function.
+Change/restore account settings with \code{mantaAccount}.
 }
 \examples{
 \dontrun{
@@ -57,10 +57,8 @@ mantaAccount(json = account) to set that account
 }
 }
 \seealso{
-  Other mantaAccount: \code{\link{mantaAccount}},
-  \code{\link{mantaGetLimits}},
-  \code{\link{mantaSetLimits}}
+Other mantaAccount: \code{\link{mantaAccount}};
+\code{\link{mantaGetLimits}}; \code{\link{mantaSetLimits}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

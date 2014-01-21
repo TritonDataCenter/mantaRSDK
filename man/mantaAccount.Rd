@@ -2,7 +2,7 @@
 \alias{mantaAccount}
 \title{Changes current Manta account information}
 \usage{
-  mantaAccount(account, json, verbose = FALSE)
+mantaAccount(account, json, verbose = FALSE)
 }
 \arguments{
   \item{account}{list, optional. Input R account values.}
@@ -14,20 +14,20 @@
   communication. \code{FALSE} by default.}
 }
 \value{
-  logical TRUE if account changed and working. Reverts to
-  previous working account if it cannot connect wit the new
-  information returns FALSE for both cases - account
-  reverted or account is left in a state where it cannot
-  communicate to the server.
+logical TRUE if account changed and working. Reverts to
+previous working account if it cannot connect wit the new
+information returns FALSE for both cases - account reverted
+or account is left in a state where it cannot communicate
+to the server.
 }
 \description{
-  The Manta account is initially obtained from three
-  environment variables:\cr \code{$MANTA_USER, $MANTA_KEY,
-  $MANTA_URL}.\cr The ssl key location is obtained by
-  default on Unix/Linux from\cr
-  \code{/$HOME/.ssh/id_rsa}\cr or on Windows from:\cr
-  \code{C:\\Users\\username\\.ssh\\ir_rsa}\cr The Manta
-  datacentre enviroment variable is:\cr \code{$MANTA_URL}
+The Manta account is initially obtained from three
+environment variables:\cr \code{$MANTA_USER, $MANTA_KEY,
+$MANTA_URL}.\cr The ssl key location is obtained by default
+on Unix/Linux from\cr \code{/$HOME/.ssh/id_rsa}\cr or on
+Windows from:\cr
+\code{C:\\Users\\username\\.ssh\\ir_rsa}\cr The Manta
+datacentre enviroment variable is:\cr \code{$MANTA_URL}
 }
 \examples{
 \dontrun{
@@ -55,11 +55,10 @@ mantaAccount(mysslkey)
 }
 }
 \seealso{
-  \code{\link{mantaWhoami}}
+\code{\link{mantaWhoami}}
 
-  Other mantaAccount: \code{\link{mantaGetLimits}},
-  \code{\link{mantaSetLimits}}, \code{\link{mantaWhoami}}
+Other mantaAccount: \code{\link{mantaGetLimits}};
+\code{\link{mantaSetLimits}}; \code{\link{mantaWhoami}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

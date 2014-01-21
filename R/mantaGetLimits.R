@@ -39,7 +39,7 @@
 #' mantaSetLimits(limits)
 #' }
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @export
 mantaGetLimits <-

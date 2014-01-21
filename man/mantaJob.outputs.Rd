@@ -2,7 +2,7 @@
 \alias{mantaJob.outputs}
 \title{Returns list of output Manta objects given Manta job identifier.}
 \usage{
-  mantaJob.outputs(jobid, silent = FALSE)
+mantaJob.outputs(jobid, silent = FALSE)
 }
 \arguments{
   \item{jobid}{character optional. Manta job identifier
@@ -17,8 +17,8 @@
   bunyan buffer.}
 }
 \description{
-  Outputs have hashed file names as saved by the Manta
-  service.
+Outputs have hashed file names as saved by the Manta
+service.
 }
 \examples{
 \dontrun{
@@ -30,20 +30,19 @@ mantaGet(mantaJob.outputs())
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}},
-  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}},
-  \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaJobs}};
+\code{\link{mantaMap}}; \code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

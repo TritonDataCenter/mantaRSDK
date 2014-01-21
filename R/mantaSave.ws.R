@@ -30,7 +30,7 @@
 #'
 #' @family mantaPut
 #'
-#' @keywords Manta manta
+#' @keywords Manta
 #'
 #' @seealso \code{\link{mantaSave.image}} \code{\link{mantaLoad}} \code{\link{mantaSetwd.ws}}
 #' \code{\link{mantaLoad.ws}}

@@ -27,7 +27,7 @@
 #' @param mantapath character, required. Absolute or
 #' relative subdirectory name to set to. 
 #' 
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family Directory
 #'

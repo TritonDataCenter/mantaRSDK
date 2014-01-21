@@ -2,10 +2,9 @@
 \alias{mantaSource}
 \title{Downloads specified Manta R source code file and applies \code{source} to parse/load it.}
 \usage{
-  mantaSource(mantapath, local = FALSE, verbose = FALSE,
-    max.deparse.length = 150,
-    encoding = getOption("encoding"),
-    keep.source = getOption("keep.source"))
+mantaSource(mantapath, local = FALSE, verbose = FALSE,
+  max.deparse.length = 150, encoding = getOption("encoding"),
+  keep.source = getOption("keep.source"))
 }
 \arguments{
   \item{mantapath}{character, optional. Path to a manta R
@@ -26,12 +25,12 @@
   \item{keep.source}{optional. See \code{source}.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  download.
+\code{TRUE} or \code{FALSE} depending on success of
+download.
 }
 \description{
-  Downloads specified Manta R source code file and applies
-  \code{source} to parse/load it.
+Downloads specified Manta R source code file and applies
+\code{source} to parse/load it.
 }
 \examples{
 \dontrun{
@@ -48,12 +47,11 @@ rm(data)
 }
 }
 \seealso{
-  \code{\link{mantaDump}}
+\code{\link{mantaDump}}
 
-  Other mantaGet: \code{\link{mantaCat}},
-  \code{\link{mantaGet}}, \code{\link{mantaLoad}},
-  \code{\link{mantaLoad.ws}}, \code{\link{mantaSave}}
+Other mantaGet: \code{\link{mantaCat}};
+\code{\link{mantaGet}}; \code{\link{mantaLoad.ws}};
+\code{\link{mantaLoad}}; \code{\link{mantaSave}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

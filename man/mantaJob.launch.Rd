@@ -2,9 +2,8 @@
 \alias{mantaJob.launch}
 \title{The interface from which compute Jobs are launched.}
 \usage{
-  mantaJob.launch(inputs, job, batchsize = 500,
-    watch = TRUE, sleep = 15, watchtimeout = 600,
-    silent = FALSE, verbose = FALSE)
+mantaJob.launch(inputs, job, batchsize = 500, watch = TRUE, sleep = 15,
+  watchtimeout = 600, silent = FALSE, verbose = FALSE)
 }
 \arguments{
   \item{inputs}{vector of character optional. List of
@@ -54,24 +53,24 @@
   to reveal \code{HTTP} communication.}
 }
 \value{
-  Returns a Manta \code{status} JSON structure. The Manta
-  Job identifier is the "id": field - like this
-  \code{"70c30bab-873b-66da-ebc8-ced12bd35ac4"}. This value
-  is the \code{jobid} parameter to be used used by other
-  \code{mantaJob} functions for inputs, status, errors and
-  outputs as Job lookup key. This key can also be used by
-  Node.js Manta command-line \code{mjob} commands.
+Returns a Manta \code{status} JSON structure. The Manta Job
+identifier is the "id": field - like this
+\code{"70c30bab-873b-66da-ebc8-ced12bd35ac4"}. This value
+is the \code{jobid} parameter to be used used by other
+\code{mantaJob} functions for inputs, status, errors and
+outputs as Job lookup key. This key can also be used by
+Node.js Manta command-line \code{mjob} commands.
 }
 \description{
-  Submits R format Manta Job specification, runs Job, sends
-  \code{inputs} if specified, closes \code{inputs}, polls
-  Job status, returns Job status JSON.
+Submits R format Manta Job specification, runs Job, sends
+\code{inputs} if specified, closes \code{inputs}, polls Job
+status, returns Job status JSON.
 }
 \details{
-  Job is created by \code{\link{mantaJob.setup}} and tasks
-  as defined therein by \code{\link{mantaMap}}, and/or
-  \code{\link{mantaReduce}} functions. Note that Manta
-  tasks are UNIX shell commands, not native R commands.
+Job is created by \code{\link{mantaJob.setup}} and tasks as
+defined therein by \code{\link{mantaMap}}, and/or
+\code{\link{mantaReduce}} functions. Note that Manta tasks
+are UNIX shell commands, not native R commands.
 }
 \examples{
 \dontrun{
@@ -158,20 +157,19 @@ mantaJob.outputs.cat()   ## Print job output (text files) to console
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}},
-  \code{\link{mantaJob.status}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}},
-  \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJob.status}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaJobs}};
+\code{\link{mantaMap}}; \code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

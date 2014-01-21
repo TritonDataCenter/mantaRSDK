@@ -3,9 +3,9 @@
 \title{Lists, searches, filters, sorts and formats Manta directory listings
 Output is full Manta pathnames of directory listing.}
 \usage{
-  mantaLs.paths(mantapath, grepfor, json, items = "a",
-    sortby = "none", decreasing = FALSE,
-    ignore.case = FALSE, perl = FALSE, verbose = FALSE)
+mantaLs.paths(mantapath, grepfor, json, items = "a", sortby = "none",
+  decreasing = FALSE, ignore.case = FALSE, perl = FALSE,
+  verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -43,21 +43,20 @@ Output is full Manta pathnames of directory listing.}
   \code{RCurl} data output on Unix.}
 }
 \description{
-  Searches for filenames with regular expressions (using R
-  \code{grep}). Sorts listings by filename, time, or size.
-  Use this dotted form of \code{mantaLs} for passing
-  \code{mantapath} parameters into vectorized functions
-  like \code{mantaJob.launch}, \code{mantaGet},
-  \code{mantaSnapln}, etc.
+Searches for filenames with regular expressions (using R
+\code{grep}). Sorts listings by filename, time, or size.
+Use this dotted form of \code{mantaLs} for passing
+\code{mantapath} parameters into vectorized functions like
+\code{mantaJob.launch}, \code{mantaGet},
+\code{mantaSnapln}, etc.
 }
 \seealso{
-  \code{\link{mantaFind}}
+\code{\link{mantaFind}}
 
-  Other mantaLs: \code{\link{mantaExists}},
-  \code{\link{mantaLs}}, \code{\link{mantaLs.du}},
-  \code{\link{mantaLs.l}}, \code{\link{mantaLs.n}},
-  \code{\link{mantaLs.url}}
+Other mantaLs: \code{\link{mantaExists}};
+\code{\link{mantaLs.du}}; \code{\link{mantaLs.l}};
+\code{\link{mantaLs.n}}; \code{\link{mantaLs.url}};
+\code{\link{mantaLs}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

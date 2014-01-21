@@ -6,7 +6,7 @@
 #' 
 #' @param sep character, required, separator.
 #'
-#' @keywords Manta manta
+#' @keywords Manta
 #'
 #' @family mantaGet
 #'

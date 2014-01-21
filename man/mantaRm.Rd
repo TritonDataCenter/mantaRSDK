@@ -2,7 +2,7 @@
 \alias{mantaRm}
 \title{Removes specified Manta object, optionally recursive, not vectorized.}
 \usage{
-  mantaRm(mantapath, r = FALSE, info = TRUE)
+mantaRm(mantapath, r = FALSE, info = TRUE)
 }
 \arguments{
   \item{mantapath}{character, required. Not vectorized.}
@@ -15,18 +15,17 @@
   messages.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  remove.
+\code{TRUE} or \code{FALSE} depending on success of remove.
 }
 \description{
-  Removes object. Specify absolute (e.g.
-  \code{~~/stor/myobject.txt} ) or relative path from the
-  current Manta directory. Supports recursive removal of
-  child contents objects and directories with \code{r =
-  TRUE}. You can use \code{mantaFind} to prepare a list of
-  absolute Manta pathnames to objects with detailed
-  searching and filtering specifications and then use
-  \code{lapply(pathnamelist, mantaRm)} to delete the items.
+Removes object. Specify absolute (e.g.
+\code{~~/stor/myobject.txt} ) or relative path from the
+current Manta directory. Supports recursive removal of
+child contents objects and directories with \code{r =
+TRUE}. You can use \code{mantaFind} to prepare a list of
+absolute Manta pathnames to objects with detailed searching
+and filtering specifications and then use
+\code{lapply(pathnamelist, mantaRm)} to delete the items.
 }
 \examples{
 \dontrun{
@@ -61,13 +60,12 @@ mantaSetwd(tempdir)
 }
 }
 \seealso{
-  Other Directory: \code{\link{mantaGetwd}},
-  \code{\link{mantaMkdir}}, \code{\link{mantaRmdir}},
-  \code{\link{mantaSetwd}},
-  \code{\link{mantaSetwd.public}},
-  \code{\link{mantaSetwd.reports}},
-  \code{\link{mantaSetwd.stor}}, \code{\link{mantaSnapln}}
+Other Directory: \code{\link{mantaGetwd}};
+\code{\link{mantaMkdir}}; \code{\link{mantaRmdir}};
+\code{\link{mantaSetwd.public}};
+\code{\link{mantaSetwd.reports}};
+\code{\link{mantaSetwd.stor}}; \code{\link{mantaSetwd}};
+\code{\link{mantaSnapln}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

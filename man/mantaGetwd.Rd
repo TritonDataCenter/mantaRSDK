@@ -2,13 +2,13 @@
 \alias{mantaGetwd}
 \title{Gets current working directory on Manta.}
 \usage{
-  mantaGetwd()
+mantaGetwd()
 }
 \description{
-  The current working directory is stored internally in
-  \code{mantaRSDK} on your local system and is not saved.
-  between sessions. It initializes to the root directory of
-  private Manta storage: \code{~~/stor}.
+The current working directory is stored internally in
+\code{mantaRSDK} on your local system and is not saved.
+between sessions. It initializes to the root directory of
+private Manta storage: \code{~~/stor}.
 }
 \examples{
 \dontrun{
@@ -21,13 +21,12 @@ mantaSetwd(tempdir)
 }
 }
 \seealso{
-  Other Directory: \code{\link{mantaMkdir}},
-  \code{\link{mantaRm}}, \code{\link{mantaRmdir}},
-  \code{\link{mantaSetwd}},
-  \code{\link{mantaSetwd.public}},
-  \code{\link{mantaSetwd.reports}},
-  \code{\link{mantaSetwd.stor}}, \code{\link{mantaSnapln}}
+Other Directory: \code{\link{mantaMkdir}};
+\code{\link{mantaRmdir}}; \code{\link{mantaRm}};
+\code{\link{mantaSetwd.public}};
+\code{\link{mantaSetwd.reports}};
+\code{\link{mantaSetwd.stor}}; \code{\link{mantaSetwd}};
+\code{\link{mantaSnapln}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

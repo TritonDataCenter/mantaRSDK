@@ -4,7 +4,7 @@
 #'
 #' @return logical.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @export
 mantaSetwd.ws <-

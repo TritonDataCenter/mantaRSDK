@@ -10,7 +10,7 @@
 #' 
 #' @return \code{TRUE} or \code{FALSE} depending on success of upload.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaPut
 #'

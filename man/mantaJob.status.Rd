@@ -2,7 +2,7 @@
 \alias{mantaJob.status}
 \title{Returns JSON Manta job status data given Manta job identifier.}
 \usage{
-  mantaJob.status(jobid, readable = TRUE)
+mantaJob.status(jobid, readable = TRUE)
 }
 \arguments{
   \item{readable}{logical. Set to \code{FALSE} to return
@@ -16,8 +16,8 @@
   the last Manta Job run on the service.}
 }
 \description{
-  Returns JSON Manta job status data given Manta job
-  identifier.
+Returns JSON Manta job status data given Manta job
+identifier.
 }
 \examples{
 \dontrun{
@@ -28,20 +28,19 @@ mantaJob.status()
 }
 }
 \seealso{
-  Other mantaJobs: \code{\link{mantaJob.cancel}},
-  \code{\link{mantaJob.done}},
-  \code{\link{mantaJob.errors}},
-  \code{\link{mantaJob.errors.stderr}},
-  \code{\link{mantaJob.failures}},
-  \code{\link{mantaJob.inputs}},
-  \code{\link{mantaJob.launch}},
-  \code{\link{mantaJob.outputs}},
-  \code{\link{mantaJob.outputs.cat}},
-  \code{\link{mantaJob.setup}}, \code{\link{mantaJobs}},
-  \code{\link{mantaJobs.running}},
-  \code{\link{mantaJobs.tail}}, \code{\link{mantaMap}},
-  \code{\link{mantaReduce}}
+Other mantaJobs: \code{\link{mantaJob.cancel}};
+\code{\link{mantaJob.done}};
+\code{\link{mantaJob.errors.stderr}};
+\code{\link{mantaJob.errors}};
+\code{\link{mantaJob.failures}};
+\code{\link{mantaJob.inputs}};
+\code{\link{mantaJob.launch}};
+\code{\link{mantaJob.outputs.cat}};
+\code{\link{mantaJob.outputs}};
+\code{\link{mantaJob.setup}};
+\code{\link{mantaJobs.running}};
+\code{\link{mantaJobs.tail}}; \code{\link{mantaJobs}};
+\code{\link{mantaMap}}; \code{\link{mantaReduce}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

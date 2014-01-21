@@ -51,7 +51,7 @@
 #' for inputs, status, errors and outputs as Job lookup key. This key can
 #' also be used by Node.js Manta command-line \code{mjob} commands. 
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

@@ -61,7 +61,7 @@
 #' 
 #' @return Returns an R list describing a Map task phase for consumption by \code{mantaJob.setup} 
 #' 
-#' @keywords Manta, manta
+#' @keywords Manta
 #' 
 #' @family mantaJobs
 #'

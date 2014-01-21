@@ -3,8 +3,8 @@
 \title{Returns disk used in bytes of directory listings, NOT counting
 redundancy levels}
 \usage{
-  mantaLs.du(mantapath, grepfor, json, items = "a",
-    ignore.case = FALSE, perl = FALSE, verbose = FALSE)
+mantaLs.du(mantapath, grepfor, json, items = "a", ignore.case = FALSE,
+  perl = FALSE, verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -36,17 +36,16 @@ redundancy levels}
   \code{RCurl} data output on Unix.}
 }
 \description{
-  Used for getting number of bytes occupied by objects
-  matching directory query.
+Used for getting number of bytes occupied by objects
+matching directory query.
 }
 \seealso{
-  \code{\link{mantaFind.du}}
+\code{\link{mantaFind.du}}
 
-  Other mantaLs: \code{\link{mantaExists}},
-  \code{\link{mantaLs}}, \code{\link{mantaLs.l}},
-  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}},
-  \code{\link{mantaLs.url}}
+Other mantaLs: \code{\link{mantaExists}};
+\code{\link{mantaLs.l}}; \code{\link{mantaLs.n}};
+\code{\link{mantaLs.paths}}; \code{\link{mantaLs.url}};
+\code{\link{mantaLs}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

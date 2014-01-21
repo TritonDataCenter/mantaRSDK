@@ -23,7 +23,7 @@
 #'
 #' @family mantaGet
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @seealso \code{\link{mantaSave}}
 #'

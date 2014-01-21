@@ -2,10 +2,9 @@
 \alias{mantaGetLimits}
 \title{Returns Manta durability level, connection timeouts and limits currently active.}
 \usage{
-  mantaGetLimits(all = TRUE, durability_level = FALSE,
-    connect_timeout = FALSE, send_timeout = FALSE,
-    receive_timeout = FALSE, max_limit = FALSE,
-    json = FALSE)
+mantaGetLimits(all = TRUE, durability_level = FALSE,
+  connect_timeout = FALSE, send_timeout = FALSE, receive_timeout = FALSE,
+  max_limit = FALSE, json = FALSE)
 }
 \arguments{
   \item{all}{logical, optional, Get all limits values}
@@ -30,18 +29,18 @@
   values in JSON}
 }
 \value{
-  JSON or R values as specified.
+JSON or R values as specified.
 }
 \description{
-  Reports the mantaRSDK settings structure and
-  default/current values. Includes the number of copies of
-  an object stored on the Manta service
-  \code{durability_level} which can be from 2 to 6, the
-  number of directory entries retrieved in one HTTPS call
-  \code{max_limit} set to the maximum of 1000 by default.
-  The other settings \code{recieve_timeout, sent_timeout}
-  and \code{connect_timeout} are for HTTPS transfer
-  sessions and are set with values in seconds.
+Reports the mantaRSDK settings structure and
+default/current values. Includes the number of copies of an
+object stored on the Manta service \code{durability_level}
+which can be from 2 to 6, the number of directory entries
+retrieved in one HTTPS call \code{max_limit} set to the
+maximum of 1000 by default. The other settings
+\code{recieve_timeout, sent_timeout} and
+\code{connect_timeout} are for HTTPS transfer sessions and
+are set with values in seconds.
 }
 \examples{
 \dontrun{
@@ -53,11 +52,10 @@ mantaSetLimits(limits)
 }
 }
 \seealso{
-  \code{\link{mantaSetLimits}}
+\code{\link{mantaSetLimits}}
 
-  Other mantaAccount: \code{\link{mantaAccount}},
-  \code{\link{mantaSetLimits}}, \code{\link{mantaWhoami}}
+Other mantaAccount: \code{\link{mantaAccount}};
+\code{\link{mantaSetLimits}}; \code{\link{mantaWhoami}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

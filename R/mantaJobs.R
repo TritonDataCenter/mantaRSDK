@@ -5,7 +5,7 @@
 #' paying storage costs and having the archive grow to large
 #' numbers of files.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

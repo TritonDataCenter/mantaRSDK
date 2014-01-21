@@ -2,10 +2,9 @@
 \alias{mantaDump}
 \title{Uses \code{dump} to upload text parsable R data to Manta Storage Service.}
 \usage{
-  mantaDump(list, mantapath = "dumpdata.R", md5 = FALSE,
-    headers, durability = 2, envir = parent.frame(),
-    control = "all", evaluate = TRUE, info = TRUE,
-    verbose = FALSE)
+mantaDump(list, mantapath = "dumpdata.R", md5 = FALSE, headers,
+  durability = 2, envir = parent.frame(), control = "all",
+  evaluate = TRUE, info = TRUE, verbose = FALSE)
 }
 \arguments{
   \item{list}{required.  See \code{dump}. List of R objects
@@ -49,12 +48,11 @@
   visible on Windows.}
 }
 \value{
-  \code{TRUE} or \code{FALSE} depending on success of
-  upload.
+\code{TRUE} or \code{FALSE} depending on success of upload.
 }
 \description{
-  \code{mantaDump} is a wrapper for \code{dump} and
-  \code{mantaXfer}, which implements the RCURL transfer
+\code{mantaDump} is a wrapper for \code{dump} and
+\code{mantaXfer}, which implements the RCURL transfer
 }
 \examples{
 \dontrun{
@@ -65,11 +63,10 @@ mantaRm("dumpdata.R")
 }
 }
 \seealso{
-  \code{\link{mantaSource}}
+\code{\link{mantaSource}}
 
-  Other mantaPut: \code{\link{mantaPut}},
-  \code{\link{mantaSave.image}}, \code{\link{mantaSave.ws}}
+Other mantaPut: \code{\link{mantaPut}};
+\code{\link{mantaSave.image}}; \code{\link{mantaSave.ws}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

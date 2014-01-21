@@ -3,9 +3,8 @@
 \title{raw REST API Manta Caller with exception handling for internal
 use.}
 \usage{
-  mantaAttempt(action, method, headers, returncode, limit,
-    marker, json = TRUE, test = FALSE, silent = FALSE,
-    verbose = FALSE)
+mantaAttempt(action, method, headers, returncode, limit, marker, json = TRUE,
+  test = FALSE, silent = FALSE, verbose = FALSE)
 }
 \arguments{
   \item{action}{character, optional. Path to a manta object
@@ -53,32 +52,29 @@ use.}
   REST communication.}
 }
 \value{
-  The Manta reply data in JSON or R format, OR a logical
-  value if \code{test = TRUE}. Return values and Manta
-  server error message display or \code{stop} behavior
-  depends on values of \code{test, silent}:\cr \cr
-  \code{test = TRUE, silent = TRUE}\cr logical - success
-  returned, Errors are logged.\cr \code{test = TRUE, silent
-  = FALSE}\cr logical - success returned, Errors are
-  logged, emitted to console.\cr \code{test = FALSE, silent
-  = TRUE}\cr data returned, Errors are logged, empty data
-  on error.\cr \code{test = FALSE, silent = FALSE} data
-  returned, Errors are logged, stop() on 400 series
-  errors.\cr
+The Manta reply data in JSON or R format, OR a logical
+value if \code{test = TRUE}. Return values and Manta server
+error message display or \code{stop} behavior depends on
+values of \code{test, silent}:\cr \cr \code{test = TRUE,
+silent = TRUE}\cr logical - success returned, Errors are
+logged.\cr \code{test = TRUE, silent = FALSE}\cr logical -
+success returned, Errors are logged, emitted to console.\cr
+\code{test = FALSE, silent = TRUE}\cr data returned, Errors
+are logged, empty data on error.\cr \code{test = FALSE,
+silent = FALSE} data returned, Errors are logged, stop() on
+400 series errors.\cr
 }
 \description{
-  Exported to access HTTPS Manta API and metadata
-  retrieval.
+Exported to access HTTPS Manta API and metadata retrieval.
 }
 \details{
-  If \code{test == TRUE}, it returns pass/fail logical If
-  passed a Manta subdirectory, it returns the directory
-  JSON according to the length limit set with
-  \code{mantaSetLimits}
+If \code{test == TRUE}, it returns pass/fail logical If
+passed a Manta subdirectory, it returns the directory JSON
+according to the length limit set with
+\code{mantaSetLimits}
 
-  Note getURL \code{verbose = TRUE} writes to UNIX
-  \code{stderr} which is invisible on Windows R.
+Note getURL \code{verbose = TRUE} writes to UNIX
+\code{stderr} which is invisible on Windows R.
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

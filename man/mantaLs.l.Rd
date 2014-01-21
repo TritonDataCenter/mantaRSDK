@@ -3,9 +3,9 @@
 \title{Lists, searches, filters, sorts and formats Manta directory listings
 Output is long \code{ls -o} unix style of directory listing.}
 \usage{
-  mantaLs.l(mantapath, grepfor, json, items = "a",
-    sortby = "none", decreasing = FALSE,
-    ignore.case = FALSE, perl = FALSE, verbose = FALSE)
+mantaLs.l(mantapath, grepfor, json, items = "a", sortby = "none",
+  decreasing = FALSE, ignore.case = FALSE, perl = FALSE,
+  verbose = FALSE)
 }
 \arguments{
   \item{mantapath}{character, optional. Current
@@ -43,19 +43,18 @@ Output is long \code{ls -o} unix style of directory listing.}
   \code{RCurl} data output on Unix.}
 }
 \description{
-  Used for listing Manta subdirectory. Uses current working
-  Manta directory or one supplied in \code{mantapath}.
-  Searches for filenames with regular expressions (using R
-  \code{grep}). Sorts listings by filename, time, or size.
+Used for listing Manta subdirectory. Uses current working
+Manta directory or one supplied in \code{mantapath}.
+Searches for filenames with regular expressions (using R
+\code{grep}). Sorts listings by filename, time, or size.
 }
 \seealso{
-  \code{\link{mantaFind.l}}
+\code{\link{mantaFind.l}}
 
-  Other mantaLs: \code{\link{mantaExists}},
-  \code{\link{mantaLs}}, \code{\link{mantaLs.du}},
-  \code{\link{mantaLs.n}}, \code{\link{mantaLs.paths}},
-  \code{\link{mantaLs.url}}
+Other mantaLs: \code{\link{mantaExists}};
+\code{\link{mantaLs.du}}; \code{\link{mantaLs.n}};
+\code{\link{mantaLs.paths}}; \code{\link{mantaLs.url}};
+\code{\link{mantaLs}}
 }
-\keyword{Manta,}
-\keyword{manta}
+\keyword{Manta}
 

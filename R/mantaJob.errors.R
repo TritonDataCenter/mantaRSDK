@@ -21,7 +21,7 @@
 #' \code{NULL} if no errors found.
 #' Default \code{TRUE} pretty prints JSON to the console.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

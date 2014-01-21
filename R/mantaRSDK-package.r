@@ -276,7 +276,7 @@
 #'
 #' 
 #' @references http://apidocs.joyent.com/manta/
-#' @import PKI digest RCurl RJSONIO 
+#' @import RCurl RJSONIO Rbunyan
 #' @name mantaRSDK
 #' @docType package
 NULL

@@ -63,7 +63,7 @@
 #' \code{test = FALSE, silent = FALSE}
 #' data returned, Errors are logged, stop() on 400 series errors.\cr
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @export
 mantaAttempt <-

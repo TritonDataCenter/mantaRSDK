@@ -7,7 +7,7 @@
 #' \code{NULL} if no Job status found.
 #' Default \code{TRUE} pretty prints JSON Job status to the console.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

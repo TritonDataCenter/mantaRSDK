@@ -1,7 +1,7 @@
 # Roxygen Comments mantaJobs.running
 #' Lists identifiers of any running Manta jobs.
 #'
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'

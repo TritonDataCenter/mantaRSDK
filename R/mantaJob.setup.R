@@ -18,7 +18,7 @@
 #' @param ... One or more \code{mantaMap} \code{mantaReduce} functions with arguments 
 #' listed in order of task execution.
 #' 
-#' @keywords Manta, manta
+#' @keywords Manta
 #'
 #' @family mantaJobs
 #'
