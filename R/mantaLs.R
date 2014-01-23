@@ -13,7 +13,7 @@
 #' Uses R regexps, N.B. use  \code{"[.]txt"}, not
 #' \code{"*.txt"} to match filename extensions.
 #'
-#' @param json optional. Input saved JSON data from \code{mantaLs(format='json')} 
+#' @param json optional. Input saved JSON data from \code{mantaLs(l = 'json')} 
 #' used for reprocessing previously retrieved listings. Include previously specified
 #' mantapath if you wish to recover true paths.
 #'

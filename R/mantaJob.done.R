@@ -76,7 +76,7 @@ function(jobid, poll = FALSE, sleep = 30, timeout  = 600, silent = FALSE) {
       if (silent == FALSE) { 
           if (once == FALSE) {
             once <- TRUE
-            cat("\nPress <esc> key to exit Manta polling mode.\nmantaJob.done(poll=TRUE) to restart.\n\n")
+            cat("\n<control>-<c> to exit Manta polling mode.\nmantaJob.done(poll=TRUE) to restart.\n\n")
           }
           msg <- paste("Manta Job ", jobid, " Running, R client sleeping for ", sleep, " seconds...\n", sep="")
           cat(msg)

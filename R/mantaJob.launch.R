@@ -270,6 +270,7 @@ function(inputs, job, batchsize = 500,  watch = TRUE, sleep = 15, watchtimeout =
   }
 
   input_sent <- 0
+  batches <- 0
   if (noinput == FALSE) {
     ## Process the supplied inputs
     manta_call <- paste(manta_globals$manta_url,"/",manta_globals$manta_user,"/jobs/", jobid, "/live/in",  sep="")
@@ -313,7 +314,7 @@ function(inputs, job, batchsize = 500,  watch = TRUE, sleep = 15, watchtimeout =
          bunyanLog.info(msg)
          stop(msg)
       }
-    }
+    } 
   }  
 
   ## End the inputs

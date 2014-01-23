@@ -88,7 +88,7 @@ function(action, method, headers, returncode, limit, marker, json = TRUE, test =
     # In the case of mantaJob.running, call to mantaAttempt has a query in the action.
     # so we need to stop pasting additional query info to the end of this as is
     # the case for mantaLs.
-    if (grepl("?", action) || grepl("=", action)) {
+    if (grepl("state=running", action)) {
       # action has some additional query parameters and is not from mantaLs()
       action_has_query <- TRUE
     }
