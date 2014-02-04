@@ -1,0 +1,132 @@
+Native R on Manta Plan. 
+======================
+CWV Hogue. Feb 3 2014. Joyent Inc.
+
+Goal: Native R function support on Manta.
+
+Principles
+1. Happy R Manta users get up to date R and packages, or they walk.
+2. Client state (environment, packages, user R functions) transported to Marlins.
+3. Capture plethora of R output to user's Manta job area.
+4. Map/Reduce pipeline i/o stream must be specified by user.
+5. Packages must be specified by user for initialization of compute node. 
+6. 5 minute R package compiles on all Marlins is very bad for users $$$.
+
+
+Implementation - Components:
+ A. Client Side mantaRSDK job & asset constructors
+ B. Marlin Side sh script (init) and R script (exec)
+ C. R illumos Package Assets ("RiPA") JPC R package sync/compile -> Manta.
+
+
+Implementation - Dependencies - Timeline 8 weeks.
+ 1. RiPA - 2 weeks.
+ |_ 2. Client side mantaRSDK. 3 weeks.
+    |_ 3. Marlin Side testing. 2 weeks.
+ 4. Document as I go. 1 week.
+
+
+Implementation - Details:
+
+A. Client Side mantaRSDK job & asset constructors
+-------------------------------------------------
+
+ Prepares (a) shell script for init, and (b) R script for exec with
+ R function Map (c) and Reduce (d) i/o mode specified.
+
+ (a) Client R script constructors build an R script to run on Marlin
+  User specifies:
+   1. {"repo": "package"} list (CRAN, Bioconductor, GitHub, website)
+      - used to fetch pre-built illumos binary packages
+   2. R memory environment to pre-load 
+      - mput to user's Manta
+   3. R function (Map or Reduce task) to run 
+      - embedded into template R script
+   4. Wrapped Marlin R script 
+      - mput to user's Manta as code asset for exec.
+
+ (b) Marlin R script in a4 expects assets a1 & a2 loaded by init
+     phase shell script, constructed by mantaRSDK on client side:
+   1. sh code generator processes list in a1. 
+   2. Writes mget calls into sh script template.
+      - mput to user's Manta as code asset for init.
+  
+
+ For Map/Reduce pipelines:
+
+ (c) User's R Mapper function must call an R version of mpipe
+     marlinOut(), handling numbered reducers 
+
+     Two modes for R Map / Reduce pipe passing:
+
+   mode 1:  Direct pipe text lines on stdout | stdin stream (like  wc | cat examples)
+   e.g. marlinOut(file = "dataout.csv", reducer = 3) [enable sink() as well...]
+
+   mode 2:  By-Reference: Manta object list for binary data (.RData, .rda)
+   marlinOut(object = "~~/mylogin/stor/stuff/data.rda")
+
+ (d) User's R Reducer reads from stdin with 
+     "marlinIn()" - a template mantaRSDK functions with
+     some Handler() callback:
+
+   mode 1: Direct pipe  marlinIn(mode = 'text', Handler) 
+      reducer callback operates line by line.
+
+   mode 2: By-Reference  marlinIn(mode = 'object', Handler)
+      reducer callback fetches data by reference, serially 
+      with mantaGet, mantaLoad, mantaSource; then processes.
+
+  (e) Note for Mapper stdin is redirected from MANTA_INPUT_FILE
+      so marlinIn(mode = 'lines', Handler) works in Mapper too.
+
+
+
+B. Marlin Side sh script (init) and R script (exec)
+---------------------------------------------------
+
+ 1. Job JSON specifies (A.a.4) R script, (A.b.2) shell script
+ 2. Job init shell (A.b.2) script does mget(s) to retrieve all 
+    specified R packages + env file to local Marlin POSIX storage.
+ 3. Job exec R script (A.a.4) runs as follows:
+    a. loads mantaRSDK, RCurl, RJSON, Rbunyan.
+    b. Sets mantaRSDK environment variables 
+       - MANTA_JOB_ID
+       - MANTA_USER
+       - MANTA_URL (http://localhost:80)
+       - MANTA_OUTPUT_BASE
+       - MANTA_NO_AUTH (=true)
+       - MANTA_INPUT_FILE (Map only)
+       - MANTA_INPUT_OBJECT (Map only)
+       - MANTA_REDUCER (Reduce only)
+    c. Sets /var/tmp/R-ver/ as setwd()
+    d. install.packages() from (B.2) local binaries
+    e. R environment (A.a.2) loaded from local env file
+ 4. Marlin R script (A.a.4) executes User's R function with user calls to  
+    - marlinIn() marlinOut() for Map task 
+    - marlinIn() for Reduce task, as described
+    - any other output to /var/tmp/R-ver/ area, including workspace, logfile
+ 5. R script template (A.a.4) mputs R all output to job storage.
+    e.g. *.png, *.pdf, *.rda, *.csv, etc
+    - recursive dir() of /var/tmp/R-ver/ local storage area
+    - mantaMkdir, then
+    - mantaPut these to ${MANTA_OUTPUT_BASE}/${`uuid -v 4`}/filename 
+ 6. R script template (A.a.4) does cleanup the Marlin getwd() area.
+    - file.remove of /var/tmp/R-ver area.
+
+
+C. R illumos Package Assets ("RiPA") JPC R package sync/compile -> Manta.
+-------------------------------------------------------------
+
+ - Mirrors CRAN and Bioconductor via rsync
+ - Accepts independent suggestions for offside packages (e.g. colorout) - GitHub list PR
+ - cron job builds illumos version of package binaries (e.g. like MacOSX binaries)
+ - Binaries pushed onto public Manta via mantasync with durability set to max
+ - User job init scripts (A.b.2) curl binary *.tar.gz files from this binary repo.
+ - Content Delivery Cloud? 
+
+
+
+
+
+
+
