@@ -132,8 +132,7 @@ Install:
 ```
 install.packages("devtools")
 library(devtools)
-install_github("Rbunyan", username="joyent")
-install_github("mantaRSDK", username="joyent")
+install_github(c("joyent/Rbunyan", "joyent/mantaRSDK"))
 ```
 
 Test:
